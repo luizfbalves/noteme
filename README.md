@@ -12,6 +12,10 @@ Cancel changes
 - [x] home page
 - [ ] user page
 
+## Repos
+- [x] web app
+- [ ] api
+
 ## Tecnologies
 <ul>
   <li> 
