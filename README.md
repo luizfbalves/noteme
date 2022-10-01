@@ -27,4 +27,7 @@ Cancel changes
   <li> 
     <a href="https://redux-toolkit.js.org/">Redux Toolkit</a></br>
   </li>
+  <li> 
+    <a href="https://lerna.js.org/">Lerna</a></br>
+  </li>  
 </ul>
