@@ -1,16 +1,21 @@
 {
   "name": "root",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "presets/*",
+      "packages/*"
+    ]
+  },
   "scripts": {
     "start": "lerna run start --stream",
     "dev": "lerna run dev --stream",
     "prod": "lerna run start-prod --stream",
-    "test": "lerna run test --stream"
-   },
+    "test": "lerna run test --stream",
+    "lint": "lerna run lint --stream"
+  },
   "devDependencies": {
-    "lerna": "^5.5.4"
+    "lerna": "^5.5.4",
+    "@presets/eslint-config": "1.0.0"
   }
 }

@@ -1,9 +1,7 @@
 import React from 'react'
 import { TbCirclePlus, TbDoorExit } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
-
 import { v4 as uuidV4 } from 'uuid'
-
 import { useAppDispatch } from '@/store/hooks'
 import { insertNote, TNote } from '@/store/note/note.store'
 
