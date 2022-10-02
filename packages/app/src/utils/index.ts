@@ -4,7 +4,7 @@ import 'dayjs/locale/pt-br'
 
 dayjs.extend(localizedFormat).locale('pt-br')
 
-var timeot: any
+let timeot: any
 
 export const dateRFC = dayjs().format('ddd, DD MMM YYYY HH:mm:ss ZZ')
 

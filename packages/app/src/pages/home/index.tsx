@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
+
 import { Loader } from 'rsuite'
+
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { deleteNote, editNote, TNote } from '@/store/note/note.store'
 
 import { SearchBar, ThemeToggler, Note, DeleteArea, TItem } from '@/components'
 
-import { NavHeader, Container, Content } from './styles'
 import { timeout } from '@/utils'
+
+import { NavHeader, Container, Content } from './styles'
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch()

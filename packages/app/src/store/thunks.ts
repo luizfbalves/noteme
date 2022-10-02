@@ -1,6 +1,7 @@
-import { sleep } from '@/utils'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import localforage from 'localforage'
+
+import { sleep } from '@/utils'
 
 const fetchInitialNotes = createAsyncThunk(
   'note/fectchInitialNotes',

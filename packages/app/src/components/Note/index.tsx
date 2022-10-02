@@ -1,7 +1,9 @@
 import React from 'react'
 import { useMultiDrag } from 'react-dnd-multi-backend'
 import { TbTrashX } from 'react-icons/tb'
+
 import { TNote } from '@/store/note/note.store'
+
 import { dateLL } from '@/utils/index'
 
 import { Card, CloseButton, Textarea } from './styles'
