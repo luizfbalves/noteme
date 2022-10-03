@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react'
 import { createContext, useCallback, useContext, useState } from 'react'
 
+import { CustomProvider } from 'rsuite'
 import { ThemeProvider } from 'styled-components'
 
 import { darkMode, lightMode } from '../styles/themes'
 
 interface ThemeContextData {
   toggleTheme(): void
-  theme: Theme
+  theme: ThemeTypes
 }
 
-interface Theme {
+export type ThemeTypes = {
   name: string
+  type: 'light' | 'dark' | 'high-contrast'
   colors: {
     primary: string
     font: string
@@ -35,7 +37,7 @@ const ThemeContext = createContext<ThemeContextData>({} as ThemeContextData)
 export const useTheme = () => useContext(ThemeContext)
 
 export const CustomThemeProvider = ({ children }: any) => {
-  const [theme, setTheme] = useState<Theme>(darkMode)
+  const [theme, setTheme] = useState<ThemeTypes>(darkMode)
 
   const toggleTheme = useCallback(() => {
     theme.name === 'light' ? setTheme(darkMode) : setTheme(lightMode)
@@ -49,7 +51,9 @@ export const CustomThemeProvider = ({ children }: any) => {
 
   return (
     <ThemeContext.Provider value={{ toggleTheme, theme }}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <CustomProvider theme={theme.type || 'dark'}>{children}</CustomProvider>
+      </ThemeProvider>
     </ThemeContext.Provider>
   )
 }

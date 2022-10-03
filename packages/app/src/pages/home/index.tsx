@@ -5,7 +5,7 @@ import { Loader } from 'rsuite'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { deleteNote, editNote, TNote } from '@/store/note/note.store'
 
-import { SearchBar, ThemeToggler, Note, DeleteArea, TItem } from '@/components'
+import { SearchBar, ThemeToggler, Note, DeleteArea } from '@/components'
 
 import { timeout } from '@/utils'
 
@@ -43,8 +43,7 @@ export const Home: React.FC = () => {
     }
   }
 
-  const handleDrop = (item: TItem) => {
-    const { id } = item
+  const handleDrop = (id: string) => {
     if (id) {
       dispatch(deleteNote({ id }))
     }

@@ -2,12 +2,10 @@ import { configureStore } from '@reduxjs/toolkit'
 import localforage from 'localforage'
 
 import noteReducer from './note/note.store'
-import themeReducer from './theme/theme.store'
 
 const store = configureStore({
   reducer: {
     noteReducer,
-    themeReducer,
   },
 })
 

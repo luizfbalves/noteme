@@ -1,3 +1,5 @@
+import { ThemeTypes } from '@/hooks/theme'
+
 const colors = {
   primary: {
     rose: '#FDBAA3',
@@ -30,8 +32,9 @@ const colors = {
   },
 }
 
-export const lightMode = {
+export const lightMode: ThemeTypes = {
   name: 'light',
+  type: 'light',
   colors: {
     primary: colors.primary.creamwhite,
     font: colors.primary.black,
@@ -50,8 +53,9 @@ export const lightMode = {
   },
 }
 
-export const darkMode = {
+export const darkMode: ThemeTypes = {
   name: 'dark',
+  type: 'dark',
   colors: {
     primary: colors.primary.midnight,
     font: colors.primary.white,

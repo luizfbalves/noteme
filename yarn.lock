@@ -8028,7 +8028,7 @@ rsuite-table@^5.7.1:
     lodash "^4.17.21"
     react-is "^17.0.2"
 
-rsuite@^5.15.2:
+rsuite@5.19.0:
   version "5.19.0"
   resolved "https://registry.yarnpkg.com/rsuite/-/rsuite-5.19.0.tgz#94c0b04bd3c26ddb529fd1467c2a2a8558583f60"
   integrity sha512-KQD48UT2HJec+VNzcsrGlo65+OMas7kOjJnxkwR3GsiIugw2aQ9o2JUBmoaJFxhbAnwv1hjJ73ZgW3MH3Wo/Pw==
@@ -8650,7 +8650,7 @@ tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
-tsutils@^3.21.0:
+tsutils@3.21.0, tsutils@^3.21.0:
   version "3.21.0"
   resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-3.21.0.tgz#b48717d394cea6c1e096983eed58e9d61715b623"
   integrity sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==
