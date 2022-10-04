@@ -11,8 +11,6 @@ type TDeleteAreaEvent = {
 export const DeleteArea: React.FC<TDeleteAreaEvent> = ({ onCanDrop }) => {
   const [[{ canDrop }, drop]] = useMultiDrop({
     accept: 'note',
-    drop: () => ({ name: 'delete' }),
-
     collect: (monitor) => ({
       canDrop: monitor.canDrop(),
     }),
@@ -25,7 +23,7 @@ export const DeleteArea: React.FC<TDeleteAreaEvent> = ({ onCanDrop }) => {
   }, [canDrop])
 
   return (
-    <Wrapper ref={drop} show={true} id="dnd" role="dropzone">
+    <Wrapper ref={drop} show={canDrop} id="dnd" role="dropzone">
       <DeleteButton>{<TbTrash />}</DeleteButton>
     </Wrapper>
   )

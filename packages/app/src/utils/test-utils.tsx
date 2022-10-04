@@ -26,6 +26,7 @@ const customRender = (
 export function dragAndDrop(src: Element, dst: Element) {
   fireEvent.dragStart(src)
   fireEvent.dragEnter(dst)
+  fireEvent.dragOver(dst)
   fireEvent.dragLeave(dst)
   return fireEvent.dragEnd(src)
 }
