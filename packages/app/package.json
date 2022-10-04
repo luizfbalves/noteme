@@ -68,7 +68,6 @@
     "jsdom": "^20.0.0",
     "prettier": "^2.7.1",
     "react-test-renderer": "^18.2.0",
-    "react-virtualized": "^9.22.3",
     "sass": "^1.54.9",
     "ts-jest": "^28.0.8",
     "tsutils": "3.21.0",

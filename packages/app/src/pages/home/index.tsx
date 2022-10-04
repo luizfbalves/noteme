@@ -37,6 +37,7 @@ export const Home: React.FC = () => {
       setData(note)
 
       //TODO find way to dispatch data here
+
       // timeout(700, () => {
       //   dispatch(editNote(note))
       // })

@@ -11,6 +11,7 @@
     "dev": "lerna run dev --stream",
     "prod": "lerna run start-prod --stream",
     "test": "lerna run test --stream",
+    "testc": "lerna run testc --stream",
     "lint": "lerna run lint --stream"
   },
   "devDependencies": {

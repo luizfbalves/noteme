@@ -2,12 +2,14 @@ import userEvent from '@testing-library/user-event'
 
 import { TNote } from '@/store/note/note.store'
 
-import { render, screen } from '@/utils/test-utils'
+import { dragAndDrop, render, screen } from '@/utils/test-utils'
+
+import { DeleteArea } from '@/components'
 
 import Note from '.'
 
 const data: TNote = {
-  id: 'nsdnasd',
+  id: 's5d456sd4sd4-sd4s6d54sd65a4sd-sda5',
   description: '',
   date: 'date',
 }
@@ -15,13 +17,13 @@ const data: TNote = {
 describe('<Note/>', () => {
   const user = userEvent.setup()
 
-  test('should be empty', async () => {
+  it('should be empty', async () => {
     render(<Note data={data} />)
     const input = screen.getByRole('textbox')
     expect(input.textContent).toBe('')
   })
 
-  test('should clear a note', async () => {
+  it('should clear a note', async () => {
     render(<Note data={data} />)
     const input = screen.getByRole('textbox')
 
@@ -32,35 +34,42 @@ describe('<Note/>', () => {
     expect(input.textContent).toBe('')
   })
 
-  test('should edit a note', async () => {
+  it('should edit a note', async () => {
     let inputValue = ''
     const handleChange = ({ description }: TNote) => (inputValue = description)
 
     render(<Note data={data} onChange={handleChange} />)
+
     const input = screen.getByRole('textbox')
 
     await user.click(input)
     await user.type(input, 'note input with large text')
 
+    input.blur()
+
     expect(input.textContent).toBe('note input with large text')
     expect(inputValue).toEqual('note input with large text')
   })
 
-  //TODO refactor dnd test
+  //TODO refactor dnd it
 
-  // test('should drag and drop a note', async () => {
-  //   let dropId: string = ''
-  //   const handleDrop = ({ id }: TItem) => (dropId = id)
+  it('should drag and drop a note', async () => {
+    let dropId: string = ''
+    let canDrop: boolean = false
+    const handleDrop = (id: string) => (dropId = id)
+    const handleCanDrop = () => (canDrop = true)
 
-  //   const NoteElement = render(
-  //     <Note data={data} onDrop={handleDrop} />
-  //   ).baseElement
-  //   const DnDElement = render(<DeleteArea />).baseElement
+    const NoteElement = render(
+      <Note data={data} onDrop={handleDrop} />
+    ).baseElement
 
-  //   const result = dragAndDrop(NoteElement, DnDElement)
-  //   console.log(dropId)
+    const DropElement = render(
+      <DeleteArea onCanDrop={handleCanDrop} />
+    ).baseElement
 
-  //   expect(result).toBeTruthy()
-  //   expect(dropId).toEqual(data.id)
-  // })
+    const result = dragAndDrop(NoteElement, DropElement)
+    screen.debug(DropElement)
+
+    expect(result).toEqual(canDrop)
+  })
 })
