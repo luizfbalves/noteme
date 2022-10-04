@@ -2,7 +2,7 @@ import userEvent from '@testing-library/user-event'
 
 import { TNote } from '@/store/note/note.store'
 
-import { dragAndDrop, render, screen } from '@/utils/test-utils'
+import { dragAndDrop, render, screen, within } from '@/utils/test-utils'
 
 import { DeleteArea } from '@/components'
 
@@ -51,25 +51,18 @@ describe('<Note/>', () => {
     expect(inputValue).toEqual('note input with large text')
   })
 
-  //TODO refactor dnd it
-
   it('should drag and drop a note', async () => {
-    let dropId: string = ''
-    let canDrop: boolean = false
-    const handleDrop = (id: string) => (dropId = id)
-    const handleCanDrop = () => (canDrop = true)
+    let didDrop: boolean = false
+    const handleCanDrop = () => (didDrop = true)
 
-    const NoteElement = render(
-      <Note data={data} onDrop={handleDrop} />
-    ).baseElement
-
-    const DropElement = render(
+    const draggable = render(<Note data={data} />).baseElement
+    const dropzone = render(
       <DeleteArea onCanDrop={handleCanDrop} />
     ).baseElement
 
-    const result = dragAndDrop(NoteElement, DropElement)
-    screen.debug(DropElement)
+    const result = dragAndDrop(draggable, dropzone)
 
-    expect(result).toEqual(canDrop)
+    expect(result).toBeTruthy()
+    expect(result).toEqual(didDrop)
   })
 })

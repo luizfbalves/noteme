@@ -25,7 +25,7 @@ export const DeleteArea: React.FC<TDeleteAreaEvent> = ({ onCanDrop }) => {
   }, [canDrop])
 
   return (
-    <Wrapper ref={drop} show={canDrop} id="dnd">
+    <Wrapper ref={drop} show={true} id="dnd" role="dropzone">
       <DeleteButton>{<TbTrash />}</DeleteButton>
     </Wrapper>
   )

@@ -26,9 +26,8 @@ const customRender = (
 export function dragAndDrop(src: Element, dst: Element) {
   fireEvent.dragStart(src)
   fireEvent.dragEnter(dst)
-  fireEvent.dragOver(dst)
-  setTimeout(() => {}, 1000)
-  return fireEvent.drop(dst)
+  fireEvent.dragLeave(dst)
+  return fireEvent.dragEnd(src)
 }
 
 export * from '@testing-library/react'

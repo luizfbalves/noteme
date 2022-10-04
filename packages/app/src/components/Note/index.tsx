@@ -10,7 +10,6 @@ import { dateLL } from '@/utils/index'
 
 import { Card, CloseButton, Textarea } from './styles'
 
-
 export type TItem = {
   id: string
 }
@@ -71,7 +70,7 @@ export const Note: React.FC<TNoteEvent> = ({ data, onChange, onDrop }) => {
   return (
     <>
       {dialog}
-      <Card role={'note'} ref={drag}>
+      <Card role="draggable" ref={drag}>
         <div className="card-header">
           <CloseButton onClick={() => setDialogOpen(true)}>
             <TbTrashX />
