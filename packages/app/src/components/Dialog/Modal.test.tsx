@@ -30,4 +30,28 @@ describe('<Modal/>', () => {
     expect(isOpen).toBeFalsy()
     expect(callBackResult).toBeTruthy()
   })
+
+  it('should display a modal and return false', async () => {
+    let callBackResult = false
+    let isOpen = true
+
+    const handleCallBack = (result: boolean) => (callBackResult = result)
+    const handleOnClose = () => (isOpen = false)
+
+    render(
+      <Modal
+        data={{ title: 'jest', content: 'jest modal test', isOpen }}
+        callBack={handleCallBack}
+        onClose={handleOnClose}
+      />
+    )
+    const element = screen.getByText('jest modal test')
+    const submit = screen.getByText('Cancel', { selector: 'button' })
+
+    await user.click(element)
+    await user.click(submit)
+
+    expect(isOpen).toBeFalsy()
+    expect(callBackResult).toBeFalsy()
+  })
 })

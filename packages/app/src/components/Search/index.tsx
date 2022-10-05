@@ -19,3 +19,5 @@ export const SearchBar: React.FC<SearchBarTypes> = ({
     </Search>
   )
 }
+
+export default SearchBar
