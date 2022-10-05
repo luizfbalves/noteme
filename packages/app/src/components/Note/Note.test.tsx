@@ -2,9 +2,10 @@ import userEvent from '@testing-library/user-event'
 
 import { TNote } from '@/store/note/note.store'
 
-import { dragAndDrop, render, screen, within } from '@/utils/test-utils'
-
 import { DeleteArea } from '@/components'
+
+import { dragAndDrop, render, screen } from '@/utils/test-utils'
+
 
 import Note from '.'
 
@@ -52,7 +53,7 @@ describe('<Note/>', () => {
   })
 
   it('should drag and drop a note', async () => {
-    let didDrop: boolean = false
+    let didDrop = false
     const handleCanDrop = () => (didDrop = true)
 
     const draggable = render(<Note data={data} />).baseElement

@@ -2,21 +2,20 @@ import React, { useEffect, useState } from 'react'
 
 import { Modal, Button } from 'rsuite'
 
-type DialogTypes = {
-  title: string
-  isOpen: boolean
-  content: string
+export type DialogTypes = {
+  data: {
+    title: string
+    isOpen: boolean
+    content: string
+  }
   callBack: (result: boolean) => void
   onClose: () => void
 }
 
-export const Dialog: React.FC<DialogTypes> = ({
-  title,
-  content,
-  isOpen = false,
-  callBack,
-  onClose,
-}) => {
+export const Dialog: React.FC<DialogTypes> = (props) => {
+  const { title, content, isOpen = false } = props.data
+  const { callBack, onClose } = props
+
   const [open, setOpen] = useState(false)
 
   const handleClose = () => {
@@ -42,7 +41,7 @@ export const Dialog: React.FC<DialogTypes> = ({
         <Modal.Body>{content}</Modal.Body>
         <Modal.Footer>
           <Button onClick={() => handleSubmit(true)} appearance="primary">
-            Ok
+            Delete
           </Button>
           <Button onClick={() => handleSubmit(false)} appearance="subtle">
             Cancel

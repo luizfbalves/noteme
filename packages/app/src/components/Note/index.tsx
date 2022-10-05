@@ -59,9 +59,11 @@ export const Note: React.FC<TNoteEvent> = ({ data, onChange, onDrop }) => {
 
   const dialog = (
     <Dialog
-      title="Deletion"
-      content="delete note?"
-      isOpen={dialogOpen}
+      data={{
+        title: 'Deletion',
+        content: 'delete note?',
+        isOpen: dialogOpen,
+      }}
       onClose={() => setDialogOpen(false)}
       callBack={callbackDelete}
     />
