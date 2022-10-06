@@ -8,7 +8,7 @@ describe('<Search/>', () => {
   const user = userEvent.setup()
 
   it('should search for a note', async () => {
-    let value: string = ''
+    let value = ''
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       event.preventDefault()

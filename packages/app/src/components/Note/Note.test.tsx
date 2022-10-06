@@ -6,7 +6,6 @@ import { DeleteArea } from '@/components'
 
 import { dragAndDrop, render, screen } from '@/utils/test-utils'
 
-
 import Note from '.'
 
 const data: TNote = {

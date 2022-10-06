@@ -7603,6 +7603,18 @@ react-dnd-preview@^7.1.1:
   resolved "https://registry.yarnpkg.com/react-dnd-preview/-/react-dnd-preview-7.1.1.tgz#2d9316c670f623b4ed2c1a977bf10520671b3265"
   integrity sha512-MFEiNF2YpI7MZOUt2ZyuO3eRZn5vPP0MfKGS43JDj1KzHXWgW3Z2iuOqR7Vxk46OmP0uSFU1OV+0jDyhhiEo5A==
 
+react-dnd-test-backend@^16.0.1:
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/react-dnd-test-backend/-/react-dnd-test-backend-16.0.1.tgz#8856dad9d855a8d9f45e205ee0c34a6217a94248"
+  integrity sha512-sUsQKMmoachP3AGaHLZD4JZWq2dHPoiLRG3YVuC0gXJtGENk3PVR+uRIrml7BEnnTyv+RVeoNK2ziL38Ggh8cw==
+  dependencies:
+    dnd-core "^16.0.1"
+
+react-dnd-test-utils@^16.0.1:
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/react-dnd-test-utils/-/react-dnd-test-utils-16.0.1.tgz#9c64b424e165749fbceed162e68a4c1012600b53"
+  integrity sha512-hKt6HYUAuN1oVtpVIpHwxeZLqtjwfzK2wFyfQUs7Pbi6muxXK+ZDOHEUmaI3WcoWb0nhZOyX3+FwmBsrA288Eg==
+
 "react-dnd-touch-backend@12.0.0 - 15.1.2":
   version "15.1.2"
   resolved "https://registry.yarnpkg.com/react-dnd-touch-backend/-/react-dnd-touch-backend-15.1.2.tgz#936833b66e024d8640b1845782cc059ff1aac2c0"
@@ -8418,7 +8430,7 @@ strong-log-transformer@^2.1.0:
     minimist "^1.2.0"
     through "^2.3.4"
 
-styled-components@^5.3.6:
+styled-components@^5, styled-components@^5.3.6:
   version "5.3.6"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-5.3.6.tgz#27753c8c27c650bee9358e343fc927966bfd00d1"
   integrity sha512-hGTZquGAaTqhGWldX7hhfzjnIYBZ0IXQXkCYdvF1Sq3DsUaLx6+NTHC5Jj1ooM2F68sBiVz3lvhfwQs/S3l6qg==

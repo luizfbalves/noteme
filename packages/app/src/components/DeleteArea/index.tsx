@@ -28,3 +28,5 @@ export const DeleteArea: React.FC<TDeleteAreaEvent> = ({ onCanDrop }) => {
     </Wrapper>
   )
 }
+
+export default DeleteArea
