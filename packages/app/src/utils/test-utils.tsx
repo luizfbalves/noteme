@@ -7,12 +7,15 @@ import { fireEvent, render, RenderOptions } from '@testing-library/react'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 
 import store from '@/store/store'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <Provider store={store}>
       <DndProvider options={HTML5toTouch}>
-        <CustomThemeProvider theme="light">{children}</CustomThemeProvider>
+        <Router>
+          <CustomThemeProvider theme="light">{children}</CustomThemeProvider>
+        </Router>
       </DndProvider>
     </Provider>
   )
@@ -26,7 +29,8 @@ const customRender = (
 export function dragAndDrop(src: Element, dst: Element) {
   fireEvent.dragStart(src)
   fireEvent.dragEnter(dst)
-  return fireEvent.dragOver(dst)
+  fireEvent.dragOver(dst)
+  return fireEvent.dragEnd(dst)
 }
 
 export * from '@testing-library/react'
