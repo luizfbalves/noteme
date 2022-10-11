@@ -7,6 +7,10 @@
   <img src="https://img.shields.io/badge/version-1.00-green"/>
 </ul>
 
+<div align="center">
+  🚧 Work in progress 🚧
+</div>
+
 ## Features
 - [x] login page
 - [x] home page
