@@ -2,9 +2,6 @@ import { screen, render } from '@/utils/test-utils'
 import userEvent from '@testing-library/user-event'
 
 import Nav from '.'
-import Home from '@/pages/home'
-import { sleep } from '@/utils'
-import { useAppSelector } from '@/store/hooks'
 
 describe('<Nav/>', () => {
   const user = userEvent.setup()
