@@ -5,7 +5,6 @@ import { render, screen } from '@/utils/test-utils'
 import ThemeToggler from '.'
 
 describe('<Toggler/>', () => {
-  //TODO verificar limpeza de testes
   const user = userEvent.setup()
 
   test('should switch theme', async () => {
