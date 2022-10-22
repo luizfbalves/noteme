@@ -3,7 +3,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class ModelNotes {
   @Field({ nullable: true })
-  description?: String;
+  description?: string;
 
   @Field()
   createdAt: Date;
@@ -12,5 +12,5 @@ export class ModelNotes {
   updatedAt?: Date;
 
   @Field()
-  userId: String;
+  userId: string;
 }

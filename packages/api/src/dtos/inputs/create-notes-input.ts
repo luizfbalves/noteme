@@ -3,10 +3,10 @@ import { Field, InputType } from '@nestjs/graphql';
 @InputType()
 export class CreateNotesInput {
   @Field()
-  id: String;
+  id: string;
 
   @Field({ nullable: true })
-  description?: String;
+  description?: string;
 
   @Field()
   createdAt: Date;
@@ -15,5 +15,5 @@ export class CreateNotesInput {
   updatedAt?: Date;
 
   @Field()
-  userId: String;
+  userId: string;
 }

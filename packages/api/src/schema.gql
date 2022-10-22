@@ -17,6 +17,7 @@ scalar DateTime
 type ModelUsers {
   name: String!
   password: String!
+  notes: [ModelUsers!]!
   createdAt: DateTime!
   updatedAt: DateTime
 }

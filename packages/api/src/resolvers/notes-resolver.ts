@@ -1,6 +1,6 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { CreateNotesInput } from 'src/dtos/inputs/create-notes-input';
-import { ModelNotes } from 'src/dtos/models/notes-model';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
+import { CreateNotesInput } from 'src/dtos/inputs/create-notes-input'
+import { ModelNotes } from 'src/dtos/models/notes-model'
 
 @Resolver()
 export class NotesResolver {
@@ -11,10 +11,12 @@ export class NotesResolver {
       createdAt: new Date(),
       updatedAt: new Date(),
       userId: 'sdasdjasd-sdapsdja-sdsds',
-    };
-    return [result];
+    }
+    return [result]
   }
 
   @Mutation(() => ModelNotes)
-  async createNote(@Args('data') data: CreateNotesInput) {}
+  async createNote(@Args('data') data: CreateNotesInput) {
+    console.log(data)
+  }
 }

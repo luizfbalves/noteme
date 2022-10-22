@@ -1,16 +1,20 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, Parent, ResolveField } from '@nestjs/graphql'
+import { ModelNotes } from './notes-model'
 
 @ObjectType()
 export class ModelUsers {
   @Field()
-  name: String;
+  name: string
 
   @Field()
-  password: String;
+  password: string
+
+  @Field(() => [ModelUsers])
+  notes: ModelNotes[]
 
   @Field()
-  createdAt: Date;
+  createdAt: Date
 
   @Field({ nullable: true })
-  updatedAt?: Date;
+  updatedAt?: Date
 }
