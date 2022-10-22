@@ -7,6 +7,7 @@ export class NotesResolver {
   @Query(() => [ModelNotes])
   async notes() {
     const result: ModelNotes = {
+      id: 'asdlasdasd-asdasda-sdas',
       description: 'test',
       createdAt: new Date(),
       updatedAt: new Date(),

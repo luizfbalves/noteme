@@ -8,11 +8,11 @@ import {
 } from '@nestjs/graphql'
 import { CreateUsersInput } from 'src/dtos/inputs/create-users-input'
 import { ModelNotes } from 'src/dtos/models/notes-model'
-import { ModelUsers } from 'src/dtos/models/users-model'
+import { Users } from 'src/dtos/models/users-model'
 
-@Resolver(() => ModelUsers)
+@Resolver(() => Users)
 export class UsersResolver {
-  @Query(() => [ModelUsers])
+  @Query(() => [Users])
   async users() {
     const result = {
       name: 'dev',
@@ -22,7 +22,7 @@ export class UsersResolver {
     }
     return [result]
   }
-  @Mutation(() => ModelUsers)
+  @Mutation(() => Users)
   async createUser(@Args('data') data: CreateUsersInput) {
     console.log(data)
     const result = {
@@ -36,7 +36,7 @@ export class UsersResolver {
   }
 
   @ResolveField(() => ModelNotes)
-  async notes(@Parent() user: ModelUsers) {
+  async notes(@Parent() user: Users) {
     const { name } = user
     return name
   }

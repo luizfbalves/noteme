@@ -3,6 +3,8 @@
 # ------------------------------------------------------
 
 type ModelNotes {
+  """id of the note"""
+  id: String!
   description: String
   createdAt: DateTime!
   updatedAt: DateTime
@@ -14,22 +16,24 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type ModelUsers {
+type Users {
+  """id of the user"""
+  id: String!
   name: String!
   password: String!
-  notes: [ModelUsers!]!
+  notes: [Users!]!
   createdAt: DateTime!
   updatedAt: DateTime
 }
 
 type Query {
   notes: [ModelNotes!]!
-  users: [ModelUsers!]!
+  users: [Users!]!
 }
 
 type Mutation {
   createNote(data: CreateNotesInput!): ModelNotes!
-  createUser(data: CreateUsersInput!): ModelUsers!
+  createUser(data: CreateUsersInput!): Users!
 }
 
 input CreateNotesInput {

@@ -1,16 +1,26 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
+@Entity()
 @ObjectType()
 export class ModelNotes {
+  @PrimaryGeneratedColumn('uuid')
+  @Field(() => String, { description: 'id of the note' })
+  id: string
+
+  @Column()
   @Field({ nullable: true })
-  description?: string;
+  description?: string
 
+  @Column()
   @Field()
-  createdAt: Date;
+  createdAt: Date
 
+  @Column()
   @Field({ nullable: true })
-  updatedAt?: Date;
+  updatedAt?: Date
 
+  @Column()
   @Field()
-  userId: string;
+  userId: string
 }
