@@ -1,0 +1,48 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ModelNotes {
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+  userId: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ModelUsers {
+  name: String!
+  password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type Query {
+  notes: [ModelNotes!]!
+  users: [ModelUsers!]!
+}
+
+type Mutation {
+  createNote(data: CreateNotesInput!): ModelNotes!
+  createUser(data: CreateUsersInput!): ModelUsers!
+}
+
+input CreateNotesInput {
+  id: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+  userId: String!
+}
+
+input CreateUsersInput {
+  id: String!
+  name: String!
+  password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
