@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type ModelNotes {
+type Note {
   """id of the note"""
   id: String!
   description: String
@@ -27,12 +27,12 @@ type Users {
 }
 
 type Query {
-  notes: [ModelNotes!]!
+  notes: [Note!]!
   users: [Users!]!
 }
 
 type Mutation {
-  createNote(data: CreateNotesInput!): ModelNotes!
+  createNote(data: CreateNotesInput!): Note!
   createUser(data: CreateUsersInput!): Users!
 }
 
@@ -45,7 +45,6 @@ input CreateNotesInput {
 }
 
 input CreateUsersInput {
-  id: String!
   name: String!
   password: String!
   createdAt: DateTime!

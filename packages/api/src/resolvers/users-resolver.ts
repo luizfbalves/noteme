@@ -6,9 +6,9 @@ import {
   Parent,
   ResolveField,
 } from '@nestjs/graphql'
-import { CreateUsersInput } from 'src/dtos/inputs/create-users-input'
-import { ModelNotes } from 'src/dtos/models/notes-model'
-import { Users } from 'src/dtos/models/users-model'
+import { CreateUsersInput } from 'src/dtos/inputs/create-user-input'
+import { Note } from 'src/dtos/models/note-model'
+import { Users } from 'src/dtos/models/user-model'
 
 @Resolver(() => Users)
 export class UsersResolver {
@@ -35,7 +35,7 @@ export class UsersResolver {
     return [result]
   }
 
-  @ResolveField(() => ModelNotes)
+  @ResolveField(() => Note)
   async notes(@Parent() user: Users) {
     const { name } = user
     return name

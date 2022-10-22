@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 @ObjectType()
-export class ModelNotes {
+export class Note {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String, { description: 'id of the note' })
   id: string

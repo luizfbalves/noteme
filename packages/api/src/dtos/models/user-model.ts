@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
-import { ModelNotes } from './notes-model'
+import { Note } from './note-model'
 
 @Entity()
 @ObjectType()
@@ -20,7 +20,7 @@ export class Users {
 
   @Column()
   @Field(() => [Users])
-  notes: ModelNotes[]
+  notes: Note[]
 
   @Column()
   @Field()
