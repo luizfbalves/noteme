@@ -1,4 +1,5 @@
-import { Field, ObjectType, Parent, ResolveField } from '@nestjs/graphql'
+import { Field, ObjectType } from '@nestjs/graphql'
+
 import { ModelNotes } from './notes-model'
 
 @ObjectType()
