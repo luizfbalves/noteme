@@ -5,7 +5,7 @@ import { Note } from './note-model'
 
 @Entity()
 @ObjectType()
-export class Users {
+export class User {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String, { description: 'id of the user' })
   id: string
@@ -19,7 +19,7 @@ export class Users {
   password: string
 
   @Column()
-  @Field(() => [Users])
+  @Field(() => [User])
   notes: Note[]
 
   @Column()

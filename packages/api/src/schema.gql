@@ -16,24 +16,24 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Users {
+type User {
   """id of the user"""
   id: String!
   name: String!
   password: String!
-  notes: [Users!]!
+  notes: [User!]!
   createdAt: DateTime!
   updatedAt: DateTime
 }
 
 type Query {
   notes: [Note!]!
-  users: [Users!]!
+  users: [User!]!
 }
 
 type Mutation {
   createNote(data: CreateNotesInput!): Note!
-  createUser(data: CreateUsersInput!): Users!
+  createUser(data: CreateUsersInput!): User!
 }
 
 input CreateNotesInput {
