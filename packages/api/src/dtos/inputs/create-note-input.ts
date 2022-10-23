@@ -1,19 +1,16 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
 export class CreateNotesInput {
   @Field()
-  id: string;
+  id: string
 
   @Field({ nullable: true })
-  description?: string;
+  description?: string
 
   @Field()
-  createdAt: Date;
-
-  @Field({ nullable: true })
-  updatedAt?: Date;
+  createdAt: Date
 
   @Field()
-  userId: string;
+  userId: string
 }

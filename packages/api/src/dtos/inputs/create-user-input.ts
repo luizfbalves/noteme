@@ -10,7 +10,4 @@ export class CreateUsersInput {
 
   @Field()
   createdAt: Date
-
-  @Field({ nullable: true })
-  updatedAt?: Date
 }

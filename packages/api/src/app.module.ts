@@ -3,13 +3,14 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { join } from 'node:path'
+import { UsersModule } from './modules/user-module'
 
-import { NotesResolver, UsersResolver } from './resolvers'
+import { NotesResolver } from './resolvers'
 
 @Module({
   imports: [
+    UsersModule,
     NotesResolver,
-    UsersResolver,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       debug: false,
