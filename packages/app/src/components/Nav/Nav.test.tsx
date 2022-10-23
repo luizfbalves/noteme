@@ -1,5 +1,6 @@
-import { screen, render } from '@/utils/test-utils'
 import userEvent from '@testing-library/user-event'
+
+import { screen, render } from '@/utils/test-utils'
 
 import Nav from '.'
 

@@ -14,7 +14,12 @@
     "sourceType": "module"
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["react", "@typescript-eslint", "eslint-plugin-import-helpers"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "eslint-plugin-import-helpers",
+    "@typescript-eslint/eslint-plugin"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
