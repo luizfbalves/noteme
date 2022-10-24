@@ -1,20 +1,20 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-
-import { Note } from './note-model'
+import { IsEmail } from 'class-validator'
 
 @ObjectType()
-export class Users {
-  @Field(() => String, { description: 'id of the user' })
+export class User {
+  @Field()
   id: string
 
   @Field()
   name: string
 
   @Field()
-  password: string
+  @IsEmail()
+  email: string
 
-  @Field(() => [Users])
-  notes: Note[]
+  @Field()
+  password: string
 
   @Field()
   createdAt: Date
