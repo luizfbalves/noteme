@@ -2,9 +2,6 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { join } from 'node:path'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
-import { UserModule } from './modules/user.module'
 
 @Module({
   imports: [
@@ -13,9 +10,8 @@ import { UserModule } from './modules/user.module'
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       buildSchemaOptions: { dateScalarMode: 'timestamp' },
     }),
-    UserModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
