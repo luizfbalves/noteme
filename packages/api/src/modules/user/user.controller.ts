@@ -1,4 +1,5 @@
-import { Controller, Get, Injectable, Param } from '@nestjs/common'
+import { Controller, Get, Param } from '@nestjs/common'
+
 import { UserService } from './user.service'
 
 @Controller()
@@ -7,6 +8,6 @@ export class UserController {
 
   @Get('/users:id')
   async getUserById(@Param('id') id: string) {
-    return this.userService.findOne({ id })
+    return await this.userService.findOne({ id })
   }
 }
