@@ -7,16 +7,14 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async findOne(data: Prisma.UserWhereUniqueInput): Promise<User | null> {
-    const user = await this.prisma.user.findUnique({
+    return await this.prisma.user.findUnique({
       where: {
         id: data.id,
       },
     })
+  }
 
-    if (!user) {
-      throw new Error('user not found')
-    }
-
-    return user
+  async findAll() {
+    return await this.prisma.user.findMany()
   }
 }
