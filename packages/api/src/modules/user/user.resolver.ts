@@ -5,15 +5,15 @@ import { UserService } from './user.service'
 
 @Resolver(User)
 export class UserResolver {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly user: UserService) {}
 
   @Query(() => [User])
   async allUsers() {
-    return await this.userService.findAll()
+    return await this.user.findAll()
   }
 
   @Query(() => User)
   async findUser(@Args('id') id: string) {
-    return await this.userService.findOne({ id })
+    return await this.user.findOne({ id })
   }
 }

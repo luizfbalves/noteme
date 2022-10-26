@@ -27,4 +27,5 @@ type Query {
   allUsers: [User!]!
   findUser(id: String!): User!
   allNotes: [Note!]!
+  findNote(id: String!): Note!
 }
