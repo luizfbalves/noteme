@@ -6,20 +6,20 @@ import { PrismaService } from 'src/prisma.service'
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll() {
-    return await this.prisma.user.findMany()
+  findAll() {
+    return this.prisma.user.findMany()
   }
 
-  async findOne(data: Prisma.UserWhereUniqueInput): Promise<User | null> {
+  findOne(data: Prisma.UserWhereUniqueInput): Promise<User | null> {
     const { id } = data
-    return await this.prisma.user.findUnique({
+    return this.prisma.user.findUnique({
       where: {
         id,
       },
     })
   }
 
-  async create(data: Prisma.UserCreateInput): Promise<User> {
-    return await this.prisma.user.create({ data })
+  create(data: Prisma.UserCreateInput): Promise<User> {
+    return this.prisma.user.create({ data })
   }
 }

@@ -8,12 +8,12 @@ export class NoteResolver {
   constructor(private readonly note: NoteService) {}
 
   @Query(() => [Note])
-  async allNotes() {
-    return await this.note.findAll()
+  allNotes() {
+    return this.note.findAll()
   }
 
   @Query(() => Note)
-  async findNote(@Args('id') id: string) {
-    return await this.note.findOne({ id })
+  findNote(@Args('id') id: string) {
+    return this.note.findOne({ id })
   }
 }

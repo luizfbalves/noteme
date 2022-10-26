@@ -8,14 +8,14 @@ import { Note } from './note.model'
 export class NoteService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll() {
-    return await this.prisma.note.findMany()
+  findAll() {
+    return this.prisma.note.findMany()
   }
 
-  async findOne(data: Prisma.NoteWhereUniqueInput): Promise<Note | null> {
+  findOne(data: Prisma.NoteWhereUniqueInput): Promise<Note | null> {
     const { id } = data
 
-    return await this.prisma.note.findUnique({
+    return this.prisma.note.findUnique({
       where: { id },
     })
   }

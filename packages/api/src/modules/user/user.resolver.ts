@@ -9,17 +9,17 @@ export class UserResolver {
   constructor(private readonly user: UserService) {}
 
   @Query(() => [User])
-  async allUsers() {
-    return await this.user.findAll()
+  allUsers() {
+    return this.user.findAll()
   }
 
   @Query(() => User)
-  async findUser(@Args('id') id: string) {
-    return await this.user.findOne({ id })
+  findUser(@Args('id') id: string) {
+    return this.user.findOne({ id })
   }
 
   @Mutation()
-  async createUser(@Args('data') data: UserCreateInput) {
-    return await this.user.create(data)
+  createUser(@Args('data') data: UserCreateInput) {
+    return this.user.create(data)
   }
 }
