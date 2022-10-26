@@ -8,10 +8,12 @@ datasource db {
 }
 
 model User {
-  id    String  @id @default(uuid())
-  email String  @unique
-  name  String?
-  posts Note[]
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  posts     Note[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime
 
   @@map("users")
 }
@@ -19,10 +21,10 @@ model User {
 model Note {
   id          String   @id @default(uuid())
   description String
+  userId      String
+  author      User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime
-  author      User?    @relation(fields: [userId], references: [id])
-  userId      String
 
   @@map("notes")
 }

@@ -1,0 +1,30 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: String!
+  email: String!
+  name: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp
+}
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
+type Note {
+  id: String!
+  description: String!
+  author: User!
+  createdAt: Timestamp!
+  updatedAt: Timestamp
+}
+
+type Query {
+  allUsers: [User!]!
+  findUser(id: String!): User!
+  allNotes: [Note!]!
+}

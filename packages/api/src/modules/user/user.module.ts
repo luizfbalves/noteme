@@ -5,7 +5,6 @@ import { UserResolver } from './user.resolver'
 import { UserService } from './user.service'
 
 @Module({
-  providers: [UserService, PrismaService],
-  controllers: [UserResolver],
+  providers: [UserService, UserResolver, PrismaService],
 })
 export class UserModule {}

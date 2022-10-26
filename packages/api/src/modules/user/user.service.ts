@@ -6,15 +6,16 @@ import { PrismaService } from 'src/prisma.service'
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async findOne(data: Prisma.UserWhereUniqueInput): Promise<User | null> {
-    return await this.prisma.user.findUnique({
-      where: {
-        id: data.id,
-      },
-    })
-  }
-
   async findAll() {
     return await this.prisma.user.findMany()
+  }
+
+  async findOne(data: Prisma.UserWhereUniqueInput): Promise<User | null> {
+    const { id } = data
+    return await this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    })
   }
 }
