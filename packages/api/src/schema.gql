@@ -7,7 +7,7 @@ type User {
   email: String!
   name: String!
   createdAt: Timestamp!
-  updatedAt: Timestamp
+  updatedAt: Timestamp!
 }
 
 """
@@ -28,4 +28,21 @@ type Query {
   findUser(id: String!): User!
   allNotes: [Note!]!
   findNote(id: String!): Note!
+}
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  updateUser(user: UserUpdateInput!): User!
+}
+
+input UserCreateInput {
+  email: String!
+  name: String!
+}
+
+input UserUpdateInput {
+  id: String!
+  name: String
+  email: String
+  updatedAt: Timestamp = 1666922423425
 }

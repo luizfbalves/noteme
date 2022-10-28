@@ -12,7 +12,7 @@ export class NoteService {
     return this.prisma.note.findMany()
   }
 
-  findOne(data: Prisma.NoteWhereUniqueInput): Promise<Note | null> {
+  findOne(data: Prisma.noteWhereUniqueInput): Promise<Note | null> {
     const { id } = data
 
     return this.prisma.note.findUnique({

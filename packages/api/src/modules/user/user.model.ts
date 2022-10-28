@@ -14,6 +14,6 @@ export class User {
   @Field()
   createdAt: Date
 
-  @Field({ nullable: true })
-  updatedAt?: Date
+  @Field()
+  updatedAt: Date
 }
