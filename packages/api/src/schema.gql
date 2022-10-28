@@ -2,51 +2,47 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Note {
-  """id of the note"""
+type User {
   id: String!
-  description: String
-  createdAt: DateTime!
-  updatedAt: DateTime
-  userId: String!
+  email: String!
+  name: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
 }
 
 """
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
 """
-scalar DateTime
+scalar Timestamp
 
-type User {
-  """id of the user"""
+type Note {
   id: String!
-  name: String!
-  password: String!
-  notes: [User!]!
-  createdAt: DateTime!
-  updatedAt: DateTime
+  description: String!
+  author: User!
+  createdAt: Timestamp!
+  updatedAt: Timestamp
 }
 
 type Query {
-  notes: [Note!]!
-  users: [User!]!
+  allUsers: [User!]!
+  findUser(id: String!): User!
+  allNotes: [Note!]!
+  findNote(id: String!): Note!
 }
 
 type Mutation {
-  createNote(data: CreateNotesInput!): Note!
-  createUser(data: CreateUsersInput!): User!
+  createUser(data: UserCreateInput!): User!
+  updateUser(user: UserUpdateInput!): User!
 }
 
-input CreateNotesInput {
-  id: String!
-  description: String
-  createdAt: DateTime!
-  updatedAt: DateTime
-  userId: String!
-}
-
-input CreateUsersInput {
+input UserCreateInput {
+  email: String!
   name: String!
-  password: String!
-  createdAt: DateTime!
-  updatedAt: DateTime
+}
+
+input UserUpdateInput {
+  id: String!
+  name: String
+  email: String
+  updatedAt: Timestamp = 1666924027332
 }

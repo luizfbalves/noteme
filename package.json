@@ -16,7 +16,7 @@
     "test": "lerna run test --stream",
     "testc": "lerna run testc --stream",
     "lint": "lerna run lint --stream",
-    "nest:dev": "lerna run start:dev --stream"
+    "start:dev": "lerna run start:dev --stream"
   },
   "devDependencies": {
     "lerna": "^5.5.4",
