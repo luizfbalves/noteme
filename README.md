@@ -17,8 +17,8 @@
 - [ ] user page
 
 ## Repos
-- [x] web app
-- [ ] api
+- [x] web app (working)
+- [X] api (working)
 
 ## Tecnologies
 <ul>
