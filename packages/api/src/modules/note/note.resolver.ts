@@ -1,6 +1,6 @@
 import { Resolver, Query, Args } from '@nestjs/graphql'
 
-import { Note } from './note.model'
+import { Note } from './note.entity'
 import { NoteService } from './note.service'
 
 @Resolver()
