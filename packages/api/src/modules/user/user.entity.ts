@@ -9,7 +9,7 @@ export class User {
   email: string
 
   @Field()
-  name: string
+  name?: string
 
   @Field()
   createdAt: Date

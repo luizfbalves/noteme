@@ -1,10 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { Note } from '../note.entity'
 
 @InputType()
-export class NoteCreateInput {
+export class NoteUpdateInput {
   @Field()
-  userId: string
+  id: string
 
   @Field({ nullable: true })
   description?: string

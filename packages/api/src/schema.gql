@@ -17,9 +17,9 @@ scalar Timestamp
 
 type Note {
   id: String!
-  description: String!
-  userId: String!
+  description: String
   author: User!
+  userId: String!
   createdAt: Timestamp!
   updatedAt: Timestamp
 }
@@ -34,6 +34,8 @@ type Query {
 type Mutation {
   createUser(data: UserCreateInput!): User!
   updateUser(user: UserUpdateInput!): User!
+  createNote(data: NoteCreateInput!): Note!
+  updateNote(data: NoteUpdateInput!): Note!
 }
 
 input UserCreateInput {
@@ -45,5 +47,15 @@ input UserUpdateInput {
   id: String!
   name: String
   email: String
-  updatedAt: Timestamp = 1667265595917
+  updatedAt: Timestamp = 1667328959871
+}
+
+input NoteCreateInput {
+  userId: String!
+  description: String
+}
+
+input NoteUpdateInput {
+  id: String!
+  description: String
 }

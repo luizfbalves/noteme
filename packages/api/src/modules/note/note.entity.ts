@@ -7,14 +7,14 @@ export class Note {
   @Field()
   id: string
 
-  @Field()
+  @Field({ nullable: true })
   description?: string
+
+  @Field(() => User)
+  author: User
 
   @Field()
   userId: string
-
-  @Field(() => User)
-  author?: User
 
   @Field()
   createdAt: Date
