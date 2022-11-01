@@ -6,8 +6,9 @@ type User {
   id: String!
   email: String!
   name: String!
+  notes: [Note!]
   createdAt: Timestamp!
-  updatedAt: Timestamp!
+  updatedAt: Timestamp
 }
 
 """
@@ -47,7 +48,7 @@ input UserUpdateInput {
   id: String!
   name: String
   email: String
-  updatedAt: Timestamp = 1667328959871
+  updatedAt: Timestamp = 1667336310773
 }
 
 input NoteCreateInput {

@@ -7,24 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id        String   @id @default(uuid())
-  email     String   @unique
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
   name      String?
-  notes     note[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  notes     Note[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @default(now())
 
   @@map("users")
 }
 
-model note {
-  id          String   @id @default(uuid())
+model Note {
+  id          String    @id @default(uuid())
   description String?
-  users       user     @relation(fields: [userId], references: [id])
+  users       User      @relation(fields: [userId], references: [id])
   userId      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @default(now())
 
   @@map("notes")
 }
