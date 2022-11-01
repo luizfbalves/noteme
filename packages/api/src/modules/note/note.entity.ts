@@ -10,6 +10,9 @@ export class Note {
   @Field()
   description: string
 
+  @Field()
+  userId: string
+
   @Field(() => User)
   author?: User
 

@@ -22,10 +22,6 @@ export class UserService {
     })
   }
 
-  findAll() {
-    return this.prisma.user.findMany()
-  }
-
   findOne(data: Prisma.userWhereUniqueInput) {
     const { id } = data
     return this.prisma.user.findUnique({
@@ -33,5 +29,9 @@ export class UserService {
         id,
       },
     })
+  }
+
+  findAll() {
+    return this.prisma.user.findMany()
   }
 }
