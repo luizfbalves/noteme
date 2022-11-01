@@ -22,7 +22,7 @@ export class UserService {
     })
   }
 
-  findOne(data: Prisma.userWhereUniqueInput) {
+  findOne(data: Prisma.UserWhereUniqueInput) {
     const { id } = data
     return this.prisma.user.findUnique({
       where: {
@@ -32,6 +32,6 @@ export class UserService {
   }
 
   findAll() {
-    return this.prisma.user.findMany()
+    return this.prisma.user.findMany({ include: { notes: true } })
   }
 }
