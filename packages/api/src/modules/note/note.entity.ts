@@ -8,7 +8,7 @@ export class Note {
   id: string
 
   @Field()
-  description: string
+  description?: string
 
   @Field()
   userId: string

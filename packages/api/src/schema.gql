@@ -45,5 +45,5 @@ input UserUpdateInput {
   id: String!
   name: String
   email: String
-  updatedAt: Timestamp = 1667263270199
+  updatedAt: Timestamp = 1667265595917
 }

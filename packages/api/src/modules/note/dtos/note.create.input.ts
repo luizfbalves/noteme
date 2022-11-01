@@ -4,8 +4,8 @@ import { Note } from '../note.entity'
 @InputType()
 export class NoteCreateInput implements Partial<Note> {
   @Field()
-  description?: string
+  userId: string
 
   @Field()
-  userId: string
+  description: string
 }
