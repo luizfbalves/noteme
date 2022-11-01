@@ -12,16 +12,6 @@ export class NoteService {
     return this.prisma.note.findMany()
   }
 
-  update(data: NoteUpdateInput) {
-    const { id } = data
-    this.prisma.note.update({
-      data,
-      where: {
-        id,
-      },
-    })
-  }
-
   findOne(data: Prisma.noteWhereUniqueInput) {
     const { id } = data
 
