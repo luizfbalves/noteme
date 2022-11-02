@@ -1,7 +1,7 @@
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql'
+
 import { NoteCreateInput } from './dtos/note.create.input'
 import { NoteUpdateInput } from './dtos/note.update.input'
-
 import { Note } from './note.entity'
 import { NoteService } from './note.service'
 

@@ -48,7 +48,7 @@ input UserUpdateInput {
   id: String!
   name: String
   email: String
-  updatedAt: Timestamp = 1667402669855
+  updatedAt: Timestamp = 1667422933990
 }
 
 input NoteCreateInput {

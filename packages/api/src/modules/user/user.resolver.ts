@@ -1,7 +1,7 @@
 import { Query, Resolver, Args, Mutation } from '@nestjs/graphql'
+
 import { UserCreateInput } from './dtos/user.create.input'
 import { UserUpdateInput } from './dtos/user.update.input'
-
 import { User } from './user.entity'
 import { UserService } from './user.service'
 

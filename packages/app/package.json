@@ -1,6 +1,8 @@
 {
-  "name": "note.me",
-  "version": "0.1.0",
+  "name": "@noteme/app",
+  "version": "1.0.0",
+  "description": "noteme's main front app",
+  "author": "luizfbalves",
   "license": "MIT",
   "private": true,
   "dependencies": {
