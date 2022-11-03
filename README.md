@@ -12,9 +12,14 @@
 </div>
 
 ## Features
-- [x] login page
-- [x] home page
-- [ ] user page
+- app
+  - [x] login page
+  - [x] home page
+  - [ ] user page
+- api
+  - [x] user crud
+  - [x] notes crud
+  - [ ] auth
 
 ## Repos
 - [x] app
