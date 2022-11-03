@@ -39,4 +39,10 @@
   <li> 
     <a href="https://lerna.js.org/">Lerna</a></br>
   </li>  
+  <li>
+    <a href="https://docs.nestjs.com/">Nestjs</a></br>
+  </li>
+    <li>
+    <a href="https://www.prisma.io/">Prisma</a></br>
+  </li>
 </ul>
