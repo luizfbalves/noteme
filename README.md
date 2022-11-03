@@ -5,7 +5,9 @@
 
 <ul>  
   <img src="https://img.shields.io/badge/version-1.00-green"/>
-  <img src="https://img.shields.io/badge/licence-MIT-green"/>
+  <img src="https://img.shields.io/badge/licence-MIT-green"/>    
+  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/luizfbalves/noteme">
+  <img src="https://img.shields.io/github/last-commit/luizfbalves/noteme"/>  
 </ul>
 
 <div align="center">
