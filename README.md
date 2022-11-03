@@ -5,6 +5,7 @@
 
 <ul>  
   <img src="https://img.shields.io/badge/version-1.00-green"/>
+  <img src="https://img.shields.io/badge/licence-MIT-green"/>
 </ul>
 
 <div align="center">
