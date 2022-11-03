@@ -6,7 +6,6 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
 import { join } from 'node:path'
 
-
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
