@@ -9,6 +9,19 @@ import { UserUpdateInput } from './dtos/user.update.input'
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
+  findOne(data: Prisma.UserWhereUniqueInput) {
+    const { id } = data
+    return this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    })
+  }
+
+  findAll() {
+    return this.prisma.user.findMany({ include: { notes: true } })
+  }
+
   create(data: UserCreateInput) {
     return this.prisma.user.create({ data })
   }
@@ -21,18 +34,5 @@ export class UserService {
         id,
       },
     })
-  }
-
-  findOne(data: Prisma.UserWhereUniqueInput) {
-    const { id } = data
-    return this.prisma.user.findUnique({
-      where: {
-        id,
-      },
-    })
-  }
-
-  findAll() {
-    return this.prisma.user.findMany({ include: { notes: true } })
   }
 }

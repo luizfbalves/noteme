@@ -23,22 +23,23 @@ describe('UserService', () => {
     it('should return one user', async () => {
       const id = '3f4bdbfa-165c-4c6a-bfb9-079efc27b5f2'
 
-      const result = service.findOne({ id })
+      const result = await service.findOne({ id })
+
       expect(result).toBeTruthy()
     })
   })
 
   describe('findAll', () => {
-    it('should return an array of users', () => {
-      const result = service.findAll()
+    it('should return an array of users', async () => {
+      const result = await service.findAll()
 
-      expect(result).toBeTruthy()
+      expect(Array.isArray(result)).toBeTruthy()
     })
   })
 
   describe('create', () => {
-    it('should add a new user', () => {
-      const result = service.create({
+    it('should add a new user', async () => {
+      const result = await service.create({
         email: 'jest@mail.com',
         name: 'jest',
       })
@@ -48,8 +49,8 @@ describe('UserService', () => {
   })
 
   describe('update', () => {
-    it('should update a user', () => {
-      const result = service.update({
+    it('should update a user', async () => {
+      const result = await service.update({
         id: randomUUID(),
         email: 'jest@mail.com',
         name: 'jest',

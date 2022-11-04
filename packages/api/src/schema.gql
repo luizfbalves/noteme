@@ -26,8 +26,8 @@ type Note {
 }
 
 type Query {
-  allUsers: [User!]!
   findUser(id: String!): User!
+  allUsers: [User!]!
   allNotes: [Note!]!
   findNote(id: String!): Note!
 }
@@ -48,7 +48,7 @@ input UserUpdateInput {
   id: String!
   name: String
   email: String
-  updatedAt: Timestamp = 1667440455869
+  updatedAt: Timestamp = 1667524733155
 }
 
 input NoteCreateInput {
