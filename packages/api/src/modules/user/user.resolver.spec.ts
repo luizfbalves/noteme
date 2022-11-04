@@ -1,15 +1,26 @@
-import { PrismaService } from '@/providers/prisma.service'
+import { Context, createMockContext, MockContext } from '@/context'
 import { Test, TestingModule } from '@nestjs/testing'
-import { randomUUID } from 'node:crypto'
+import { User } from '@prisma/client'
 import { UserResolver } from './user.resolver'
 import { UserService } from './user.service'
+
+let mockCtx: MockContext
+let ctx: Context
+
+beforeEach(() => {
+  mockCtx = createMockContext()
+  ctx = mockCtx as unknown as Context
+})
 
 describe('UserResolver', () => {
   let resolver: UserResolver
 
   beforeEach(async () => {
+    mockCtx = createMockContext()
+    ctx = mockCtx as unknown as Context
+
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserResolver, UserService, PrismaService],
+      providers: [UserResolver],
     }).compile()
 
     resolver = module.get<UserResolver>(UserResolver)
