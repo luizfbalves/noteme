@@ -4,32 +4,31 @@ import { Prisma } from '@prisma/client'
 
 import { UserCreateInput } from './dtos/user.create.input'
 import { UserUpdateInput } from './dtos/user.update.input'
-import { Context } from '@/context'
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  findOne(data: Prisma.UserWhereUniqueInput, ctx: Context) {
+  findOne(data: Prisma.UserWhereUniqueInput) {
     const { id } = data
-    return ctx.prisma.user.findUnique({
+    return this.prisma.user.findUnique({
       where: {
         id,
       },
     })
   }
 
-  findAll(ctx: Context) {
-    return ctx.prisma.user.findMany({ include: { notes: true } })
+  findAll() {
+    return this.prisma.user.findMany({ include: { notes: true } })
   }
 
-  create(data: UserCreateInput, ctx: Context) {
-    return ctx.prisma.user.create({ data })
+  create(data: UserCreateInput) {
+    return this.prisma.user.create({ data })
   }
 
-  update(data: UserUpdateInput, ctx: Context) {
+  update(data: UserUpdateInput) {
     const { id } = data
-    return ctx.prisma.user.update({
+    return this.prisma.user.update({
       data,
       where: {
         id,

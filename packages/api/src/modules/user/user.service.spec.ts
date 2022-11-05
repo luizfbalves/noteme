@@ -1,100 +1,158 @@
-import { Context, createMockContext, MockContext } from '@/context'
-import { Test, TestingModule } from '@nestjs/testing'
-import { randomUUID } from 'node:crypto'
-import { UserModule } from './user.module'
-
+import { PrismaService } from '@/providers/prisma.service'
+import { User } from '@prisma/client'
+import { randomUUID } from 'crypto'
 import { UserService } from './user.service'
+import { Test, TestingModule } from '@nestjs/testing'
+import { NotFoundException } from '@nestjs/common'
 
+//mock data
+const fakeUsers: User[] = [
+  {
+    id: randomUUID(),
+    email: 'jest1@mail.com',
+    name: 'jest1',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: randomUUID(),
+    email: 'jest2@mail.com',
+    name: 'jest2',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: randomUUID(),
+    email: 'jest2@mail.com',
+    name: 'jest2',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+]
+
+const prismaMock = {
+  user: {
+    create: jest.fn().mockReturnValue(fakeUsers[0]),
+    findMany: jest.fn().mockResolvedValue(fakeUsers),
+    findUnique: jest.fn().mockResolvedValue(fakeUsers[0]),
+    update: jest.fn().mockResolvedValue(fakeUsers[0]),
+    delete: jest.fn(),
+  },
+}
 describe('UserService', () => {
   let service: UserService
-  let mock: MockContext
-  let ctx: Context
+  let prisma: PrismaService
 
   beforeEach(async () => {
-    mock = createMockContext()
-    ctx = mock as unknown as Context
-
     const module: TestingModule = await Test.createTestingModule({
-      imports: [UserModule],
+      providers: [
+        UserService,
+        { provide: PrismaService, useValue: prismaMock },
+      ],
     }).compile()
 
     service = module.get<UserService>(UserService)
+    prisma = module.get<PrismaService>(PrismaService)
   })
 
-  it('should be defined', () => {
-    expect(service).toBeDefined()
-  })
-
-  describe('findOne', () => {
-    it('should return one user', () => {
-      const user = {
-        id: randomUUID(),
-        email: 'jest@mail.com',
-        name: 'jest',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-
-      mock.prisma.user.findUnique.mockResolvedValue(user)
-
-      expect(service.findOne({ id: user.id }, ctx)).resolves.toEqual(user)
-    })
+  afterEach(() => {
+    jest.clearAllMocks()
   })
 
   describe('findAll', () => {
     it('should return an array of users', async () => {
-      const users = [
-        {
-          id: randomUUID(),
-          email: 'jest@mail.com',
-          name: 'jest',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          id: randomUUID(),
-          email: 'jest@mail.com',
-          name: 'jest',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      ]
+      const response = await service.findAll()
 
-      mock.prisma.user.findMany.mockResolvedValue(users)
+      expect(response).toEqual(fakeUsers)
+      expect(prisma.user.findMany).toHaveBeenCalled()
+      expect(prisma.user.findMany).toHaveBeenCalledTimes(1)
+    })
+  })
 
-      expect(service.findAll(ctx)).resolves.toEqual(users)
+  describe('findOne', () => {
+    const id = fakeUsers[0].id
+
+    it('should return one user', async () => {
+      const response = await prisma.user.findUnique({ where: { id } })
+
+      expect(response).toEqual(fakeUsers[0])
+      expect(prisma.user.findUnique).toHaveBeenCalled()
+      expect(prisma.user.findUnique).toHaveBeenCalledTimes(1)
+      expect(prisma.user.findUnique).toHaveBeenCalledWith({
+        where: {
+          id,
+        },
+      })
+    })
+
+    it('should should return nothing when user is not found', async () => {
+      jest.spyOn(prisma.user, 'findUnique').mockResolvedValue(null)
+
+      const response = await prisma.user.findUnique({ where: { id } })
+
+      expect(response).toBeNull()
+      expect(prisma.user.findUnique).toHaveBeenCalled()
+      expect(prisma.user.findUnique).toHaveBeenCalledTimes(1)
     })
   })
 
   describe('create', () => {
     it('should add a new user', async () => {
-      const user = {
-        id: randomUUID(),
-        email: 'jest@mail.com',
-        name: 'jest',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }
+      const response = prisma.user.create({ data: fakeUsers[0] })
 
-      mock.prisma.user.create.mockResolvedValue(user)
-
-      expect(service.create(user, ctx)).resolves.toEqual(user)
+      expect(response).toBe(fakeUsers[0])
+      expect(prisma.user.create).toHaveBeenCalled()
+      expect(prisma.user.create).toHaveBeenCalledTimes(1)
+      expect(prisma.user.create).toHaveBeenCalledWith({ data: fakeUsers[0] })
     })
   })
 
   describe('update', () => {
-    it('should update a user', async () => {
-      const user = {
+    it('should update an user', async () => {
+      const id = fakeUsers[0].id
+      const response = await prisma.user.update({
+        data: fakeUsers[0],
+        where: {
+          id,
+        },
+      })
+
+      expect(response).toEqual(fakeUsers[0])
+      expect(prisma.user.update).toHaveBeenCalled()
+      expect(prisma.user.update).toHaveBeenCalledTimes(1)
+      expect(prisma.user.update).toHaveBeenCalledWith({
+        data: fakeUsers[0],
+        where: {
+          id,
+        },
+      })
+    })
+
+    it('should return NotFoundException when no user is found', async () => {
+      const unexistingUser = {
         id: randomUUID(),
-        email: 'jest@mail.com',
-        name: 'jest',
+        email: 'jest2@mail.com',
+        name: 'jest2',
         createdAt: new Date(),
         updatedAt: new Date(),
       }
 
-      mock.prisma.user.update.mockResolvedValue(user)
+      jest
+        .spyOn(prisma.user, 'update')
+        .mockRejectedValue(new NotFoundException())
 
-      expect(service.update(user, ctx)).resolves.toEqual(user)
+      try {
+        await prisma.user.update({
+          data: unexistingUser,
+          where: { id: unexistingUser.id },
+        })
+      } catch (error) {
+        expect(error).toEqual(new NotFoundException())
+      }
+      expect(prisma.user.update).toHaveBeenCalledWith({
+        data: unexistingUser,
+        where: { id: unexistingUser.id },
+      })
     })
   })
 })
