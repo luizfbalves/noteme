@@ -1,5 +1,6 @@
 import { Context, createMockContext, MockContext } from '@/context'
 import { Test, TestingModule } from '@nestjs/testing'
+import { randomUUID } from 'crypto'
 import { UserModule } from './user.module'
 import { UserResolver } from './user.resolver'
 import { UserService } from './user.service'
@@ -7,20 +8,13 @@ import { UserService } from './user.service'
 describe('UserResolver', () => {
   let resolver: UserResolver
   let service: UserService
-
-  beforeAll(async () => {
-    const Mock = {
-      provide: UserService,
-      useFactory: () => ({
-        findUser: jest.fn(() => {}),
-        allUsers: jest.fn(() => []),
-        createUser: jest.fn(() => {}),
-        úpdateUser: jest.fn(() => {}),
-      }),
-    }
-  })
+  let mock: MockContext
+  let ctx: Context
 
   beforeEach(async () => {
+    mock = createMockContext()
+    ctx = mock as unknown as Context
+
     const module: TestingModule = await Test.createTestingModule({
       imports: [UserModule],
     }).compile()
@@ -31,6 +25,21 @@ describe('UserResolver', () => {
 
   it('should be defined', () => {
     expect(resolver).toBeDefined()
+  })
+
+  it('should add a new user', () => {
+    const user = {
+      id: randomUUID(),
+      email: 'jest@mail.com',
+      name: 'jest',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
+
+    mock.prisma.user.create.mockResolvedValue(user)
+
+    expect(service.create(user, ctx)).resolves.toEqual(user)
+    expect(resolver.createUser(user, ctx)).resolves.toEqual(user)
   })
 
   // describe('findUser', () => {
