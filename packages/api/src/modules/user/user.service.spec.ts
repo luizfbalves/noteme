@@ -59,16 +59,6 @@ describe('UserService', () => {
     jest.clearAllMocks()
   })
 
-  describe('findAll', () => {
-    it('should return an array of users', async () => {
-      const response = await service.findAll()
-
-      expect(response).toEqual(fakeUsers)
-      expect(prisma.user.findMany).toHaveBeenCalled()
-      expect(prisma.user.findMany).toHaveBeenCalledTimes(1)
-    })
-  })
-
   describe('findOne', () => {
     const id = fakeUsers[0].id
 
@@ -82,6 +72,16 @@ describe('UserService', () => {
         where: {
           id,
         },
+      })
+    })
+
+    describe('findAll', () => {
+      it('should return an array of users', async () => {
+        const response = await service.findAll()
+
+        expect(response).toEqual(fakeUsers)
+        expect(prisma.user.findMany).toHaveBeenCalled()
+        expect(prisma.user.findMany).toHaveBeenCalledTimes(1)
       })
     })
 

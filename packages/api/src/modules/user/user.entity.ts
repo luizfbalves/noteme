@@ -1,4 +1,4 @@
-import { Note } from '@modules/note/note.entity'
+import { Note } from '../note/note.entity'
 import { Field, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
@@ -10,10 +10,10 @@ export class User {
   email: string
 
   @Field()
-  name?: string
+  name: string
 
   @Field(() => [Note], { nullable: true })
-  notes?: Note[]
+  notes?: typeof Note[]
 
   @Field()
   createdAt: Date

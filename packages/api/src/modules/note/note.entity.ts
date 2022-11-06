@@ -1,6 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-
-import { User } from '@modules/user/user.entity'
+import { User } from '../user/user.entity'
 
 @ObjectType()
 export class Note {
@@ -11,7 +10,7 @@ export class Note {
   description?: string
 
   @Field(() => User)
-  author: User
+  author: typeof User
 
   @Field()
   userId: string
