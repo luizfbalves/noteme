@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
-import { PrismaService } from 'src/providers/prisma.service'
+import { PrismaService } from '@/providers/prisma.service'
 
 import { NoteCreateInput } from './dtos/note.create.input'
 import { NoteUpdateInput } from './dtos/note.update.input'
