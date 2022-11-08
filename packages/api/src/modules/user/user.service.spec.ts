@@ -1,34 +1,9 @@
 import { PrismaService } from '@/providers/prisma.service'
-import { User } from '@prisma/client'
 import { randomUUID } from 'crypto'
 import { UserService } from './user.service'
 import { Test, TestingModule } from '@nestjs/testing'
 import { NotFoundException } from '@nestjs/common'
-
-//mock data
-const fakeUsers: User[] = [
-  {
-    id: randomUUID(),
-    email: 'jest1@mail.com',
-    name: 'jest1',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: randomUUID(),
-    email: 'jest2@mail.com',
-    name: 'jest2',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: randomUUID(),
-    email: 'jest2@mail.com',
-    name: 'jest2',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-]
+import { fakeUsers } from './__mocks__/fakeUsers.js'
 
 const prismaMock = {
   user: {
