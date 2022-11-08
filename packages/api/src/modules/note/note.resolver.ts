@@ -9,14 +9,14 @@ import { NoteService } from './note.service'
 export class NoteResolver {
   constructor(private readonly note: NoteService) {}
 
-  @Query(() => [Note])
-  allNotes() {
-    return this.note.findAll()
-  }
-
   @Query(() => Note)
   findNote(@Args('id') id: string) {
     return this.note.findOne({ id })
+  }
+
+  @Query(() => [Note])
+  allNotes() {
+    return this.note.findAll()
   }
 
   @Mutation(() => Note)
@@ -27,5 +27,10 @@ export class NoteResolver {
   @Mutation(() => Note)
   updateNote(@Args('data') data: NoteUpdateInput) {
     return this.note.update(data)
+  }
+
+  @Mutation(() => Note)
+  deleteNote(@Args('id') id: string) {
+    return this.note.delete({ id })
   }
 }

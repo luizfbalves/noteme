@@ -9,6 +9,20 @@ import { NoteUpdateInput } from './dtos/note.update.input'
 export class NoteService {
   constructor(private prisma: PrismaService) {}
 
+  findOne(data: Prisma.NoteWhereUniqueInput) {
+    const { id } = data
+
+    return this.prisma.note.findUnique({
+      where: { id },
+    })
+  }
+
+  findAll() {
+    return this.prisma.note.findMany({
+      include: { author: true },
+    })
+  }
+
   create(data: NoteCreateInput) {
     return this.prisma.note.create({ data })
   }
@@ -23,17 +37,12 @@ export class NoteService {
     })
   }
 
-  findOne(data: Prisma.NoteWhereUniqueInput) {
+  delete(data: Prisma.NoteWhereUniqueInput) {
     const { id } = data
-
-    return this.prisma.note.findUnique({
-      where: { id },
-    })
-  }
-
-  findAll() {
-    return this.prisma.note.findMany({
-      include: { author: true },
+    return this.prisma.note.delete({
+      where: {
+        id,
+      },
     })
   }
 }
