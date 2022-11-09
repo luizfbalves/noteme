@@ -40,7 +40,7 @@ describe('NoteService', () => {
   describe('findOne', () => {
     it('should return an note', async () => {
       const { id } = fakeNotes[0]
-      const response = await prisma.note.findUnique({ where: { id } })
+      const response = await note.findOne({ id })
 
       expect(response).toEqual(fakeNotes[0])
       expect(prisma.note.findUnique).toHaveBeenCalled()
@@ -65,7 +65,7 @@ describe('NoteService', () => {
 
   describe('findAll', () => {
     it('should return an array of notes', async () => {
-      const response = await prisma.note.findMany()
+      const response = await note.findAll()
 
       expect(response).toEqual(fakeNotes)
       expect(prisma.note.findMany).toHaveBeenCalled()
@@ -78,17 +78,14 @@ describe('NoteService', () => {
     it('should update an note', async () => {
       const { id } = fakeNotes[0]
 
-      const response = await prisma.note.update({
-        data: fakeNotes[0],
-        where: id,
-      })
+      const response = await note.update(fakeNotes[0])
 
       expect(response).toEqual(fakeNotes[0])
       expect(prisma.note.update).toHaveBeenCalled()
       expect(prisma.note.update).toHaveBeenCalledTimes(1)
       expect(prisma.note.update).toHaveBeenCalledWith({
         data: fakeNotes[0],
-        where: id,
+        where: { id },
       })
       expect(response instanceof Note).toBeTruthy()
     })
@@ -97,14 +94,12 @@ describe('NoteService', () => {
   describe('delete', () => {
     it('should delete an note', async () => {
       const { id } = fakeNotes[0]
-      const response = await prisma.note.delete({ where: { id } })
+      const response = await note.delete({ id })
 
       expect(response).toEqual([])
       expect(prisma.note.delete).toHaveBeenCalled()
       expect(prisma.note.delete).toHaveBeenCalledTimes(1)
-      expect(prisma.note.delete).toHaveBeenCalledWith({
-        where: { id },
-      })
+      expect(prisma.note.delete).toHaveBeenCalledWith({ where: { id } })
     })
   })
 })
