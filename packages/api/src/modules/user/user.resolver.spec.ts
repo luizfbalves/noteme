@@ -1,9 +1,10 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
+
+import { fakeUsers } from './__mocks__/fakeUsers.js'
 import { User } from './user.entity'
 import { UserResolver } from './user.resolver'
 import { UserService } from './user.service'
-import { fakeUsers } from './__mocks__/fakeUsers.js'
 
 const serviceMock = {
   findAll: jest.fn().mockResolvedValue(fakeUsers),

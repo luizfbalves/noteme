@@ -2,9 +2,10 @@ import { PrismaService } from '@/providers/prisma.service'
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { randomUUID } from 'node:crypto'
+
+import { fakeNotes } from './__mocks__/fakeNotes.js'
 import { Note } from './note.entity'
 import { NoteService } from './note.service'
-import { fakeNotes } from './__mocks__/fakeNotes.js'
 
 const prismaMock = {
   note: {

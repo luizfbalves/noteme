@@ -1,9 +1,10 @@
 import { PrismaService } from '@/providers/prisma.service'
-import { randomUUID } from 'crypto'
-import { UserService } from './user.service'
-import { Test, TestingModule } from '@nestjs/testing'
 import { NotFoundException } from '@nestjs/common'
+import { Test, TestingModule } from '@nestjs/testing'
+import { randomUUID } from 'crypto'
+
 import { fakeUsers } from './__mocks__/fakeUsers.js'
+import { UserService } from './user.service'
 
 const prismaMock = {
   user: {
@@ -38,7 +39,7 @@ describe('UserService', () => {
     const id = fakeUsers[0].id
 
     it('should return one user', async () => {
-      const response = await prisma.user.findUnique({ where: { id } })
+      const response = await service.findOne({ id })
 
       expect(response).toEqual(fakeUsers[0])
       expect(prisma.user.findUnique).toHaveBeenCalled()
@@ -63,7 +64,7 @@ describe('UserService', () => {
     it('should should return nothing when user is not found', async () => {
       jest.spyOn(prisma.user, 'findUnique').mockResolvedValue(null)
 
-      const response = await prisma.user.findUnique({ where: { id } })
+      const response = await service.findOne(id)
 
       expect(response).toBeNull()
       expect(prisma.user.findUnique).toHaveBeenCalled()
@@ -73,7 +74,7 @@ describe('UserService', () => {
 
   describe('create', () => {
     it('should add a new user', async () => {
-      const response = prisma.user.create({ data: fakeUsers[0] })
+      const response = await service.create(fakeUsers[0])
 
       expect(response).toBe(fakeUsers[0])
       expect(prisma.user.create).toHaveBeenCalled()
@@ -85,12 +86,7 @@ describe('UserService', () => {
   describe('update', () => {
     it('should update an user', async () => {
       const id = fakeUsers[0].id
-      const response = await prisma.user.update({
-        data: fakeUsers[0],
-        where: {
-          id,
-        },
-      })
+      const response = await service.update(fakeUsers[0])
 
       expect(response).toEqual(fakeUsers[0])
       expect(prisma.user.update).toHaveBeenCalled()
@@ -117,10 +113,7 @@ describe('UserService', () => {
         .mockRejectedValue(new NotFoundException())
 
       try {
-        await prisma.user.update({
-          data: unexistingUser,
-          where: { id: unexistingUser.id },
-        })
+        await service.update(unexistingUser)
       } catch (error) {
         expect(error).toEqual(new NotFoundException())
       }

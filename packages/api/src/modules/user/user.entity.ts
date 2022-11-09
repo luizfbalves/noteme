@@ -1,5 +1,6 @@
-import { Note } from '../note/note.entity'
 import { Field, ObjectType } from '@nestjs/graphql'
+
+import { Note } from '../note/note.entity'
 
 @ObjectType()
 export class User {
