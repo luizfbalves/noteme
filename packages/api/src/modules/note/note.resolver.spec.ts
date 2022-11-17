@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
+import { Note } from './note.entity'
 import { NoteResolver } from './note.resolver'
 import { NoteService } from './note.service'
 import { fakeNotes } from './__mocks__/fakeNotes.js'
@@ -15,7 +16,7 @@ describe('NoteResolver', () => {
   let service: NoteService
   let resolver: NoteResolver
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         NoteResolver,
@@ -54,6 +55,44 @@ describe('NoteResolver', () => {
       expect(service.findOne).toHaveBeenCalled()
       expect(service.findOne).toHaveBeenCalledTimes(1)
       expect(service.findOne).toHaveBeenCalledWith({ id })
+    })
+  })
+
+  describe('allNotes', () => {
+    it('should return an array of notes', async () => {
+      const response = await resolver.allNotes()
+
+      expect(response).toEqual(fakeNotes)
+      expect(service.findAll).toHaveBeenCalled()
+      expect(service.findAll).toHaveBeenCalledTimes(1)
+      expect(response.every((e) => e instanceof Note)).toBeTruthy()
+    })
+  })
+
+  describe('updateNote', () => {
+    it('should update an note', async () => {
+      const newNote = {
+        id: fakeNotes[0],
+        description: 'updating a note on resolver',
+      }
+      const response = await resolver.updateNote(newNote)
+
+      expect(response).toEqual(fakeNotes[0])
+      expect(service.update).toHaveBeenCalled()
+      expect(service.update).toHaveBeenCalledTimes(1)
+      expect(service.update).toHaveBeenCalledWith(newNote)
+    })
+  })
+
+  describe('deleteNote', () => {
+    it('should delete an note', async () => {
+      const { id } = fakeNotes[0]
+
+      await resolver.deleteNote(id)
+
+      expect(service.delete).toHaveBeenCalled()
+      expect(service.delete).toHaveBeenCalledTimes(1)
+      expect(service.delete).toHaveBeenCalledWith({ id })
     })
   })
 })

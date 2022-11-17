@@ -21,7 +21,7 @@ describe('NoteService', () => {
   let note: NoteService
   let prisma: PrismaService
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         NoteService,
