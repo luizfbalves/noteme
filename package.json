@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "noteme",
   "private": true,
   "workspaces": {
     "packages": [
@@ -18,9 +18,12 @@
     "lint": "lerna run lint --stream",
     "start:dev": "lerna run start:dev --stream"
   },
+  "dependencies": {
+    "typescript": "^4.4.2"
+  },
   "devDependencies": {
     "lerna": "^5.5.4",
-    "eslint": "^8.23.0",
+    "eslint": "^8.27.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-import-helpers": "^1.2.1",
     "eslint-plugin-react": "^7.31.8",

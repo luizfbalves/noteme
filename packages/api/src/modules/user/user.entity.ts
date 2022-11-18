@@ -1,5 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 
+import { Note } from '../note/note.entity'
+
 @ObjectType()
 export class User {
   @Field()
@@ -11,9 +13,12 @@ export class User {
   @Field()
   name: string
 
+  @Field(() => [Note], { nullable: true })
+  notes?: typeof Note[]
+
   @Field()
   createdAt: Date
 
-  @Field()
-  updatedAt: Date
+  @Field({ nullable: true })
+  updatedAt?: Date
 }
