@@ -5,6 +5,9 @@
 
 <ul>  
   <img src="https://img.shields.io/badge/version-1.00-green"/>
+  <img src="https://img.shields.io/badge/licence-MIT-green"/>    
+  <img alt="GitHub commit activity (branch)" src="https://img.shields.io/github/commit-activity/m/luizfbalves/noteme/dev">
+  <img src="https://img.shields.io/github/last-commit/luizfbalves/noteme"/>  
 </ul>
 
 <div align="center">
@@ -12,13 +15,18 @@
 </div>
 
 ## Features
-- [x] login page
-- [x] home page
-- [ ] user page
+- app
+  - [x] login page
+  - [x] home page
+  - [ ] user page
+- api
+  - [x] user crud
+  - [x] notes crud
+  - [ ] auth
 
 ## Repos
-- [x] web app
-- [ ] api
+- [x] app
+- [X] api
 
 ## Tecnologies
 <ul>
@@ -34,4 +42,10 @@
   <li> 
     <a href="https://lerna.js.org/">Lerna</a></br>
   </li>  
+  <li>
+    <a href="https://docs.nestjs.com/">Nestjs</a></br>
+  </li>
+    <li>
+    <a href="https://www.prisma.io/">Prisma</a></br>
+  </li>
 </ul>
