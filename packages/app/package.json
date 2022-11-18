@@ -81,20 +81,5 @@
     "tsutils": "3.21.0",
     "vite": "^2.3.2",
     "vite-plugin-svgr": "^0.3.0"
-  },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy",
-      "^@/(.*)$": [
-        "<rootDir>/src/$1"
-      ]
-    },
-    "moduleDirectories": [
-      "node_modules"
-    ],
-    "transformIgnorePatterns": [
-      "!node_modules/"
-    ]
   }
 }

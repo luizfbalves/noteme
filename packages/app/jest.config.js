@@ -1,17 +1,26 @@
 module.exports = {
-  moduleDirectories: ['node_modules', './src'],
-  moduleFileExtensions: ['js', 'json', 'ts'],
-  rootDir: '.',
-  testRegex: '.*\\.spec\\.ts$',
-  transform: {
-    '^.+\\.(t|j)s$': '@swc/jest',
-  },
-  collectCoverageFrom: ['**/*.(t|j)s'],
-  coverageDirectory: '<rootDir>/coverage',
-  testEnvironment: 'node',
-  roots: ['<rootDir>/src'],
+  testEnvironment: "jsdom",
   moduleNameMapper: {
-    '@/(.*)': '<rootDir>/src/$1',
-    '@modules/(.*)': '<rootDir>/src/modules/$1',
+    "\\.(css|less)$": "identity-obj-proxy",
+    "^@/(.*)$": [
+      "<rootDir>/src/$1"
+    ]
   },
+  transform: {
+    "^.+\\.(t|j)sx?$": ["@swc/jest", {
+      jsc: { 
+        transform: {
+          react: {
+            runtime: 'automatic'
+          }
+        }
+      }
+    }],
+  },
+  moduleDirectories: [
+    "node_modules"
+  ],
+  transformIgnorePatterns: [
+    "!node_modules/"
+  ]
 }
