@@ -1,8 +1,5 @@
 import React from 'react'
-import { DndProvider } from 'react-dnd-multi-backend'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-
-import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 
 import { CustomThemeProvider } from './hooks/theme'
 import Pages from './pages/index'
@@ -19,7 +16,6 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <DndProvider options={HTML5toTouch}>
           <CustomThemeProvider>
             <GlobalStyle />
             <Routes>
@@ -27,7 +23,6 @@ function App() {
               <Route path="/login" element={<Login />} />
             </Routes>
           </CustomThemeProvider>
-        </DndProvider>
       </Router>
     </div>
   )

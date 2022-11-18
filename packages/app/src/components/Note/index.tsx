@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useMultiDrag } from 'react-dnd-multi-backend'
 import { TbTrashX } from 'react-icons/tb'
 
 import { TNote } from '@/store/note/note.store'
@@ -34,23 +33,6 @@ export const Note: React.FC<TNoteEvent> = ({ data, onChange, onDrop }) => {
     }
   }
 
-  const [[, drag]] = useMultiDrag({
-    type: 'note',
-    item: { id },
-    end: (item, monitor) => {
-      const dropResult = monitor.getDropResult<{ id: string }>()
-      if (item && dropResult) {
-        if (typeof onDrop === 'function') {
-          onDrop(item.id)
-        }
-      }
-    },
-
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  })
-
   const callbackDelete = (result: boolean) => {
     if (typeof onDrop === 'function' && result) {
       onDrop(id)
@@ -72,7 +54,7 @@ export const Note: React.FC<TNoteEvent> = ({ data, onChange, onDrop }) => {
   return (
     <>
       {dialog}
-      <Card role="draggable" ref={drag}>
+      <Card role="draggable" >
         <div className="card-header">
           <CloseButton onClick={() => setDialogOpen(true)}>
             <TbTrashX />
