@@ -1,16 +1,20 @@
 import React from 'react'
 import { TbTrash } from 'react-icons/tb'
 
+import { useDroppable } from '@dnd-kit/core'
+
 import { Wrapper, DeleteButton } from './styles'
 
-type TDeleteAreaEvent = {
-  onCanDrop?: () => void
-}
+export const DeleteArea: React.FC = () => {
 
-export const DeleteArea: React.FC<TDeleteAreaEvent> = ({ onCanDrop }) => {
+  const {isOver, setNodeRef} = useDroppable({
+    id: 'droppable',
+  })
+
+  console.log(isOver)
 
   return (
-    <Wrapper show={false} id="dnd" role="dropzone">
+    <Wrapper ref={setNodeRef} show={false} id="dnd" role="dropzone">
       <DeleteButton>{<TbTrash />}</DeleteButton>
     </Wrapper>
   )

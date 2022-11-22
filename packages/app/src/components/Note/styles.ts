@@ -5,7 +5,6 @@ export const Card = styled.div`
   flex-direction: column;
   height: fit-content;
   justify-content: space-between;
-  padding: 1rem;
   border-radius: 10px;
   min-width: 15rem;
   background-color: ${(props) => props.theme.cards.background};
@@ -14,9 +13,14 @@ export const Card = styled.div`
 
   .card-header {
     font-size: 19px;
+    padding: 0.5rem;
+  }
+  .content {
+    all: inherit;
+    padding: 1rem;
   }
 
-  .card-date {
+   .card-date {
     font-size: 11px;
     letter-spacing: 1px;
     text-align: right;

@@ -3,7 +3,7 @@ import { TbTrashX } from 'react-icons/tb'
 
 import { TNote } from '@/store/note/note.store'
 
-import { Dialog } from '@/components'
+import { Dialog, Draggable } from '@/components'
 
 import { dateLL } from '@/utils/index'
 
@@ -18,6 +18,7 @@ type TNoteEvent = {
   onChange?: (data: TNote, event: React.FormEvent<Element>) => void
   onDrop?: (id: string) => void
 }
+
 export const Note: React.FC<TNoteEvent> = ({ data, onChange, onDrop }) => {
   const { id, description, date } = data
 
@@ -54,23 +55,27 @@ export const Note: React.FC<TNoteEvent> = ({ data, onChange, onDrop }) => {
   return (
     <>
       {dialog}
-      <Card role="draggable" >
-        <div className="card-header">
-          <CloseButton onClick={() => setDialogOpen(true)}>
-            <TbTrashX />
-          </CloseButton>
+      <Card >
+        <Draggable id="card-draggable">
+          <div className="card-header">
+            <CloseButton onClick={() => setDialogOpen(true)}>
+              <TbTrashX />
+            </CloseButton>
+          </div>
+        </Draggable>
+        <div className="content">
+          <Textarea
+            contentEditable
+            aria-multiline
+            suppressContentEditableWarning
+            role="textbox"
+            placeholder={'type your note'}
+            onInput={(event) => handleInput(event)}
+          >
+            {description}
+          </Textarea>
+          <span className="card-date">{dateLL(date)}</span>
         </div>
-        <Textarea
-          contentEditable
-          aria-multiline
-          suppressContentEditableWarning
-          role="textbox"
-          placeholder={'type your note'}
-          onInput={(event) => handleInput(event)}
-        >
-          {description}
-        </Textarea>
-        <span className="card-date">{dateLL(date)}</span>
       </Card>
     </>
   )

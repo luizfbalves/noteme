@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
+import { DndContext, DragOverlay } from '@dnd-kit/core'
 import { Loader } from 'rsuite'
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { deleteNote, editNote, TNote } from '@/store/note/note.store'
 
-import { SearchBar, ThemeToggler, Note, DeleteArea } from '@/components'
+import { SearchBar, ThemeToggler, Note, DeleteArea, Draggable } from '@/components'
 
 import { timeout } from '@/utils'
 
 import { NavHeader, Container, Content } from './styles'
+
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -17,6 +19,7 @@ export const Home: React.FC = () => {
   const notesReducer = useAppSelector((state) => state.noteReducer)
 
   const [notes, setNotes] = useState<TNote[]>([])
+  const [isDragging, setIsDragging] = useState(false)
   const [data, setData] = useState<TNote>({
     id: '',
     description: '',
@@ -37,7 +40,6 @@ export const Home: React.FC = () => {
       setData(note)
 
       //TODO find way to dispatch data here
-
       // timeout(700, () => {
       //   dispatch(editNote(note))
       // })
@@ -67,6 +69,17 @@ export const Home: React.FC = () => {
     })
   }
 
+
+  const handleDragStart = () => {
+    setIsDragging(true);
+    console.log(isDragging);
+    
+  }
+  
+  const handleDragEnd = () => {
+    setIsDragging(false);
+  }
+
   useEffect(() => {
     if (notesReducer.notes !== notes) {
       setNotes(notesReducer.notes)
@@ -74,6 +87,7 @@ export const Home: React.FC = () => {
   }, [notesReducer.notes])
 
   //TODO create dinamic greetings
+  //TODO create draggable component to wrap notes
   return (
     <Container>
       <NavHeader>
@@ -84,23 +98,42 @@ export const Home: React.FC = () => {
         <strong>Hi Luiz</strong>
         <span>all your notes here in one place!</span>
       </div>
-      {notesReducer.state === 'loading' ? (
-        <Loader id="loader" />
-      ) : (
-        <Content className="content" onBlur={handleSubmit}>
-          {notes.map((note: TNote) =>
-            note.id ? (
-              <Note
-                key={note.id}
-                data={note}
-                onChange={handleChange}
-                onDrop={handleDrop}
-              />
-            ) : undefined
-          )}
-        </Content>
-      )}
-      <DeleteArea />
+      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>  
+        {notesReducer.state === 'loading' ? (
+          <Loader id="loader" />
+        ) : (
+            <Content className="content" onBlur={handleSubmit}>
+              {notes.map((note: TNote) =>
+                note.id ? (
+                  <div key={note.id}>
+                    {
+                      !isDragging ? (
+                        <Note
+                        data={note}
+                        onChange={handleChange}
+                        onDrop={handleDrop}
+                      />
+                      ) : undefined
+                    }
+                    <DragOverlay>
+                      {
+                        isDragging ? (
+                          <Note
+                          data={note}
+                          onChange={handleChange}
+                          onDrop={handleDrop}
+                        />
+                        ) : undefined
+                      }
+                    </DragOverlay>
+                    </div>
+                  ) : undefined
+                )}
+            </Content>
+          )
+        }
+        <DeleteArea />
+      </DndContext>
     </Container>
   )
 }

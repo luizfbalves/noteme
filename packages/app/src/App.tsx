@@ -16,13 +16,13 @@ function App() {
   return (
     <div className="App">
       <Router>
-          <CustomThemeProvider>
-            <GlobalStyle />
-            <Routes>
-              <Route path="/" element={<Pages />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </CustomThemeProvider>
+        <CustomThemeProvider>
+          <GlobalStyle />
+          <Routes>
+            <Route path="/" element={<Pages />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </CustomThemeProvider>
       </Router>
     </div>
   )
