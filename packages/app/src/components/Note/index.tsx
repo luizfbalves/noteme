@@ -3,7 +3,7 @@ import { TbTrashX } from 'react-icons/tb'
 
 import { TNote } from '@/store/note/note.store'
 
-import { Dialog, Draggable } from '@/components'
+import { Dialog } from '@/components'
 
 import { dateLL } from '@/utils/index'
 
@@ -55,14 +55,12 @@ export const Note: React.FC<TNoteEvent> = ({ data, onChange, onDrop }) => {
   return (
     <>
       {dialog}
-      <Card >
-        <Draggable id="card-draggable">
-          <div className="card-header">
-            <CloseButton onClick={() => setDialogOpen(true)}>
-              <TbTrashX />
-            </CloseButton>
-          </div>
-        </Draggable>
+      <Card>
+        <div className="card-header">
+          <CloseButton onClick={() => setDialogOpen(true)}>
+            <TbTrashX />
+          </CloseButton>
+        </div>
         <div className="content">
           <Textarea
             contentEditable
