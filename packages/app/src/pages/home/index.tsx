@@ -5,7 +5,7 @@ import { Loader } from 'rsuite'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { deleteNote, editNote, TNote } from '@/store/note/note.store'
 
-import { SearchBar, ThemeToggler, Note, DeleteArea } from '@/components'
+import { SearchBar, ThemeToggler, Note } from '@/components'
 
 import { timeout } from '@/utils'
 
@@ -72,8 +72,9 @@ export const Home: React.FC = () => {
     }
   }, [notesReducer.notes])
 
+  console.log('home')
+
   //TODO create dinamic greetings
-  //TODO create draggable component to wrap notes
   return (
     <Container>
       <NavHeader>
@@ -84,7 +85,17 @@ export const Home: React.FC = () => {
         <strong>Hi Luiz</strong>
         <span>all your notes here in one place!</span>
       </div>
-      {notesReducer.state === 'loading' ? (
+      <Content className="content" onBlur={handleSubmit}>
+        {notes.map((note: TNote) => (
+          <Note
+            key={note.id}
+            data={note}
+            onChange={handleChange}
+            onDrop={handleDrop}
+          />
+        ))}
+      </Content>
+      {/* {notesReducer.state === 'loading' ? (
         <Loader id="loader" />
       ) : (
         <Content className="content" onBlur={handleSubmit}>
@@ -97,8 +108,7 @@ export const Home: React.FC = () => {
             />
           ))}
         </Content>
-      )}
-      <DeleteArea />
+      )} */}
     </Container>
   )
 }
