@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Loader } from 'rsuite'
 
@@ -33,21 +33,11 @@ export const Home: React.FC = () => {
   const handleChange = (note: TNote, event: React.FormEvent<Element>) => {
     event.preventDefault()
 
-    if (note.id) {
-      setData(note)
-
-      //TODO find way to dispatch data here
-      // timeout(700, () => {
-      //   dispatch(editNote(note))
-      // })
-    }
+    note.id ? setData(note) : null
   }
 
-  const handleDrop = (id: string) => {
-    if (id) {
-      dispatch(deleteNote({ id }))
-    }
-  }
+  const handleDrop = (id: string) => id ? dispatch(deleteNote({ id })) : null
+
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
@@ -65,16 +55,13 @@ export const Home: React.FC = () => {
       }
     })
   }
-
+  
   useEffect(() => {
     if (notesReducer.notes !== notes) {
       setNotes(notesReducer.notes)
     }
   }, [notesReducer.notes])
 
-  console.log('home')
-
-  //TODO create dinamic greetings
   return (
     <Container>
       <NavHeader>
@@ -114,3 +101,5 @@ export const Home: React.FC = () => {
 }
 
 export default Home
+
+//TODO create dinamic greetings
