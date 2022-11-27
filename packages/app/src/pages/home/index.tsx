@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Loader } from 'rsuite'
 
@@ -11,20 +11,23 @@ import { timeout } from '@/utils'
 
 import { NavHeader, Container, Content } from './styles'
 
+const initialData = {
+  id: '',
+  description: '',
+  date: '',
+}
+
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const notesReducer = useAppSelector((state) => state.noteReducer)
 
   const [notes, setNotes] = useState<TNote[]>([])
-  const [data, setData] = useState<TNote>({
-    id: '',
-    description: '',
-    date: '',
-  })
+  const [data, setData] = useState<TNote>(initialData)
 
   const handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault()
+
     if (data.id) {
       dispatch(editNote(data))
     }
@@ -37,7 +40,6 @@ export const Home: React.FC = () => {
   }
 
   const handleDrop = (id: string) => id ? dispatch(deleteNote({ id })) : null
-
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
@@ -57,11 +59,9 @@ export const Home: React.FC = () => {
   }
   
   useEffect(() => {
-    if (notesReducer.notes !== notes) {
-      setNotes(notesReducer.notes)
-    }
+    setNotes(notesReducer.notes)
   }, [notesReducer.notes])
-
+  
   return (
     <Container>
       <NavHeader>
@@ -72,17 +72,7 @@ export const Home: React.FC = () => {
         <strong>Hi Luiz</strong>
         <span>all your notes here in one place!</span>
       </div>
-      <Content className="content" onBlur={handleSubmit}>
-        {notes.map((note: TNote) => (
-          <Note
-            key={note.id}
-            data={note}
-            onChange={handleChange}
-            onDrop={handleDrop}
-          />
-        ))}
-      </Content>
-      {/* {notesReducer.state === 'loading' ? (
+      {notesReducer.state === 'loading' ? (
         <Loader id="loader" />
       ) : (
         <Content className="content" onBlur={handleSubmit}>
@@ -95,7 +85,7 @@ export const Home: React.FC = () => {
             />
           ))}
         </Content>
-      )} */}
+      )}
     </Container>
   )
 }
