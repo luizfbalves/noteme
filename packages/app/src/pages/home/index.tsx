@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { Loader } from 'rsuite'
 
@@ -11,56 +11,30 @@ import { timeout } from '@/utils'
 
 import { NavHeader, Container, Content } from './styles'
 
-const initialData = {
-  id: '',
-  description: '',
-  date: '',
-}
-
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  const notesReducer = useAppSelector((state) => state.noteReducer)
+  const { notes, state } = useAppSelector((state) => state.noteReducer)
 
-  const [notes, setNotes] = useState<TNote[]>([])
-  const [data, setData] = useState<TNote>(initialData)
+  const [searchText, setSearchText] = useState('')
 
-  const handleSubmit = (event: React.FormEvent): void => {
-    event.preventDefault()
+  const searchRef = useRef('')
+  const noteRef = useRef<TNote>()
 
-    if (data.id) {
-      dispatch(editNote(data))
-    }
-  }
-
-  const handleChange = (note: TNote, event: React.FormEvent<Element>) => {
-    event.preventDefault()
-
-    note.id ? setData(note) : null
-  }
-
+  const handleBlur = () => noteRef.current ? dispatch(editNote(noteRef.current)) : null
+  
   const handleDrop = (id: string) => id ? dispatch(deleteNote({ id })) : null
+  
+  const handleChange = (note: TNote) => noteRef.current = note
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
+    searchRef.current = event.target.value
 
-    const value = event.target.value
-
-    timeout(700, () => {
-      if (value) {
-        const filteredData = notesReducer.notes.filter((note) =>
-          note.description.includes(value)
-        )
-        setNotes(filteredData)
-      } else {
-        setNotes(notesReducer.notes)
-      }
+    //delay to only search when user stops typing
+    timeout(500, () => {
+      setSearchText(searchRef.current)
     })
   }
-  
-  useEffect(() => {
-    setNotes(notesReducer.notes)
-  }, [notesReducer.notes])
   
   return (
     <Container>
@@ -72,11 +46,13 @@ export const Home: React.FC = () => {
         <strong>Hi Luiz</strong>
         <span>all your notes here in one place!</span>
       </div>
-      {notesReducer.state === 'loading' ? (
+      {state === 'loading' ? (
         <Loader id="loader" />
       ) : (
-        <Content className="content" onBlur={handleSubmit}>
-          {notes.map((note: TNote) => (
+          <Content className="content" onBlur={handleBlur}>
+            {notes
+              .filter(note => searchText ? note.description.includes(searchText) : true)
+              .map(note => (
             <Note
               key={note.id}
               data={note}
