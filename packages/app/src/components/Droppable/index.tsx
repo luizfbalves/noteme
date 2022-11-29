@@ -3,14 +3,12 @@ import { TbTrash } from 'react-icons/tb'
 
 import { Wrapper, DeleteButton } from './styles'
 
-export const DeleteArea: React.FC = () => {
-
-
+export const Droppable: React.FC = () => {
   return (
-    <Wrapper show={false} id="dnd" role="dropzone">
+    <Wrapper show={false}>
       <DeleteButton>{<TbTrash />}</DeleteButton>
     </Wrapper>
   )
 }
 
-export default DeleteArea
+export default Droppable
