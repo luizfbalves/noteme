@@ -23,6 +23,7 @@ export const SideNav: React.FC = () => {
 
     dispatch(insertNote(note))
   }
+
   return (
     <Wrapper id="sidenav">
       <ul>
@@ -30,7 +31,7 @@ export const SideNav: React.FC = () => {
           <img src="/assets/images/ico.svg" alt="note.me" />
         </li>
         <div id="menu-itens">
-          <li className="add-note" onClick={() => newNote()}>
+          <li className="add-note" onClick={newNote}>
             <TbCirclePlus />
             <Label className="label">add note</Label>
           </li>

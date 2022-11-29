@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 
 import { Loader } from 'rsuite'
 
@@ -18,24 +18,20 @@ export const Home: React.FC = () => {
 
   const [searchText, setSearchText] = useState('')
 
-  const searchRef = useRef('')
-  const noteRef = useRef<TNote>()
+  var noteData: TNote = { id: '', description: '', date: '' }
 
-  const handleBlur = () => noteRef.current ? dispatch(editNote(noteRef.current)) : null
-  
-  const handleDrop = (id: string) => id ? dispatch(deleteNote({ id })) : null
-  
-  const handleChange = (note: TNote) => noteRef.current = note
+  const handleBlur = () => (noteData ? dispatch(editNote(noteData)) : null)
+
+  const handleDrop = (id: string) => (id ? dispatch(deleteNote({ id })) : null)
+
+  const handleChange = (note: TNote) => (noteData = note)
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    searchRef.current = event.target.value
-
-    //delay to only search when user stops typing
     timeout(500, () => {
-      setSearchText(searchRef.current)
+      setSearchText(event.target.value)
     })
   }
-  
+
   return (
     <Container>
       <NavHeader>
@@ -49,17 +45,19 @@ export const Home: React.FC = () => {
       {state === 'loading' ? (
         <Loader id="loader" />
       ) : (
-          <Content className="content" onBlur={handleBlur}>
-            {notes
-              .filter(note => searchText ? note.description.includes(searchText) : true)
-              .map(note => (
-            <Note
-              key={note.id}
-              data={note}
-              onChange={handleChange}
-              onDrop={handleDrop}
-            />
-          ))}
+        <Content className="content" onBlur={handleBlur}>
+          {notes
+            .filter((note) =>
+              searchText ? note.description.includes(searchText) : true
+            )
+            .map((note) => (
+              <Note
+                key={note.id}
+                data={note}
+                onChange={handleChange}
+                onDrop={handleDrop}
+              />
+            ))}
         </Content>
       )}
     </Container>
