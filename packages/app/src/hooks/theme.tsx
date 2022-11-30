@@ -6,9 +6,13 @@ import { ThemeProvider } from 'styled-components'
 
 import { darkMode, lightMode } from '../styles/themes'
 
-interface ThemeContextData {
+type ThemeContextTypes = {
   toggleTheme(): void
   theme: ThemeTypes
+}
+
+type ThemeProviderTypes = {
+  children: React.ReactNode
 }
 
 export type ThemeTypes = {
@@ -32,15 +36,15 @@ export type ThemeTypes = {
   }
 }
 
-const ThemeContext = createContext<ThemeContextData>({} as ThemeContextData)
+const ThemeContext = createContext<ThemeContextTypes>({} as ThemeContextTypes)
 
 export const useTheme = () => useContext(ThemeContext)
 
-export const CustomThemeProvider = ({ children }: any) => {
+export const CustomThemeProvider = ({ children }: ThemeProviderTypes) => {
   const [theme, setTheme] = useState<ThemeTypes>(darkMode)
 
   const toggleTheme = useCallback(() => {
-    theme.name === 'light' ? setTheme(darkMode) : setTheme(lightMode)
+    theme.type === 'light' ? setTheme(darkMode) : setTheme(lightMode)
   }, [theme])
 
   useEffect(() => {
