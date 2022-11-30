@@ -16,13 +16,23 @@ export type TItem = {
 type TNoteEvent = {
   data: TNote
   onChange?: (data: TNote, event: React.FormEvent<Element>) => void
+  onClick?: (data: TNote, event: React.FormEvent<Element>) => void
   onDrop?: (id: string) => void
 }
 
-export const Note: React.FC<TNoteEvent> = ({ data, onChange, onDrop }) => {
+export const Note: React.FC<TNoteEvent> = ({
+  data,
+  onChange,
+  onClick,
+  onDrop,
+}) => {
   const { id, description, date } = data
 
   const [dialogOpen, setDialogOpen] = useState(false)
+
+  const handleClick = (event: React.FormEvent<HTMLDivElement>): void => {
+    onClick && onClick(data, event)
+  }
 
   const handleInput = (event: React.FormEvent<HTMLDivElement>): void => {
     event.preventDefault()
@@ -55,7 +65,7 @@ export const Note: React.FC<TNoteEvent> = ({ data, onChange, onDrop }) => {
   return (
     <>
       {dialog}
-      <Card>
+      <Card onClick={handleClick}>
         <div className="card-header">
           <CloseButton onClick={() => setDialogOpen(true)}>
             <TbTrashX />
@@ -68,7 +78,7 @@ export const Note: React.FC<TNoteEvent> = ({ data, onChange, onDrop }) => {
             suppressContentEditableWarning
             role="textbox"
             placeholder={'type your note'}
-            onInput={(event) => handleInput(event)}
+            onBlur={(event) => handleInput(event)}
           >
             {description}
           </Textarea>
