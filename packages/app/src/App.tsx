@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import { CustomThemeProvider } from './hooks/theme'
@@ -11,8 +11,10 @@ import GlobalStyle from './styles/global'
 function App() {
   const dispatch = useAppDispatch()
 
-  dispatch(fetchInitialNotes())
-
+  useEffect(() => {
+    dispatch(fetchInitialNotes())
+  }, [])
+  
   return (
     <div className="App">
       <Router>

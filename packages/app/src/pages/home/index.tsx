@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { Loader } from 'rsuite'
 
@@ -7,28 +7,25 @@ import { deleteNote, editNote, TNote } from '@/store/note/note.store'
 
 import { SearchBar, ThemeToggler, Note } from '@/components'
 
-import { timeout } from '@/utils'
-
 import { NavHeader, Container, Content } from './styles'
 
 export const Home: React.FC = () => {
+
   const dispatch = useAppDispatch()
 
   const { notes, state } = useAppSelector((state) => state.noteReducer)
 
   const [searchText, setSearchText] = useState('')
-  const [note, setNote] = useState({ id: '', description: '', date: '' })
+  const noteRef = useRef<TNote>()
 
-  const handleBlur = () => {if (note) dispatch(editNote(note))}
-
-  const handleDrop = (id: string) => {if (id) dispatch(deleteNote({ id }))}
-
-  const handleChange = (value: TNote) => (setNote(value))
-
+  const handleChange = (value: TNote) => (noteRef.current = value)
+  
+  const handleDrop = (id: string) => id && dispatch(deleteNote({ id }))
+  
+  const handleBlur = () => noteRef.current && dispatch(editNote(noteRef.current))
+  
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    timeout(500, () => {
-      setSearchText(event.target.value)
-    })
+    setSearchText(event.target.value)
   }
 
   return (
