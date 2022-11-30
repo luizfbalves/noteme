@@ -17,14 +17,13 @@ export const Home: React.FC = () => {
   const { notes, state } = useAppSelector((state) => state.noteReducer)
 
   const [searchText, setSearchText] = useState('')
+  const [note, setNote] = useState({ id: '', description: '', date: '' })
 
-  var noteData: TNote = { id: '', description: '', date: '' }
+  const handleBlur = () => {if (note) dispatch(editNote(note))}
 
-  const handleBlur = () => (noteData ? dispatch(editNote(noteData)) : null)
+  const handleDrop = (id: string) => {if (id) dispatch(deleteNote({ id }))}
 
-  const handleDrop = (id: string) => (id ? dispatch(deleteNote({ id })) : null)
-
-  const handleChange = (note: TNote) => (noteData = note)
+  const handleChange = (value: TNote) => (setNote(value))
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     timeout(500, () => {
@@ -48,7 +47,7 @@ export const Home: React.FC = () => {
         <Content className="content" onBlur={handleBlur}>
           {notes
             .filter((note) =>
-              searchText ? note.description.includes(searchText) : true
+              note.description.includes(searchText) ?? true
             )
             .map((note) => (
               <Note
