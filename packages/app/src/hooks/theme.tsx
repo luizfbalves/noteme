@@ -17,7 +17,7 @@ type ThemeProviderTypes = {
 
 export type ThemeTypes = {
   name: string
-  type: 'light' | 'dark' | 'high-contrast'
+  type: 'light' | 'dark'
   colors: {
     primary: string
     font: string
@@ -55,9 +55,9 @@ export const CustomThemeProvider = ({ children }: ThemeProviderTypes) => {
 
   return (
     <ThemeContext.Provider value={{ toggleTheme, theme }}>
-      <ThemeProvider theme={theme}>
-        <CustomProvider theme={theme.type || 'dark'}>{children}</CustomProvider>
-      </ThemeProvider>
+      <CustomProvider theme={theme.type || 'dark'}>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      </CustomProvider>
     </ThemeContext.Provider>
   )
 }
