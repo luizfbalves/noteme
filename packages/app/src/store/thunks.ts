@@ -3,8 +3,7 @@ import localforage from 'localforage'
 
 import { sleep } from '@/utils'
 
-const fetchInitialNotes = createAsyncThunk(
-  'note/fectchInitialNotes',
+const fetchInitialNotes = createAsyncThunk('note/fectchInitialNotes',
   async () => {
     const response = await localforage.getItem('notes')
 

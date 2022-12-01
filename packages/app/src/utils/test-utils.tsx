@@ -11,7 +11,7 @@ const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <Provider store={store}>
         <Router>
-          <CustomThemeProvider theme="light">{children}</CustomThemeProvider>
+          <CustomThemeProvider>{children}</CustomThemeProvider>
         </Router>
     </Provider>
   )
