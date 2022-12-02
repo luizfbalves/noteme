@@ -41,7 +41,7 @@ export const Dialog: React.FC<DialogTypes> = (props) => {
         <Modal.Body>{content}</Modal.Body>
         <Modal.Footer>
           <Button onClick={() => handleSubmit(true)} appearance="default">
-            Delete
+            Confirm
           </Button>
           <Button onClick={() => handleSubmit(false)} appearance="subtle">
             Cancel
