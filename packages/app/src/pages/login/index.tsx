@@ -8,7 +8,7 @@ export default function Login() {
   return (
     <Container>
       <Banner>
-        <img src="/assets/images/banner.svg" alt="" />
+        <img src="/assets/images/banner.svg" alt="wellcome" />
       </Banner>
       <FormLogin>
         <FormLogin.Group id="title">
@@ -17,7 +17,7 @@ export default function Login() {
           <br />
         </FormLogin.Group>
         <FormLogin.Group>
-          <Button block color="blue" appearance="primary">
+          <Button block>
             Join with Google
           </Button>
           <Divider>or</Divider>
@@ -30,7 +30,7 @@ export default function Login() {
           <FormLogin.ControlLabel>Password</FormLogin.ControlLabel>
           <Input title="password" type="password" />
         </FormLogin.Group>
-        <Button block color="green" appearance="primary">
+        <Button block color="blue" appearance="primary">
           Login
         </Button>
       </FormLogin>
