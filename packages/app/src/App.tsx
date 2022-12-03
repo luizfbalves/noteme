@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchInitialNotes())
   }, [])
-  
+
   return (
     <div className="App">
       <Router>

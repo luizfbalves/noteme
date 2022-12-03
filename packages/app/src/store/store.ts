@@ -1,16 +1,14 @@
-import { notesApi } from '@/service/notes'
 import { configureStore } from '@reduxjs/toolkit'
 import localforage from 'localforage'
-
+import { api } from '../services/rtk/notesApi'
 import noteReducer from './note/note.store'
 
 const store = configureStore({
   reducer: {
     noteReducer,
-    [notesApi.reducerPath]: notesApi.reducer,
+    [api.reducerPath]: api.reducer
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(notesApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware)
 })
 
 store.subscribe(() => {

@@ -2,12 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import localforage from 'localforage'
 
 import { sleep } from '@/utils'
+import { useGetAllNotesQuery } from '@/services/rtk/notesApi'
 
 const fetchInitialNotes = createAsyncThunk('note/fectchInitialNotes',
   async () => {
     const response = await localforage.getItem('notes')
 
-    //TODO remove this timeout when using real API
     await sleep(500)
 
     if (response) {
