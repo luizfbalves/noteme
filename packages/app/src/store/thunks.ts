@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import localforage from 'localforage'
 
 import { sleep } from '@/utils'
-import { useGetAllNotesQuery } from '@/services/rtk/notesApi'
 
 const fetchInitialNotes = createAsyncThunk('note/fectchInitialNotes',
   async () => {

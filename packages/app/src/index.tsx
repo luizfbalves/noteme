@@ -8,7 +8,7 @@ import 'rsuite/dist/rsuite.min.css'
 import './styles/sass/app.scss'
 import store from './store/store'
 import { ApolloProvider } from '@apollo/client'
-import client from './services/apollo/api'
+import client from './features/apollo/api'
 import { ApiProvider } from '@reduxjs/toolkit/dist/query/react'
 import { api } from './services/rtk/notesApi'
 
