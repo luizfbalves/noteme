@@ -20,9 +20,8 @@ type TNoteEvent = {
 }
 
 export const Note: React.FC<TNoteEvent> = (props) => {
-  const {data, onChange, onDrop} = props
+  const { data, onChange, onDrop } = props
   const { id, description, updatedAt } = data
-  console.log(data);
 
   const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -33,8 +32,6 @@ export const Note: React.FC<TNoteEvent> = (props) => {
       onChange({ id, description: input, updatedAt }, event)
     }
   }
-
-  
 
   const callbackDelete = (result: boolean) => {
     if (typeof onDrop === 'function' && result) {
