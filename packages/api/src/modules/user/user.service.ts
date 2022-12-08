@@ -7,14 +7,14 @@ import { UserUpdateInput } from './dtos/user.update.input'
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   findOne(data: Prisma.UserWhereUniqueInput) {
     const { id } = data
     return this.prisma.user.findUnique({
       where: {
         id,
-      },
+      }, include: { notes: true }
     })
   }
 
