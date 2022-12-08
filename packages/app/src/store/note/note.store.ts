@@ -5,7 +5,7 @@ import { fetchInitialNotes } from '../thunks'
 export interface TNote {
   id: string
   description: string
-  date: string
+  updatedAt: string
 }
 
 export interface TNotes {

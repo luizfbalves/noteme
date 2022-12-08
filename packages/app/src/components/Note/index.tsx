@@ -21,7 +21,8 @@ type TNoteEvent = {
 
 export const Note: React.FC<TNoteEvent> = (props) => {
   const {data, onChange, onDrop} = props
-  const { id, description, date } = data
+  const { id, description, updatedAt } = data
+  console.log(data);
 
   const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -29,9 +30,11 @@ export const Note: React.FC<TNoteEvent> = (props) => {
     const input = event.currentTarget.textContent || description
 
     if (typeof onChange === 'function') {
-      onChange({ id, description: input, date }, event)
+      onChange({ id, description: input, updatedAt }, event)
     }
   }
+
+  
 
   const callbackDelete = (result: boolean) => {
     if (typeof onDrop === 'function' && result) {
@@ -71,7 +74,7 @@ export const Note: React.FC<TNoteEvent> = (props) => {
           >
             {description}
           </Textarea>
-          <span className="card-date">{dateLL(date)}</span>
+          <span className="card-date">{dateLL(updatedAt)}</span>
         </div>
       </Card>
     </>
