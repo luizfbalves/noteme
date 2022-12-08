@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 
-import { useGetAllNotesQuery } from '@/services/rtk/notesApi'
+import { getAllNotesType } from '@/services/rtk/notesApi'
 import { Loader } from 'rsuite'
 
 import { useAppDispatch } from '@/store/hooks'
@@ -9,13 +9,13 @@ import { deleteNote, editNote, TNote } from '@/store/note/note.store'
 import { SearchBar, ThemeToggler, Note } from '@/components'
 
 import { NavHeader, Container, Content } from './styles'
+import { useQuery } from '@apollo/client'
+import { GET_ALLNOTES } from '@/features/apollo/notes'
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  const { data, isLoading, error } = useGetAllNotesQuery({})
-
-  const notes = data?.allNotes || []
+  const {data, loading, error} = useQuery<getAllNotesType>(GET_ALLNOTES)
 
   const [searchText, setSearchText] = useState('')
   const noteRef = useRef<TNote>()
@@ -24,8 +24,9 @@ export const Home: React.FC = () => {
 
   const handleDrop = (id: string) => id && dispatch(deleteNote({ id }))
 
-  const handleBlur = () =>
+  const handleBlur = () => {
     noteRef.current && dispatch(editNote(noteRef.current))
+  }
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value)
@@ -42,13 +43,13 @@ export const Home: React.FC = () => {
         <span>all your notes here in one place!</span>
       </div>
       <Content className="content" onBlur={handleBlur}>
-        {isLoading ? (
+        {loading ? (
           <Loader id="loader" />
         ) : error ? (
           <div>{`something went wrong =/`}</div>
         ) : (
-          notes &&
-          notes
+          data?.allNotes &&
+          data.allNotes
             .filter((item) => item.description.includes(searchText) ?? true)
             .map((item) => (
               <Note
