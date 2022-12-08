@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { Provider } from 'react-redux'
 
-import App from './App'
 import 'rsuite/dist/rsuite.min.css'
 import './styles/sass/app.scss'
-import store from './store/store'
 import { ApolloProvider } from '@apollo/client'
-import client from './features/apollo/api'
 import { ApiProvider } from '@reduxjs/toolkit/dist/query/react'
+
+import App from './App'
+import client from './features/apollo/api'
 import { api } from './services/rtk/notesApi'
+import store from './store/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(

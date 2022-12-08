@@ -4,8 +4,6 @@ import localizedFormat from 'dayjs/plugin/localizedFormat'
 
 dayjs.extend(localizedFormat).locale('en-us')
 
-let timeot: any
-
 export const dateRFC = dayjs().format()
 
 export const dateLL = (date: string) => dayjs(date).format('LL')

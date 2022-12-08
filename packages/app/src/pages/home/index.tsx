@@ -42,6 +42,21 @@ export const Home: React.FC = () => {
     setSearchText(event.target.value)
   }
 
+  const LoadingElement = (loading && <Loader id="loader" />)
+
+  const ErrorElement = (error && <ErrorMessage>{`something went wrong =/`}</ErrorMessage>)
+
+  const NotesElement = (notes && notes
+  .filter((item) => item.description.includes(searchText) ?? true)
+  .map((item) => (
+    <Note
+      key={item.id}
+      data={item}
+      onChange={handleChange}
+      onDrop={handleDrop}
+    />
+  )))
+    
   return (
     <Container>
       <NavHeader>
@@ -53,28 +68,12 @@ export const Home: React.FC = () => {
         <span>all your notes here in one place!</span>
       </div>
       <Content className="content" onBlur={handleBlur}>
-        {loading ? (
-          <Loader id="loader" />
-        ) : error ? (
-          <ErrorMessage>{`something went wrong =/`}</ErrorMessage>
-        ) : (
-          notes &&
-          notes
-            .filter((item) => item.description.includes(searchText) ?? true)
-            .map((item) => (
-              <Note
-                key={item.id}
-                data={item}
-                onChange={handleChange}
-                onDrop={handleDrop}
-              />
-            ))
-        )}
+        {LoadingElement}
+        {ErrorElement}
+        {NotesElement}
       </Content>
     </Container>
   )
 }
 
 export default Home
-
-//TODO create dinamic greetings

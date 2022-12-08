@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { fetchInitialNotes } from '../thunks'
-
 export interface TNote {
   id: string
   description: string

@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import localforage from 'localforage'
+
 import { api } from '../services/rtk/notesApi'
 import noteReducer from './note/note.store'
 
