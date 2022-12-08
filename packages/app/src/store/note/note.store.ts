@@ -34,17 +34,17 @@ export const note = createSlice({
       state.notes = state.notes.filter((note) => note.id !== action.payload.id)
     },
   },
-  extraReducers(builder) {
-    builder.addCase(fetchInitialNotes.fulfilled, (state, action) => {
-      if (state.notes.length === 0 && action.payload) {
-        state.notes.push(...action.payload)
-        state.state = 'idle'
-      }
-    }),
-      builder.addDefaultCase((state) => {
-        state.state = 'loading'
-      })
-  },
+  // extraReducers(builder) {
+  //   builder.addCase(fetchInitialNotes.fulfilled, (state, action) => {
+  //     if (state.notes.length === 0 && action.payload) {
+  //       state.notes.push(...action.payload)
+  //       state.state = 'idle'
+  //     }
+  //   }),
+  //     builder.addDefaultCase((state) => {
+  //       state.state = 'loading'
+  //     })
+  // },
 })
 
 export const { insertNote, editNote, deleteNote } = note.actions

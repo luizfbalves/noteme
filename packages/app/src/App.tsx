@@ -4,16 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { CustomThemeProvider } from './hooks/theme'
 import Pages from './pages/index'
 import Login from './pages/login'
-import { useAppDispatch } from './store/hooks'
-import { fetchInitialNotes } from './store/thunks'
 import GlobalStyle from './styles/global'
 
 function App() {
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(fetchInitialNotes())
-  }, [])
 
   return (
     <div className="App">

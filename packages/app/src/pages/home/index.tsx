@@ -14,15 +14,22 @@ import { NavHeader, Container, Content } from './styles'
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  const { data, loading, error } = useQuery<findUserType>(GET_FINDUSER, {
-    variables: { findUserId: '2e06c717-391f-4cc7-b345-e5ac51cdf8e0' },
+  const { loading, error } = useQuery<findUserType>(GET_FINDUSER, {
+    variables: { findUserId: '2e06c717-391f-4cc7-b345-e5ac51cdf8e0' }, onCompleted: ({findUser}) => {
+      setNotes(findUser.notes)
+      setName(`Hi ${findUser.name}`)
+    }
   })
 
-  const { notes, name } = data?.findUser || {}
-
+  //states
   const [searchText, setSearchText] = useState('')
+  const [notes, setNotes] = useState<TNote[]>()
+  const [name, setName] = useState('User')
+
+  //refs
   const noteRef = useRef<TNote>()
 
+  //methods
   const handleChange = (value: TNote) => (noteRef.current = value)
 
   const handleDrop = (id: string) => id && dispatch(deleteNote({ id }))
@@ -42,7 +49,7 @@ export const Home: React.FC = () => {
         <ThemeToggler />
       </NavHeader>
       <div className="greetings">
-        <strong>{`Hi ${name}`}</strong>
+        <strong>{name}</strong>
         <span>all your notes here in one place!</span>
       </div>
       <Content className="content" onBlur={handleBlur}>
