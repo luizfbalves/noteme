@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 
-import { getAllNotesType } from '@/services/rtk/notesApi'
+import { findUserType, GET_FINDUSER } from '@/features/apollo/notes'
+import { useQuery } from '@apollo/client'
 import { Loader } from 'rsuite'
 
 import { useAppDispatch } from '@/store/hooks'
@@ -9,13 +10,15 @@ import { deleteNote, editNote, TNote } from '@/store/note/note.store'
 import { SearchBar, ThemeToggler, Note } from '@/components'
 
 import { NavHeader, Container, Content } from './styles'
-import { useQuery } from '@apollo/client'
-import { GET_ALLNOTES } from '@/features/apollo/notes'
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  const {data, loading, error} = useQuery<getAllNotesType>(GET_ALLNOTES)
+  const { data, loading, error } = useQuery<findUserType>(GET_FINDUSER, {
+    variables: { findUserId: '2e06c717-391f-4cc7-b345-e5ac51cdf8e0' },
+  })
+
+  const { notes, name } = data?.findUser || {}
 
   const [searchText, setSearchText] = useState('')
   const noteRef = useRef<TNote>()
@@ -39,7 +42,7 @@ export const Home: React.FC = () => {
         <ThemeToggler />
       </NavHeader>
       <div className="greetings">
-        <strong>Hi Luiz</strong>
+        <strong>{`Hi ${name}`}</strong>
         <span>all your notes here in one place!</span>
       </div>
       <Content className="content" onBlur={handleBlur}>
@@ -48,8 +51,8 @@ export const Home: React.FC = () => {
         ) : error ? (
           <div>{`something went wrong =/`}</div>
         ) : (
-          data?.allNotes &&
-          data.allNotes
+          notes &&
+          notes
             .filter((item) => item.description.includes(searchText) ?? true)
             .map((item) => (
               <Note
