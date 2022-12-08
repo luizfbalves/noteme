@@ -7,7 +7,7 @@ import { Loader } from 'rsuite'
 import { useAppDispatch } from '@/store/hooks'
 import { deleteNote, editNote, TNote } from '@/store/note/note.store'
 
-import { SearchBar, ThemeToggler, Note } from '@/components'
+import { SearchBar, ThemeToggler, Note, ErrorMessage} from '@/components'
 
 import { NavHeader, Container, Content } from './styles'
 
@@ -56,7 +56,7 @@ export const Home: React.FC = () => {
         {loading ? (
           <Loader id="loader" />
         ) : error ? (
-          <div>{`something went wrong =/`}</div>
+          <ErrorMessage>{`something went wrong =/`}</ErrorMessage>
         ) : (
           notes &&
           notes

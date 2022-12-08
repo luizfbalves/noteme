@@ -32,9 +32,9 @@ export const Container = styled.div`
   }
 
   #loader {
-    position: fixed;
-    left: 50%;
+    position: relative;
     top: 50%;
+    margin: 0 auto;
   }
 `
 export const Content = styled.div`
