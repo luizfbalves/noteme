@@ -7,7 +7,7 @@ export class Note {
   @Field()
   id: string
 
-  @Field({ nullable: true })
+  @Field()
   description?: string
 
   @Field(() => User)

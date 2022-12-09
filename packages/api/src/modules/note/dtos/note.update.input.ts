@@ -6,5 +6,5 @@ export class NoteUpdateInput {
   id: string
 
   @Field({ nullable: true })
-  description?: string
+  description: string
 }

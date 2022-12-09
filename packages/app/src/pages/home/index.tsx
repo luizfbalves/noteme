@@ -1,24 +1,28 @@
 import React, { useRef, useState } from 'react'
 
-import { findUserType, GET_FINDUSER } from '@/features/apollo/notes'
+import { GET_FINDUSER } from '@/features/apollo/notes.gql'
 import { useQuery } from '@apollo/client'
 import { Loader } from 'rsuite'
 
 import { useAppDispatch } from '@/store/hooks'
 import { deleteNote, editNote, TNote } from '@/store/note/note.store'
 
-import { SearchBar, ThemeToggler, Note, ErrorMessage} from '@/components'
+import { SearchBar, ThemeToggler, Note, ErrorMessage } from '@/components'
 
 import { NavHeader, Container, Content } from './styles'
 
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  const { loading, error } = useQuery<findUserType>(GET_FINDUSER, {
-    variables: { findUserId: '2e06c717-391f-4cc7-b345-e5ac51cdf8e0' }, onCompleted: ({findUser}) => {
-      setNotes(findUser.notes)
+  const { loading, error } = useQuery(GET_FINDUSER, {
+    variables: { findUserId: '2e06c717-391f-4cc7-b345-e5ac51cdf8e0' },
+    onCompleted: ({ findUser }) => {
+      const data = findUser.notes as unknown as TNote[]
+
+      Array.isArray(data) && setNotes(data)
+
       setName(`Hi ${findUser.name}`)
-    }
+    },
   })
 
   //states
@@ -42,21 +46,25 @@ export const Home: React.FC = () => {
     setSearchText(event.target.value)
   }
 
-  const LoadingElement = (loading && <Loader id="loader" />)
+  const LoadingElement = loading && <Loader id="loader" />
 
-  const ErrorElement = (error && <ErrorMessage>{`something went wrong =/`}</ErrorMessage>)
+  const ErrorElement = error && (
+    <ErrorMessage>{`something went wrong =/`}</ErrorMessage>
+  )
 
-  const NotesElement = (notes && notes
-  .filter((item) => item.description.includes(searchText) ?? true)
-  .map((item) => (
-    <Note
-      key={item.id}
-      data={item}
-      onChange={handleChange}
-      onDrop={handleDrop}
-    />
-  )))
-    
+  const NotesElement =
+    notes &&
+    notes
+      .filter((item) => item.description.includes(searchText) ?? true)
+      .map((item) => (
+        <Note
+          key={item.id}
+          data={item}
+          onChange={handleChange}
+          onDrop={handleDrop}
+        />
+      ))
+
   return (
     <Container>
       <NavHeader>
