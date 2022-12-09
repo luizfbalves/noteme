@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 
-import { GET_FINDUSER } from '@/features/apollo/notes.gql'
+import { GET_FINDUSER } from '@/features/apollo/documents/notes.gql'
+import { findUserType } from '@/features/apollo/documents/notes.types'
 import { useQuery } from '@apollo/client'
 import { Loader } from 'rsuite'
 
@@ -14,21 +15,21 @@ import { NavHeader, Container, Content } from './styles'
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  const { loading, error } = useQuery(GET_FINDUSER, {
+  const { loading, error } = useQuery<findUserType>(GET_FINDUSER, {
     variables: { findUserId: '2e06c717-391f-4cc7-b345-e5ac51cdf8e0' },
     onCompleted: ({ findUser }) => {
-      const data = findUser.notes as unknown as TNote[]
+      const { notes, name } = findUser
 
-      Array.isArray(data) && setNotes(data)
+      Array.isArray(notes) && setNotes(notes)
 
-      setName(`Hi ${findUser.name}`)
+      setName(`Hi ${name}`)
     },
   })
 
   //states
   const [searchText, setSearchText] = useState('')
   const [notes, setNotes] = useState<TNote[]>()
-  const [name, setName] = useState('User')
+  const [name, setName] = useState('')
 
   //refs
   const noteRef = useRef<TNote>()
