@@ -1,7 +1,8 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
+import { env } from 'node:process';
 
 const config: CodegenConfig = {
-  schema: process.env.BASE_URL,
+  schema: './',
   documents: ['src/**/*.tsx'],
   generates: {
     './src/__generated__/': {
