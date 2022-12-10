@@ -1,10 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import { Button, Input, Divider } from 'rsuite'
+import { supabase } from '@/services/supabaseClient'
+import { Button, Input, Divider, Loader } from 'rsuite'
 
 import { Container, Banner, FormLogin } from './styles'
 
 export default function Login() {
+  const [nickname, setNickname] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const handleNickname = (value: string) => setNickname(value)
+  const handleEmail = (value: string) => setEmail(value)
+  const handlePassword = (value: string) => setPassword(value)
+
+  //TODO validate signup signin use cases-
+  //TODO add alerts for error messages
+  const handleSignIn = async (event: React.SyntheticEvent) => {
+    event.preventDefault()
+    console.log(email, password, nickname)
+
+    try {
+      setLoading(true)
+      const { error, data } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+        // options: { data: { nickname } },
+      })
+      console.log(data)
+      if (error) {
+        console.log(error.message)
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <Container>
       <Banner>
@@ -17,22 +51,33 @@ export default function Login() {
           <br />
         </FormLogin.Group>
         <FormLogin.Group>
-          <Button block>
-            Join with Google
-          </Button>
+          <Button block>Join with Google</Button>
           <Divider>or</Divider>
         </FormLogin.Group>
         <FormLogin.Group>
+          <FormLogin.ControlLabel>Nickname</FormLogin.ControlLabel>
+          <Input onChange={handleNickname} title="nickname" />
+        </FormLogin.Group>
+        <FormLogin.Group>
           <FormLogin.ControlLabel>Email</FormLogin.ControlLabel>
-          <Input title="email" type="email" />
+          <Input onChange={handleEmail} title="email" type="email" />
         </FormLogin.Group>
         <FormLogin.Group>
           <FormLogin.ControlLabel>Password</FormLogin.ControlLabel>
-          <Input title="password" type="password" />
+          <Input onChange={handlePassword} title="password" type="password" />
         </FormLogin.Group>
-        <Button block color="blue" appearance="primary">
-          Login
-        </Button>
+        {loading ? (
+          <Loader className="absolut-center" />
+        ) : (
+          <Button
+            block
+            color="blue"
+            appearance="primary"
+            onClick={handleSignIn}
+          >
+            Login
+          </Button>
+        )}
       </FormLogin>
     </Container>
   )
