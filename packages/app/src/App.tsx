@@ -11,9 +11,15 @@ import { ProtectedRoute } from '@/components'
 import { CustomThemeProvider } from './hooks/theme'
 import Pages from './pages/index'
 import Login from './pages/login'
+import { useAppDispatch } from './store/hooks'
+import { fetchUserAuth } from './store/thunks'
 import GlobalStyle from './styles/global'
 
 export const App: React.FC = () => {
+  const dispatch = useAppDispatch()
+
+  dispatch(fetchUserAuth())
+
   return (
     <div className="App">
       <Router>

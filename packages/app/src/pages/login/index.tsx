@@ -1,24 +1,41 @@
 import React, { useState } from 'react'
 
 import { supabase } from '@/services/supabaseClient'
-import { Button, Divider, Loader, Message, useToaster } from 'rsuite'
+import { Button, Divider, Loader } from 'rsuite'
 
-import { useAppSelector } from '@/store/hooks'
+import { useAppDispatch } from '@/store/hooks'
+import { userAuth } from '@/store/user/user.store'
 
 import { Container, Banner, FormLogin } from './styles'
 
 export const Login: React.FC = () => {
-  const [nickname, setNickname] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const [toastMessage, setToastMessage] = useState('')
 
-  const handleNickname = (value: string) => setNickname(value)
   const handleEmail = (value: string) => setEmail(value)
   const handlePassword = (value: string) => setPassword(value)
 
-  const userAuth = useAppSelector((state) => state.userReducer)
+  const dispatch = useAppDispatch()
+
+  const handleSignin = async () => {
+    try {
+      setLoading(true)
+      const userResponse = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+      console.log(userResponse)
+
+      // if (userResponse) {
+      //   dispatch(userAuth({ isLogged: true }))
+      // }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <Container>
@@ -36,10 +53,6 @@ export const Login: React.FC = () => {
             Join with Google
           </Button>
           <Divider>or</Divider>
-        </FormLogin.Group>
-        <FormLogin.Group style={{ display: 'none' }}>
-          <FormLogin.ControlLabel>Nickname</FormLogin.ControlLabel>
-          <FormLogin.Control onChange={handleNickname} name="nickname" />
         </FormLogin.Group>
         <FormLogin.Group>
           <FormLogin.ControlLabel>Email</FormLogin.ControlLabel>
@@ -63,7 +76,13 @@ export const Login: React.FC = () => {
           <Loader className="absolut-center" />
         ) : (
           <>
-            <Button type="submit" block color="blue" appearance="primary">
+            <Button
+              type="submit"
+              block
+              color="blue"
+              appearance="primary"
+              onClick={handleSignin}
+            >
               Get-in
             </Button>
             <br />
