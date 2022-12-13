@@ -1,8 +1,6 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 
-import { Loader } from 'rsuite'
-
 import { useAppSelector } from '@/store/hooks'
 
 type ProtectedRouteType = {
@@ -10,12 +8,8 @@ type ProtectedRouteType = {
 }
 
 export const ProtectedRoute = (props: ProtectedRouteType) => {
-  const { isLogged, isLoading } = useAppSelector((state) => state.userReducer)
-  console.log(isLogged, isLoading)
+  const { isLogged } = useAppSelector((state) => state.userReducer)
 
-  if (isLoading) {
-    return <Loader className=".absolut-center" />
-  }
   if (!isLogged) {
     return <Navigate to="/login" replace />
   }
