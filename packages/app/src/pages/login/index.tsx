@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 
-import { supabase } from '@/services/supabaseClient'
 import { Button, Divider, Loader } from 'rsuite'
 
-import { useAppDispatch } from '@/store/hooks'
-import { userAuth } from '@/store/user/user.store'
+import { handleSignIn } from '@/utils/auth'
 
 import { Container, Banner, FormLogin } from './styles'
 
@@ -16,20 +14,10 @@ export const Login: React.FC = () => {
   const handleEmail = (value: string) => setEmail(value)
   const handlePassword = (value: string) => setPassword(value)
 
-  const dispatch = useAppDispatch()
-
   const handleSignin = async () => {
     try {
       setLoading(true)
-      const userResponse = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-      console.log(userResponse)
-
-      // if (userResponse) {
-      //   dispatch(userAuth({ isLogged: true }))
-      // }
+      await handleSignIn(email, password)
     } catch (error) {
       console.log(error)
     } finally {

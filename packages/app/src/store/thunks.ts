@@ -20,17 +20,32 @@ const fetchInitialNotes = createAsyncThunk('note/fectchInitialNotes',
 
 const fetchUserAuth = createAsyncThunk('user/fetchUserAuth',
   async () => {
-    const { data } = await supabase.auth.getSession()
-    if (data.session) {
-      const { email, user_metadata } = data.session.user
+    try {
+      const { data, error } = await supabase.auth.getSession()
+
+      if (data.session) {
+        const { email, user_metadata } = data.session.user
+
+        const response: UserType = {
+          email: email,
+          username: user_metadata.username,
+          isLogged: true,
+          isLoading: false
+        }
+        return response
+      }
 
       const response: UserType = {
-        email: email,
-        username: user_metadata.username,
-        isLogged: true,
+        isLogged: false,
         isLoading: false
       }
-      console.log(response)
+      return response
+
+    } catch (error) {
+      const response: UserType = {
+        isLogged: false,
+        isLoading: false
+      }
       return response
     }
   })
