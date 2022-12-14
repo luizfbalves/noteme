@@ -1,5 +1,6 @@
 import { supabase } from '@/services/supabaseClient'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { AuthError } from '@supabase/supabase-js'
 import localforage from 'localforage'
 
 import { sleep } from '@/utils'
@@ -19,7 +20,7 @@ const fetchInitialNotes = createAsyncThunk('note/fectchInitialNotes',
 )
 
 const fetchUserAuth = createAsyncThunk('user/fetchUserAuth',
-  async () => {
+  async (_, { rejectWithValue }) => {
     try {
       const { data, error } = await supabase.auth.getSession()
 
@@ -34,19 +35,9 @@ const fetchUserAuth = createAsyncThunk('user/fetchUserAuth',
         }
         return response
       }
-
-      const response: UserType = {
-        isLogged: false,
-        isLoading: false
-      }
-      return response
-
+      return rejectWithValue(error?.message)
     } catch (error) {
-      const response: UserType = {
-        isLogged: false,
-        isLoading: false
-      }
-      return response
+      return rejectWithValue(error)
     }
   })
 
