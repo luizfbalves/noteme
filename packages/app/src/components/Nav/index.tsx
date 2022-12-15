@@ -37,7 +37,7 @@ export const SideNav: React.FC = () => {
           </li>
         </div>
         <li>
-          <Link to="/login">
+          <Link to="/signin">
             <Label className="label">logout</Label>
             <TbDoorExit />
           </Link>

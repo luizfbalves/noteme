@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { fetchUserAuth } from "../thunks"
 
@@ -20,23 +20,26 @@ export const user = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    userData: (state) => {
-      state.isLoading = true
-      state.isLogged = false
+    userData: (state, action: PayloadAction<UserType>) => {
+      state = action.payload
+      return state
     }
   },
   extraReducers(builder) {
     builder.addCase(fetchUserAuth.pending, (state) => {
       state.isLogged = false
       state.isLoading = true
+      return state
     })
     builder.addCase(fetchUserAuth.fulfilled, (state) => {
       state.isLogged = true
       state.isLoading = false
+      return state
     })
     builder.addCase(fetchUserAuth.rejected, (state, { payload }) => {
       state.isLoading = false
       state.error = payload
+      return state
     })
   }
 },

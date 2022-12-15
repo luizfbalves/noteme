@@ -1,29 +1,36 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { Button, Divider, Loader } from 'rsuite'
 
-import { handleSignIn } from '@/utils/auth'
+import { signUp } from '@/utils/auth'
 
 import { Container, Banner, FormLogin } from './styles'
 
 export const SignUp: React.FC = () => {
+  const navigate = useNavigate()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
   const [loading, setLoading] = useState(false)
 
   const handleEmail = (value: string) => setEmail(value)
   const handlePassword = (value: string) => setPassword(value)
+  const handleUsername = (value: string) => setUsername(value)
 
-  const handleSignin = async () => {
+  const handleSignUp = async () => {
     try {
       setLoading(true)
-      await handleSignIn(email, password)
+      await signUp(email, password, username)
     } catch (error) {
       console.log(error)
     } finally {
       setLoading(false)
     }
   }
+
+  const handlePushSignIn = () => navigate('/signin')
 
   return (
     <Container>
@@ -43,12 +50,20 @@ export const SignUp: React.FC = () => {
           <Divider>or</Divider>
         </FormLogin.Group>
         <FormLogin.Group>
+          <FormLogin.ControlLabel>Username</FormLogin.ControlLabel>
+          <FormLogin.Control
+            onChange={handleUsername}
+            name="username"
+            autoComplete="off"
+          />
+        </FormLogin.Group>
+        <FormLogin.Group>
           <FormLogin.ControlLabel>Email</FormLogin.ControlLabel>
           <FormLogin.Control
             onChange={handleEmail}
             name="email"
             type="email"
-            autoComplete="on"
+            autoComplete="off"
           />
         </FormLogin.Group>
         <FormLogin.Group>
@@ -61,7 +76,7 @@ export const SignUp: React.FC = () => {
           />
         </FormLogin.Group>
         {loading ? (
-          <Loader className="absolut-center" />
+          <Loader className=".absolut-center" />
         ) : (
           <>
             <Button
@@ -69,14 +84,15 @@ export const SignUp: React.FC = () => {
               block
               color="blue"
               appearance="primary"
-              onClick={handleSignin}
+              onClick={handleSignUp}
             >
-              Get-in
+              Sign-up
             </Button>
             <br />
-            <FormLogin.ControlLabel>
-              doesnt have an account?
-            </FormLogin.ControlLabel>
+            <span
+              onClick={handlePushSignIn}
+              style={{ cursor: 'pointer' }}
+            >{`already have an account?`}</span>
           </>
         )}
       </FormLogin>
@@ -86,7 +102,4 @@ export const SignUp: React.FC = () => {
 
 export default SignUp
 
-//TODO validate signup signin use cases
-//TODO add alerts for error messages
-//TODO add show password button
-//TODO validate autocomplete when signin signup
+//TODO use banner for auth
