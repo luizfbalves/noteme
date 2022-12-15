@@ -1,6 +1,5 @@
 import { supabase } from '@/services/supabaseClient'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { AuthError } from '@supabase/supabase-js'
 import localforage from 'localforage'
 
 import { sleep } from '@/utils'
