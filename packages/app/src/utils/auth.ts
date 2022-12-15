@@ -14,4 +14,4 @@ export const handleSignIn = async (email: string, password: string) => {
   return await supabase.auth.signInWithPassword({ email, password })
 }
 
-export const signOut = supabase.auth.signOut()
+export const handleSignOut = () => supabase.auth.signOut()

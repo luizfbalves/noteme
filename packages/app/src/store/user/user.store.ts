@@ -7,8 +7,8 @@ export interface UserType {
   token?: string
   email?: string
   error?: unknown
-  isLogged: boolean
-  isLoading: boolean
+  isLogged?: boolean
+  isLoading?: boolean
 }
 
 const initialState: UserType = {
@@ -38,6 +38,7 @@ export const user = createSlice({
     })
     builder.addCase(fetchUserAuth.rejected, (state, { payload }) => {
       state.isLoading = false
+      state.isLogged = false
       state.error = payload
       return state
     })

@@ -6,7 +6,9 @@ import { v4 as uuidV4 } from 'uuid'
 
 import { useAppDispatch } from '@/store/hooks'
 import { insertNote, TNote } from '@/store/note/note.store'
+import { userData } from '@/store/user/user.store'
 
+import { handleSignOut } from '@/utils/auth'
 import { dateRFC } from '@/utils/index'
 
 import { Wrapper, Label } from './styles'
@@ -18,10 +20,19 @@ export const SideNav: React.FC = () => {
     const note: TNote = {
       id: uuidV4(),
       description: '',
-      date: dateRFC,
+      updatedAt: dateRFC,
     }
 
     dispatch(insertNote(note))
+  }
+
+  const signOut = async () => {
+    try {
+      await handleSignOut()
+      dispatch(userData({ isLoading: false, isLogged: false, token: '' }))
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -37,7 +48,7 @@ export const SideNav: React.FC = () => {
           </li>
         </div>
         <li>
-          <Link to="/signin">
+          <Link to="/signin" onClick={signOut}>
             <Label className="label">logout</Label>
             <TbDoorExit />
           </Link>
