@@ -2,13 +2,16 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+import { AuthError } from '@supabase/supabase-js'
 import { Button, Divider, Loader } from 'rsuite'
+import { ZodError } from 'zod'
 
 import { useAppDispatch } from '@/store/hooks'
 import { UserType, userData } from '@/store/user/user.store'
 
 import { signUp } from '@/utils/auth'
 
+import { UserSignUpSchema } from './signup.schema'
 import { Container, Banner, FormLogin } from './styles'
 
 export const SignUp: React.FC = () => {
@@ -26,7 +29,10 @@ export const SignUp: React.FC = () => {
 
   const handleSignUp = async () => {
     try {
+      UserSignUpSchema.parse({ username, email, password })
+
       setLoading(true)
+
       const { error, data } = await signUp(email, password, username)
 
       if (data.user) {
@@ -36,13 +42,18 @@ export const SignUp: React.FC = () => {
           username: data.user?.user_metadata.username,
           email: data.user.email,
         }
+
         dispatch(userData(response))
         navigate('/home')
       } else {
-        toast(error?.message || 'something went wrong...')
+        error instanceof AuthError
+          ? toast(error.message)
+          : toast('something went wrong...')
       }
     } catch (error) {
-      toast.error('something went wrong...')
+      error instanceof ZodError
+        ? toast.error(error.errors[0].message)
+        : toast.error('something went wrong...')
     } finally {
       setLoading(false)
     }
@@ -94,7 +105,7 @@ export const SignUp: React.FC = () => {
           />
         </FormLogin.Group>
         {loading ? (
-          <Loader className=".absolut-center" />
+          <Loader className="absolut-center" />
         ) : (
           <>
             <Button

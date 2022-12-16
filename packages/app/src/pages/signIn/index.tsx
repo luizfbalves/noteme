@@ -11,7 +11,7 @@ import { userData, UserType } from '@/store/user/user.store'
 
 import { handleSignIn } from '@/utils/auth'
 
-import { UserZod } from './signin.z.schema'
+import { UserSignInSchema } from './signin.schema'
 import { Container, Banner, FormLogin } from './styles'
 
 export const SignUp: React.FC = () => {
@@ -27,7 +27,7 @@ export const SignUp: React.FC = () => {
 
   const handleSignin = async () => {
     try {
-      UserZod.parse({ email, password })
+      UserSignInSchema.parse({ email, password })
 
       setLoading(true)
 
