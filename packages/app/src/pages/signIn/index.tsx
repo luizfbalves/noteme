@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
 
 import { Button, Divider, Loader } from 'rsuite'
 
@@ -24,7 +25,7 @@ export const SignUp: React.FC = () => {
   const handleSignin = async () => {
     try {
       setLoading(true)
-      const { data } = await handleSignIn(email, password)
+      const { data, error } = await handleSignIn(email, password)
 
       if (data.session) {
         const response: UserType = {
@@ -36,9 +37,11 @@ export const SignUp: React.FC = () => {
         }
         dispatch(userData(response))
         navigate('/home')
+      } else {
+        toast(error?.message || 'something went wrong...')
       }
     } catch (error) {
-      console.log(error)
+      toast.error('something went wrong...')
     } finally {
       setLoading(false)
     }
@@ -48,60 +51,66 @@ export const SignUp: React.FC = () => {
 
   return (
     <Container>
-      <Banner>
-        <img src="/assets/images/banner.svg" alt="wellcome" />
-      </Banner>
-      <FormLogin>
-        <FormLogin.Group id="title">
-          <h2>NOTE.</h2>
-          <h4>me</h4>
-          <br />
-        </FormLogin.Group>
-        <FormLogin.Group>
-          <Button block type="button">
-            Join with Google
-          </Button>
-          <Divider>or</Divider>
-        </FormLogin.Group>
-        <FormLogin.Group>
-          <FormLogin.ControlLabel>Email</FormLogin.ControlLabel>
-          <FormLogin.Control
-            onChange={handleEmail}
-            name="email"
-            type="email"
-            autoComplete="on"
-          />
-        </FormLogin.Group>
-        <FormLogin.Group>
-          <FormLogin.ControlLabel>Password</FormLogin.ControlLabel>
-          <FormLogin.Control
-            onChange={handlePassword}
-            name="password"
-            type="password"
-            autoComplete="off"
-          />
-        </FormLogin.Group>
-        {loading ? (
-          <Loader className="absolut-center" />
-        ) : (
-          <>
-            <Button
-              type="submit"
-              block
-              color="blue"
-              appearance="primary"
-              onClick={handleSignin}
-            >
-              Sign-in
-            </Button>
+      <>
+        <Banner>
+          <img src="/assets/images/banner.svg" alt="wellcome" />
+        </Banner>
+        <FormLogin>
+          <FormLogin.Group id="title">
+            <h2>NOTE.</h2>
+            <h4>me</h4>
             <br />
-            <span
-              onClick={handlePushSignUp}
-              style={{ cursor: 'pointer' }}
-            >{`Doesn't have and account?`}</span>
-          </>
-        )}
-      </FormLogin>
+          </FormLogin.Group>
+          <FormLogin.Group>
+            <Button
+              block
+              type="button"
+              onClick={() => toast('work in progress...')}
+            >
+              Join with Google
+            </Button>
+            <Divider>or</Divider>
+          </FormLogin.Group>
+          <FormLogin.Group>
+            <FormLogin.ControlLabel>Email</FormLogin.ControlLabel>
+            <FormLogin.Control
+              onChange={handleEmail}
+              name="email"
+              type="email"
+              autoComplete="on"
+            />
+          </FormLogin.Group>
+          <FormLogin.Group>
+            <FormLogin.ControlLabel>Password</FormLogin.ControlLabel>
+            <FormLogin.Control
+              onChange={handlePassword}
+              name="password"
+              type="password"
+              autoComplete="off"
+            />
+          </FormLogin.Group>
+          {loading ? (
+            <Loader className="absolut-center" />
+          ) : (
+            <>
+              <Button
+                type="submit"
+                block
+                color="blue"
+                appearance="primary"
+                onClick={handleSignin}
+              >
+                Sign-in
+              </Button>
+              <br />
+              <span
+                onClick={handlePushSignUp}
+                style={{ cursor: 'pointer' }}
+              >{`Doesn't have and account?`}</span>
+            </>
+          )}
+        </FormLogin>
+      </>
     </Container>
   )
 }
@@ -109,4 +118,3 @@ export const SignUp: React.FC = () => {
 export default SignUp
 
 //TODO use banner for login
-//TODO setup toast for error msg

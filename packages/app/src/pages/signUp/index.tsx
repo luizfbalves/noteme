@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { Button, Divider, Loader } from 'rsuite'
+
+import { useAppDispatch } from '@/store/hooks'
+import { UserType, userData } from '@/store/user/user.store'
 
 import { signUp } from '@/utils/auth'
 
@@ -9,6 +13,7 @@ import { Container, Banner, FormLogin } from './styles'
 
 export const SignUp: React.FC = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -22,9 +27,22 @@ export const SignUp: React.FC = () => {
   const handleSignUp = async () => {
     try {
       setLoading(true)
-      await signUp(email, password, username)
+      const { error, data } = await signUp(email, password, username)
+
+      if (data.user) {
+        const response: UserType = {
+          isLoading: false,
+          isLogged: true,
+          username: data.user?.user_metadata.username,
+          email: data.user.email,
+        }
+        dispatch(userData(response))
+        navigate('/home')
+      } else {
+        toast(error?.message || 'something went wrong...')
+      }
     } catch (error) {
-      console.log(error)
+      toast.error('something went wrong...')
     } finally {
       setLoading(false)
     }

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { createContext, useCallback, useContext, useState } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 import { CustomProvider } from 'rsuite'
 import { ThemeProvider } from 'styled-components'
@@ -57,6 +58,7 @@ export const CustomThemeProvider = ({ children }: ThemeProviderTypes) => {
     <ThemeContext.Provider value={{ toggleTheme, theme }}>
       <CustomProvider theme={theme.type || 'dark'}>
         <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <ToastContainer position="top-center" theme={theme.type} />
       </CustomProvider>
     </ThemeContext.Provider>
   )
