@@ -58,7 +58,11 @@ export const CustomThemeProvider = ({ children }: ThemeProviderTypes) => {
     <ThemeContext.Provider value={{ toggleTheme, theme }}>
       <CustomProvider theme={theme.type || 'dark'}>
         <ThemeProvider theme={theme}>{children}</ThemeProvider>
-        <ToastContainer position="top-center" theme={theme.type} />
+        <ToastContainer
+          position="top-center"
+          theme={theme.type}
+          autoClose={2000}
+        />
       </CustomProvider>
     </ThemeContext.Provider>
   )

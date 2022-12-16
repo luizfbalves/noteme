@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 
+import { AuthError } from '@supabase/supabase-js'
 import { Button, Divider, Loader } from 'rsuite'
+import { ZodError } from 'zod'
 
 import { useAppDispatch } from '@/store/hooks'
 import { userData, UserType } from '@/store/user/user.store'
 
 import { handleSignIn } from '@/utils/auth'
 
+import { UserZod } from './signin.z.schema'
 import { Container, Banner, FormLogin } from './styles'
 
 export const SignUp: React.FC = () => {
@@ -24,7 +27,10 @@ export const SignUp: React.FC = () => {
 
   const handleSignin = async () => {
     try {
+      UserZod.parse({ email, password })
+
       setLoading(true)
+
       const { data, error } = await handleSignIn(email, password)
 
       if (data.session) {
@@ -35,13 +41,18 @@ export const SignUp: React.FC = () => {
           email: data.session.user.email,
           token: data.session.access_token,
         }
+
         dispatch(userData(response))
         navigate('/home')
       } else {
-        toast(error?.message || 'something went wrong...')
+        error instanceof AuthError
+          ? toast(error.message)
+          : toast('something went wrong...')
       }
     } catch (error) {
-      toast.error('something went wrong...')
+      error instanceof ZodError
+        ? toast.error(error.errors[0].message)
+        : toast.error('something went wrong...')
     } finally {
       setLoading(false)
     }
@@ -118,3 +129,4 @@ export const SignUp: React.FC = () => {
 export default SignUp
 
 //TODO use banner for login
+//TODO add a form validator to avoid unecessary requests
