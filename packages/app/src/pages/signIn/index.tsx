@@ -129,4 +129,3 @@ export const SignUp: React.FC = () => {
 export default SignUp
 
 //TODO use banner for login
-//TODO add a form validator to avoid unecessary requests

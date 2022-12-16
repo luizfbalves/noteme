@@ -88,3 +88,5 @@ export const Home: React.FC = () => {
 }
 
 export default Home
+
+//TODO add loading screen on first render
