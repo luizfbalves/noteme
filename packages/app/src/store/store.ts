@@ -23,7 +23,6 @@ const persistConfig = {
 const rootReducer = combineReducers({
   noteReducer,
   userReducer
-
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -39,6 +38,4 @@ const store = configureStore({
 })
 
 export const persistor = persistStore(store)
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
 export default store

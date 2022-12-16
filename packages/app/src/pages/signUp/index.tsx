@@ -64,7 +64,7 @@ export const SignUp: React.FC = () => {
   return (
     <Container>
       <Banner>
-        <img src="/assets/images/banner.svg" alt="wellcome" />
+        <img src="/assets/images/signup.svg" alt="wellcome" />
       </Banner>
       <FormLogin>
         <FormLogin.Group id="title">
@@ -73,7 +73,11 @@ export const SignUp: React.FC = () => {
           <br />
         </FormLogin.Group>
         <FormLogin.Group>
-          <Button block type="button">
+          <Button
+            block
+            type="button"
+            onClick={() => toast('work in progress...')}
+          >
             Join with Google
           </Button>
           <Divider>or</Divider>

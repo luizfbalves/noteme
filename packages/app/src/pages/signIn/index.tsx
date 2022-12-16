@@ -59,12 +59,13 @@ export const SignUp: React.FC = () => {
   }
 
   const handlePushSignUp = () => navigate('/signup')
+  console.log('signin')
 
   return (
     <Container>
       <>
         <Banner>
-          <img src="/assets/images/banner.svg" alt="wellcome" />
+          <img src="/assets/images/signin.svg" alt="wellcome" />
         </Banner>
         <FormLogin>
           <FormLogin.Group id="title">
@@ -86,6 +87,7 @@ export const SignUp: React.FC = () => {
             <FormLogin.ControlLabel>Email</FormLogin.ControlLabel>
             <FormLogin.Control
               onChange={handleEmail}
+              value={email}
               name="email"
               type="email"
               autoComplete="on"
