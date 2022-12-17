@@ -32,10 +32,13 @@ export const SignUp: React.FC = () => {
 
       const { data, error } = await SignIn(email, password)
 
+      console.log(data)
+
       if (data.session) {
         const response: UserType = {
           isLoading: false,
           isLogged: true,
+          id: data.user?.id,
           username: data.user?.user_metadata.username,
           email: data.session.user.email,
           token: data.session.access_token,
@@ -58,7 +61,6 @@ export const SignUp: React.FC = () => {
   }
 
   const handlePushSignUp = () => navigate('/signup')
-  console.log('signin')
 
   return (
     <Container>

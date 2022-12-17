@@ -9,6 +9,7 @@ export const GET_ALLNOTES = gql(/* GraphQL */ `
     }
   }
 `)
+
 export const GET_FINDUSER = gql(/* GraphQL */ `
   query findUser($findUserId: String!) {
     findUser(id: $findUserId) {
@@ -18,6 +19,15 @@ export const GET_FINDUSER = gql(/* GraphQL */ `
         description
         updatedAt
       }
+    }
+  }
+`)
+
+export const POST_CREATEUSER = gql(/* GraphQL */ `
+  mutation CreateUser($data: UserCreateInput!) {
+    createUser(data: $data) {
+      name
+      email
     }
   }
 `)

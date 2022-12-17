@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { fetchUserAuth } from "../thunks"
 
 export interface UserType {
+  id?: string
   username?: string
   token?: string
   email?: string
