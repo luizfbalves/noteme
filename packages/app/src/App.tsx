@@ -6,7 +6,7 @@ import {
   Navigate,
 } from 'react-router-dom'
 
-import { ProtectedRoute } from '@/components'
+import { ProtectedRoute } from '@/auth/ProtectedRoute'
 
 import { CustomThemeProvider } from './hooks/theme'
 import Pages from './pages/index'

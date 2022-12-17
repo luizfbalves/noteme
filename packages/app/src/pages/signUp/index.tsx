@@ -2,14 +2,13 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+import { signUp } from '@/auth'
 import { AuthError } from '@supabase/supabase-js'
 import { Button, Divider, Loader } from 'rsuite'
 import { ZodError } from 'zod'
 
 import { useAppDispatch } from '@/store/hooks'
 import { UserType, userData } from '@/store/user/user.store'
-
-import { signUp } from '@/utils/auth'
 
 import { UserSignUpSchema } from './signup.schema'
 import { Container, Banner, FormLogin } from './styles'
@@ -21,7 +20,7 @@ export const SignUp: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleEmail = (value: string) => setEmail(value)
   const handlePassword = (value: string) => setPassword(value)
@@ -31,7 +30,7 @@ export const SignUp: React.FC = () => {
     try {
       UserSignUpSchema.parse({ username, email, password })
 
-      setLoading(true)
+      setIsLoading(true)
 
       const { error, data } = await signUp(email, password, username)
 
@@ -39,7 +38,7 @@ export const SignUp: React.FC = () => {
         const response: UserType = {
           isLoading: false,
           isLogged: true,
-          username: data.user?.user_metadata.username,
+          username: data.user.user_metadata.username,
           email: data.user.email,
         }
 
@@ -55,7 +54,7 @@ export const SignUp: React.FC = () => {
         ? toast.error(error.errors[0].message)
         : toast.error('something went wrong...')
     } finally {
-      setLoading(false)
+      setIsLoading(false)
     }
   }
 
@@ -108,7 +107,7 @@ export const SignUp: React.FC = () => {
             autoComplete="off"
           />
         </FormLogin.Group>
-        {loading ? (
+        {isLoading ? (
           <Loader className="absolut-center" />
         ) : (
           <>
@@ -134,5 +133,3 @@ export const SignUp: React.FC = () => {
 }
 
 export default SignUp
-
-//TODO use banner for auth

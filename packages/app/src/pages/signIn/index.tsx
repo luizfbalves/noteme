@@ -2,14 +2,13 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+import { SignIn } from '@/auth'
 import { AuthError } from '@supabase/supabase-js'
 import { Button, Divider, Loader } from 'rsuite'
 import { ZodError } from 'zod'
 
 import { useAppDispatch } from '@/store/hooks'
 import { userData, UserType } from '@/store/user/user.store'
-
-import { handleSignIn } from '@/utils/auth'
 
 import { UserSignInSchema } from './signin.schema'
 import { Container, Banner, FormLogin } from './styles'
@@ -31,7 +30,7 @@ export const SignUp: React.FC = () => {
 
       setLoading(true)
 
-      const { data, error } = await handleSignIn(email, password)
+      const { data, error } = await SignIn(email, password)
 
       if (data.session) {
         const response: UserType = {
@@ -129,5 +128,3 @@ export const SignUp: React.FC = () => {
 }
 
 export default SignUp
-
-//TODO use banner for login
