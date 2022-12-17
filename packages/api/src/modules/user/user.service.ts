@@ -14,12 +14,12 @@ export class UserService {
     return this.prisma.user.findUnique({
       where: {
         id,
-      }, include: { notes: true }
+      }
     })
   }
 
   findAll() {
-    return this.prisma.user.findMany({ include: { notes: true } })
+    return this.prisma.user.findMany()
   }
 
   create(data: UserCreateInput) {

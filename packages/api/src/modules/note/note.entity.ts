@@ -1,20 +1,16 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 
-import { User } from '../user/user.entity'
-
 @ObjectType()
 export class Note {
   @Field()
   id: string
 
   @Field()
-  description?: string
-
-  @Field(() => User)
-  author: typeof User
+  userId: string
 
   @Field()
-  userId: string
+  description?: string
+
 
   @Field()
   createdAt: Date

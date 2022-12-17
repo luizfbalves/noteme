@@ -15,19 +15,19 @@ import { NavHeader, Container, Content } from './styles'
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  const { username } = useAppSelector((state) => state.userReducer)
+  const { id, username } = useAppSelector((state) => state.userReducer)
 
   const { loading, error } = useQuery<findUserType>(GET_FINDUSER, {
-    variables: { findUserId: '2e06c717-391f-4cc7-b345-e5ac51cdf8e0' },
+    variables: { findUserId: id },
     onCompleted: ({ findUser }) => {
       const { notes } = findUser
 
+      console.log(notes)
       Array.isArray(notes) && setNotes(notes)
-
       setName(`Hi ${username}`)
     },
   })
-
+  console.log(error)
   //states
   const [searchText, setSearchText] = useState('')
   const [notes, setNotes] = useState<TNote[]>()

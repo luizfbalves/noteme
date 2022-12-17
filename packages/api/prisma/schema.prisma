@@ -11,7 +11,6 @@ model User {
   id        String    @id @default(uuid())
   email     String    @unique
   name      String
-  notes     Note[]
   createdAt DateTime  @default(now())
   updatedAt DateTime? @default(now())
 
@@ -20,9 +19,8 @@ model User {
 
 model Note {
   id          String    @id @default(uuid())
+  userId      String    @unique
   description String?
-  author      User      @relation(fields: [userId], references: [id])
-  userId      String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @default(now())
 
