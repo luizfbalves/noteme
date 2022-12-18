@@ -1,7 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 
-import { GET_FINDUSER } from '@/features/apollo/documents/notes.gql'
-import { findUserType } from '@/features/apollo/documents/notes.types'
+import { GET_ALLNOTES } from '@/features/apollo/documents/notes.gql'
 import { useQuery } from '@apollo/client'
 import { Loader } from 'rsuite'
 
@@ -15,23 +14,18 @@ import { NavHeader, Container, Content } from './styles'
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  const { id, username } = useAppSelector((state) => state.userReducer)
-
-  const { loading, error } = useQuery<findUserType>(GET_FINDUSER, {
-    variables: { findUserId: id },
-    onCompleted: ({ findUser }) => {
-      const { notes } = findUser
-
-      console.log(notes)
-      Array.isArray(notes) && setNotes(notes)
-      setName(`Hi ${username}`)
-    },
-  })
-  console.log(error)
   //states
   const [searchText, setSearchText] = useState('')
   const [notes, setNotes] = useState<TNote[]>()
-  const [name, setName] = useState(username)
+
+  const { id, username } = useAppSelector((state) => state.userReducer)
+
+  const { loading, error } = useQuery(GET_ALLNOTES, {
+    variables: { userId: id },
+    onCompleted: ({ allNotes }) => {
+      Array.isArray(allNotes) && setNotes(allNotes)
+    },
+  })
 
   //refs
   const noteRef = useRef<TNote>()
@@ -55,6 +49,13 @@ export const Home: React.FC = () => {
     <ErrorMessage>{`something went wrong =/`}</ErrorMessage>
   )
 
+  const GreetingsElement = username && (
+    <div className="greetings">
+      <strong>{`Hi ${username}`}</strong>
+      <span>all your notes here in one place!</span>
+    </div>
+  )
+
   const NotesElement =
     notes &&
     notes
@@ -74,10 +75,7 @@ export const Home: React.FC = () => {
         <SearchBar placeholder="Search for a note..." onChange={handleSearch} />
         <ThemeToggler />
       </NavHeader>
-      <div className="greetings">
-        <strong>{name}</strong>
-        <span>all your notes here in one place!</span>
-      </div>
+      {GreetingsElement}
       <Content className="content" onBlur={handleBlur}>
         {LoadingElement}
         {ErrorElement}
@@ -90,3 +88,5 @@ export const Home: React.FC = () => {
 export default Home
 
 //TODO add loading screen on first render
+//TODO add notes fetching
+//TODO add notes crud
