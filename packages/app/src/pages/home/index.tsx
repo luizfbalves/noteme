@@ -1,19 +1,22 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import { GET_ALLNOTES } from '@/features/apollo/documents/notes.gql'
-import { useQuery } from '@apollo/client'
+import {
+  GET_ALLNOTES,
+  POST_CREATENOTE,
+  PUT_DELETENOTE,
+  PUT_UPDATENOTE,
+} from '@/features/apollo/documents/notes.gql'
+import { useMutation, useQuery } from '@apollo/client'
 import { Loader } from 'rsuite'
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { deleteNote, editNote, TNote } from '@/store/note/note.store'
+import { useAppSelector } from '@/store/hooks'
+import { TNote } from '@/store/note/note.store'
 
 import { SearchBar, ThemeToggler, Note, ErrorMessage } from '@/components'
 
 import { NavHeader, Container, Content } from './styles'
 
 export const Home: React.FC = () => {
-  const dispatch = useAppDispatch()
-
   //states
   const [searchText, setSearchText] = useState('')
   const [notes, setNotes] = useState<TNote[]>()
@@ -27,16 +30,29 @@ export const Home: React.FC = () => {
     },
   })
 
+  const [updateNotes] = useMutation(PUT_UPDATENOTE)
+  const [deleteNote] = useMutation(PUT_DELETENOTE)
+
   //refs
   const noteRef = useRef<TNote>()
 
   //methods
   const handleChange = (value: TNote) => (noteRef.current = value)
 
-  const handleDrop = (id: string) => id && dispatch(deleteNote({ id }))
+  const handleDrop = async (id: string) => {
+    if (id) {
+      await deleteNote({ variables: { deleteNoteId: id } })
+    }
+  }
 
-  const handleBlur = () => {
-    noteRef.current && dispatch(editNote(noteRef.current))
+  const handleBlur = async () => {
+    if (noteRef.current) {
+      const { id, description } = noteRef.current
+
+      await updateNotes({
+        variables: { data: { id, description } },
+      })
+    }
   }
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,6 +103,4 @@ export const Home: React.FC = () => {
 
 export default Home
 
-//TODO add loading screen on first render
-//TODO add notes fetching
 //TODO add notes crud

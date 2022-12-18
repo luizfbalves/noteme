@@ -19,7 +19,7 @@ model User {
 
 model Note {
   id          String    @id @default(uuid())
-  userId      String    @unique
+  userId      String
   description String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @default(now())
