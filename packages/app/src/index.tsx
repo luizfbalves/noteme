@@ -9,7 +9,7 @@ import { ApolloProvider } from '@apollo/client'
 import { PersistGate } from 'redux-persist/integration/react'
 
 import App from './App'
-import client from './features/apollo/api'
+import client from './services/apollo/apolloClient'
 import store, { persistor } from './store/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)

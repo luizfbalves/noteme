@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-import { fetchUserAuth } from "../thunks"
-
 export interface UserType {
   id?: string
   username?: string
@@ -26,24 +24,6 @@ export const user = createSlice({
       return state
     }
   },
-  extraReducers(builder) {
-    builder.addCase(fetchUserAuth.pending, (state) => {
-      state.isLogged = false
-      state.isLoading = true
-      return state
-    })
-    builder.addCase(fetchUserAuth.fulfilled, (state) => {
-      state.isLogged = true
-      state.isLoading = false
-      return state
-    })
-    builder.addCase(fetchUserAuth.rejected, (state, { payload }) => {
-      state.isLoading = false
-      state.isLogged = false
-      state.error = payload
-      return state
-    })
-  }
 },
 )
 

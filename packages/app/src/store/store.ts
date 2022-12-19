@@ -1,4 +1,4 @@
-import { combineReducers, configureStore, createListenerMiddleware } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import {
   persistReducer,
   persistStore,
@@ -11,8 +11,8 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
-import noteReducer, { insertNote } from './note/note.store'
-import userReducer, { userData } from './user/user.store'
+import noteReducer from './note/note.store'
+import userReducer from './user/user.store'
 
 const persistConfig = {
   key: 'root',
@@ -25,18 +25,6 @@ const rootReducer = combineReducers({
   userReducer
 })
 
-const listener = createListenerMiddleware()
-
-listener.startListening({
-  actionCreator: userData,
-  effect: async (action, listenerApi) => {
-    console.log(action.payload)
-    console.log(action.type)
-    console.log(listenerApi.getOriginalState())
-    console.log(listenerApi.getState())
-  }
-})
-
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
@@ -46,9 +34,8 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).prepend(listener.middleware),
+    }),
 })
-
 
 export const persistor = persistStore(store)
 export type RootState = ReturnType<typeof store.getState>
