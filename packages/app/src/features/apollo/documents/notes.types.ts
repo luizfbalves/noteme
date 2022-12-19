@@ -8,3 +8,11 @@ export type findUserType = {
     }[]
   }
 }
+
+export interface AllNotesInterface {
+  allNotes: {
+    id: string
+    description: string
+    updatedAt: string
+  }
+}
