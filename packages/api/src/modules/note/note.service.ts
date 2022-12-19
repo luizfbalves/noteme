@@ -17,7 +17,7 @@ export class NoteService {
     })
   }
 
-  findAll(data: Prisma.NoteWhereUniqueInput) {
+  findAll(data: Prisma.NoteWhereInput) {
     const { userId } = data
     return this.prisma.note.findMany({
       where: { userId },

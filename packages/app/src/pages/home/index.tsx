@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import {
   GET_ALLNOTES,
-  POST_CREATENOTE,
   PUT_DELETENOTE,
   PUT_UPDATENOTE,
 } from '@/features/apollo/documents/notes.gql'
@@ -20,6 +19,8 @@ export const Home: React.FC = () => {
   //states
   const [searchText, setSearchText] = useState('')
   const [notes, setNotes] = useState<TNote[]>()
+  //refs
+  const noteRef = useRef<TNote>()
 
   const { id, username } = useAppSelector((state) => state.userReducer)
 
@@ -32,9 +33,6 @@ export const Home: React.FC = () => {
 
   const [updateNotes] = useMutation(PUT_UPDATENOTE)
   const [deleteNote] = useMutation(PUT_DELETENOTE)
-
-  //refs
-  const noteRef = useRef<TNote>()
 
   //methods
   const handleChange = (value: TNote) => (noteRef.current = value)
@@ -104,3 +102,4 @@ export const Home: React.FC = () => {
 export default Home
 
 //TODO add notes crud
+//TODO change way notes are fetched and managed to be more readable and simple
