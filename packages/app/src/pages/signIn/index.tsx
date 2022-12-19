@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { SignIn } from '@/auth'
+import { signIn } from '@/auth'
 import { AuthError } from '@supabase/supabase-js'
 import { Button, Divider, Loader } from 'rsuite'
 import { ZodError } from 'zod'
@@ -13,7 +13,7 @@ import { userData, UserType } from '@/store/user/user.store'
 import { UserSignInSchema } from './signin.schema'
 import { Container, Banner, FormLogin } from './styles'
 
-export const SignUp: React.FC = () => {
+export const SignIn: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
@@ -30,7 +30,7 @@ export const SignUp: React.FC = () => {
 
       setLoading(true)
 
-      const { data, error } = await SignIn(email, password)
+      const { data, error } = await signIn(email, password)
 
       console.log(data)
 
@@ -129,4 +129,4 @@ export const SignUp: React.FC = () => {
   )
 }
 
-export default SignUp
+export default SignIn

@@ -14,3 +14,7 @@ export default function Pages() {
     </Content>
   )
 }
+
+export * from './home'
+export * from './signIn'
+export * from './signUp'

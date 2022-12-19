@@ -7,11 +7,9 @@ import {
 } from 'react-router-dom'
 
 import { ProtectedRoute } from '@/auth/ProtectedRoute'
+import Pages, { SignIn, SignUp } from '@/pages'
 
 import { CustomThemeProvider } from './hooks/theme'
-import Pages from './pages/index'
-import SignIn from './pages/signIn'
-import SignUp from './pages/signUp'
 import GlobalStyle from './styles/global'
 
 export const App: React.FC = () => {
