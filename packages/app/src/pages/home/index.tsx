@@ -1,108 +1,105 @@
-import React, { useEffect, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
+import {
+  GET_ALLNOTES,
+  PUT_DELETENOTE,
+  PUT_UPDATENOTE,
+} from '@/features/apollo/documents/notes.gql'
+import { useMutation, useQuery } from '@apollo/client'
 import { Loader } from 'rsuite'
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { deleteNote, editNote, TNote } from '@/store/note/note.store'
+import { useAppSelector } from '@/store/hooks'
+import { TNote } from '@/store/note/note.store'
 
-import { SearchBar, ThemeToggler, Note, DeleteArea } from '@/components'
-
-import { timeout } from '@/utils'
+import { SearchBar, ThemeToggler, Note, ErrorMessage } from '@/components'
 
 import { NavHeader, Container, Content } from './styles'
 
 export const Home: React.FC = () => {
-  const dispatch = useAppDispatch()
+  //states
+  const [searchText, setSearchText] = useState('')
+  const [notes, setNotes] = useState<TNote[]>()
+  //refs
+  const noteRef = useRef<TNote>()
 
-  const notesReducer = useAppSelector((state) => state.noteReducer)
+  const { id, username } = useAppSelector((state) => state.userReducer)
 
-  const [notes, setNotes] = useState<TNote[]>([])
-  const [data, setData] = useState<TNote>({
-    id: '',
-    description: '',
-    date: '',
+  const { loading, error } = useQuery(GET_ALLNOTES, {
+    variables: { userId: id },
+    onCompleted: ({ allNotes }) => {
+      Array.isArray(allNotes) && setNotes(allNotes)
+    },
   })
 
-  const handleSubmit = (event: React.FormEvent): void => {
-    event.preventDefault()
-    if (data.id) {
-      dispatch(editNote(data))
-    }
-  }
+  const [updateNotes] = useMutation(PUT_UPDATENOTE)
+  const [deleteNote] = useMutation(PUT_DELETENOTE)
 
-  const handleChange = (note: TNote, event: React.FormEvent<Element>) => {
-    event.preventDefault()
+  //methods
+  const handleChange = (value: TNote) => (noteRef.current = value)
 
-    if (note.id) {
-      setData(note)
-
-      //TODO find way to dispatch data here
-
-      // timeout(700, () => {
-      //   dispatch(editNote(note))
-      // })
-    }
-  }
-
-  const handleDrop = (id: string) => {
+  const handleDrop = async (id: string) => {
     if (id) {
-      dispatch(deleteNote({ id }))
+      await deleteNote({ variables: { deleteNoteId: id } })
+    }
+  }
+
+  const handleBlur = async () => {
+    if (noteRef.current) {
+      const { id, description } = noteRef.current
+
+      await updateNotes({
+        variables: { data: { id, description } },
+      })
     }
   }
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
-
-    const value = event.target.value
-
-    timeout(700, () => {
-      if (value) {
-        const filteredData = notesReducer.notes.filter((note) =>
-          note.description.includes(value)
-        )
-        setNotes(filteredData)
-      } else {
-        setNotes(notesReducer.notes)
-      }
-    })
+    setSearchText(event.target.value)
   }
 
-  useEffect(() => {
-    if (notesReducer.notes !== notes) {
-      setNotes(notesReducer.notes)
-    }
-  }, [notesReducer.notes])
+  const LoadingElement = loading && <Loader id="loader" />
 
-  //TODO create dinamic greetings
+  const ErrorElement = error && (
+    <ErrorMessage>{`something went wrong =/`}</ErrorMessage>
+  )
+
+  const GreetingsElement = username && (
+    <div className="greetings">
+      <strong>{`Hi ${username}`}</strong>
+      <span>all your notes here in one place!</span>
+    </div>
+  )
+
+  const NotesElement =
+    notes &&
+    notes
+      .filter((item) => item.description.includes(searchText) ?? true)
+      .map((item) => (
+        <Note
+          key={item.id}
+          data={item}
+          onChange={handleChange}
+          onDrop={handleDrop}
+        />
+      ))
+
   return (
     <Container>
       <NavHeader>
         <SearchBar placeholder="Search for a note..." onChange={handleSearch} />
         <ThemeToggler />
       </NavHeader>
-      <div className="greetings">
-        <strong>Hi Luiz</strong>
-        <span>all your notes here in one place!</span>
-      </div>
-      {notesReducer.state === 'loading' ? (
-        <Loader id="loader" />
-      ) : (
-        <Content className="content" onBlur={handleSubmit}>
-          {notes.map((note: TNote) =>
-            note.id ? (
-              <Note
-                key={note.id}
-                data={note}
-                onChange={handleChange}
-                onDrop={handleDrop}
-              />
-            ) : undefined
-          )}
-        </Content>
-      )}
-      <DeleteArea />
+      {GreetingsElement}
+      <Content className="content" onBlur={handleBlur}>
+        {LoadingElement}
+        {ErrorElement}
+        {NotesElement}
+      </Content>
     </Container>
   )
 }
 
 export default Home
+
+//TODO add notes crud
+//TODO change way notes are fetched and managed to be more readable and simple

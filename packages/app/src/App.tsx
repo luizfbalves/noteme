@@ -1,33 +1,39 @@
 import React from 'react'
-import { DndProvider } from 'react-dnd-multi-backend'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom'
 
-import { HTML5toTouch } from 'rdndmb-html5-to-touch'
+import { ProtectedRoute } from '@/auth/ProtectedRoute'
 
 import { CustomThemeProvider } from './hooks/theme'
 import Pages from './pages/index'
-import Login from './pages/login'
-import { useAppDispatch } from './store/hooks'
-import { fetchInitialNotes } from './store/thunks'
+import SignIn from './pages/signIn'
+import SignUp from './pages/signUp'
 import GlobalStyle from './styles/global'
 
-function App() {
-  const dispatch = useAppDispatch()
-
-  dispatch(fetchInitialNotes())
-
+export const App: React.FC = () => {
   return (
     <div className="App">
       <Router>
-        <DndProvider options={HTML5toTouch}>
-          <CustomThemeProvider>
-            <GlobalStyle />
-            <Routes>
-              <Route path="/" element={<Pages />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </CustomThemeProvider>
-        </DndProvider>
+        <CustomThemeProvider>
+          <GlobalStyle />
+          <Routes>
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute>
+                  <Pages />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="*" element={<Navigate to="/home" />} />
+          </Routes>
+        </CustomThemeProvider>
       </Router>
     </div>
   )

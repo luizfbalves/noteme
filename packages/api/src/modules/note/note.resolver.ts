@@ -7,7 +7,7 @@ import { NoteService } from './note.service'
 
 @Resolver()
 export class NoteResolver {
-  constructor(private readonly note: NoteService) {}
+  constructor(private readonly note: NoteService) { }
 
   @Query(() => Note)
   findNote(@Args('id') id: string) {
@@ -15,8 +15,8 @@ export class NoteResolver {
   }
 
   @Query(() => [Note])
-  allNotes() {
-    return this.note.findAll()
+  allNotes(@Args('userId') userId: string) {
+    return this.note.findAll({ userId })
   }
 
   @Mutation(() => Note)

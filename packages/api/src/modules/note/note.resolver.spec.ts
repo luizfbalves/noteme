@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing'
+
+import { fakeNotes } from './__mocks__/fakeNotes.js'
 import { Note } from './note.entity'
 import { NoteResolver } from './note.resolver'
 import { NoteService } from './note.service'
-import { fakeNotes } from './__mocks__/fakeNotes.js'
 
 const serviceMock = {
   findOne: jest.fn().mockReturnValue(fakeNotes[0]),

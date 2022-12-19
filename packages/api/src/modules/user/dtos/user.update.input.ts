@@ -11,6 +11,6 @@ export class UserUpdateInput {
   @Field({ nullable: true })
   email: string
 
-  @Field({ defaultValue: new Date(), nullable: true })
+  @Field({ nullable: true })
   updatedAt?: Date
 }

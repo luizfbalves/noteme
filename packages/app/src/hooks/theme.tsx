@@ -1,19 +1,24 @@
 import React, { useEffect } from 'react'
 import { createContext, useCallback, useContext, useState } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 import { CustomProvider } from 'rsuite'
 import { ThemeProvider } from 'styled-components'
 
 import { darkMode, lightMode } from '../styles/themes'
 
-interface ThemeContextData {
+type ThemeContextTypes = {
   toggleTheme(): void
   theme: ThemeTypes
 }
 
+type ThemeProviderTypes = {
+  children: React.ReactNode
+}
+
 export type ThemeTypes = {
   name: string
-  type: 'light' | 'dark' | 'high-contrast'
+  type: 'light' | 'dark'
   colors: {
     primary: string
     font: string
@@ -32,15 +37,15 @@ export type ThemeTypes = {
   }
 }
 
-const ThemeContext = createContext<ThemeContextData>({} as ThemeContextData)
+const ThemeContext = createContext<ThemeContextTypes>({} as ThemeContextTypes)
 
 export const useTheme = () => useContext(ThemeContext)
 
-export const CustomThemeProvider = ({ children }: any) => {
+export const CustomThemeProvider = ({ children }: ThemeProviderTypes) => {
   const [theme, setTheme] = useState<ThemeTypes>(darkMode)
 
   const toggleTheme = useCallback(() => {
-    theme.name === 'light' ? setTheme(darkMode) : setTheme(lightMode)
+    theme.type === 'light' ? setTheme(darkMode) : setTheme(lightMode)
   }, [theme])
 
   useEffect(() => {
@@ -51,9 +56,14 @@ export const CustomThemeProvider = ({ children }: any) => {
 
   return (
     <ThemeContext.Provider value={{ toggleTheme, theme }}>
-      <ThemeProvider theme={theme}>
-        <CustomProvider theme={theme.type || 'dark'}>{children}</CustomProvider>
-      </ThemeProvider>
+      <CustomProvider theme={theme.type || 'dark'}>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <ToastContainer
+          position="top-center"
+          theme={theme.type}
+          autoClose={2000}
+        />
+      </CustomProvider>
     </ThemeContext.Provider>
   )
 }

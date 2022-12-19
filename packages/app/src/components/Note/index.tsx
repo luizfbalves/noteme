@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useMultiDrag } from 'react-dnd-multi-backend'
 import { TbTrashX } from 'react-icons/tb'
 
 import { TNote } from '@/store/note/note.store'
@@ -19,37 +18,20 @@ type TNoteEvent = {
   onChange?: (data: TNote, event: React.FormEvent<Element>) => void
   onDrop?: (id: string) => void
 }
-export const Note: React.FC<TNoteEvent> = ({ data, onChange, onDrop }) => {
-  const { id, description, date } = data
+
+export const Note: React.FC<TNoteEvent> = (props) => {
+  const { data, onChange, onDrop } = props
+  const { id, description, updatedAt } = data
 
   const [dialogOpen, setDialogOpen] = useState(false)
 
   const handleInput = (event: React.FormEvent<HTMLDivElement>): void => {
-    event.preventDefault()
-
-    const textContent = event.currentTarget.textContent || description
+    const input = event.currentTarget.textContent || description
 
     if (typeof onChange === 'function') {
-      onChange({ id, description: textContent, date }, event)
+      onChange({ id, description: input, updatedAt }, event)
     }
   }
-
-  const [[, drag]] = useMultiDrag({
-    type: 'note',
-    item: { id },
-    end: (item, monitor) => {
-      const dropResult = monitor.getDropResult<{ id: string }>()
-      if (item && dropResult) {
-        if (typeof onDrop === 'function') {
-          onDrop(item.id)
-        }
-      }
-    },
-
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  })
 
   const callbackDelete = (result: boolean) => {
     if (typeof onDrop === 'function' && result) {
@@ -72,23 +54,25 @@ export const Note: React.FC<TNoteEvent> = ({ data, onChange, onDrop }) => {
   return (
     <>
       {dialog}
-      <Card role="draggable" ref={drag}>
+      <Card>
         <div className="card-header">
           <CloseButton onClick={() => setDialogOpen(true)}>
             <TbTrashX />
           </CloseButton>
         </div>
-        <Textarea
-          contentEditable
-          aria-multiline
-          suppressContentEditableWarning
-          role="textbox"
-          placeholder={'type your note'}
-          onInput={(event) => handleInput(event)}
-        >
-          {description}
-        </Textarea>
-        <span className="card-date">{dateLL(date)}</span>
+        <div className="content">
+          <Textarea
+            contentEditable
+            aria-multiline
+            suppressContentEditableWarning
+            role="textbox"
+            placeholder={'type your note'}
+            onInput={handleInput}
+          >
+            {description}
+          </Textarea>
+          <span className="card-date">{dateLL(updatedAt)}</span>
+        </div>
       </Card>
     </>
   )

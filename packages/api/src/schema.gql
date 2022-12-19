@@ -2,11 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
+type Note {
   id: String!
-  email: String!
-  name: String!
-  notes: [Note!]
+  userId: String!
+  description: String!
   createdAt: Timestamp!
   updatedAt: Timestamp
 }
@@ -16,11 +15,11 @@ type User {
 """
 scalar Timestamp
 
-type Note {
+type User {
   id: String!
-  description: String
-  author: User!
-  userId: String!
+  email: String!
+  name: String!
+  notes: [Note!]
   createdAt: Timestamp!
   updatedAt: Timestamp
 }
@@ -29,7 +28,7 @@ type Query {
   findUser(id: String!): User!
   allUsers: [User!]!
   findNote(id: String!): Note!
-  allNotes: [Note!]!
+  allNotes(userId: String!): [Note!]!
 }
 
 type Mutation {
@@ -49,7 +48,7 @@ input UserUpdateInput {
   id: String!
   name: String
   email: String
-  updatedAt: Timestamp = 1667872996096
+  updatedAt: Timestamp
 }
 
 input NoteCreateInput {

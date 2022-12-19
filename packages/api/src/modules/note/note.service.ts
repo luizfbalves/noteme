@@ -7,7 +7,7 @@ import { NoteUpdateInput } from './dtos/note.update.input'
 
 @Injectable()
 export class NoteService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   findOne(data: Prisma.NoteWhereUniqueInput) {
     const { id } = data
@@ -17,9 +17,10 @@ export class NoteService {
     })
   }
 
-  findAll() {
+  findAll(data: Prisma.NoteWhereInput) {
+    const { userId } = data
     return this.prisma.note.findMany({
-      include: { author: true },
+      where: { userId },
     })
   }
 

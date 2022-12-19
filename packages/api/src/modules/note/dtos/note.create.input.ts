@@ -8,5 +8,5 @@ export class NoteCreateInput implements Partial<Note> {
   userId: string
 
   @Field({ nullable: true })
-  description?: string
+  description: string
 }
