@@ -11,6 +11,7 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
+import { userListener } from './listeners'
 import noteReducer from './note/note.store'
 import userReducer from './user/user.store'
 
@@ -34,7 +35,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).prepend(userListener.middleware),
 })
 
 export const persistor = persistStore(store)

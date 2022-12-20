@@ -5,7 +5,7 @@ export interface UserType {
   username?: string
   token?: string
   email?: string
-  error?: unknown
+  error?: any
   isLogged?: boolean
   isLoading?: boolean
 }

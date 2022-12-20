@@ -2,7 +2,7 @@ import React from 'react'
 import { TbCirclePlus, TbDoorExit } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
 
-import { SignOut } from '@/auth'
+import { signOut } from '@/auth'
 import { v4 as uuidV4 } from 'uuid'
 
 import { useAppDispatch } from '@/store/hooks'
@@ -26,9 +26,9 @@ export const SideNav: React.FC = () => {
     dispatch(insertNote(note))
   }
 
-  const signOut = async () => {
+  const handleSignOut = async () => {
     try {
-      await SignOut()
+      await signOut()
       dispatch(userData({ isLoading: false, isLogged: false, token: '' }))
     } catch (error) {
       console.log(error)
@@ -48,7 +48,7 @@ export const SideNav: React.FC = () => {
           </li>
         </div>
         <li>
-          <Link to="/signin" onClick={signOut}>
+          <Link to="/signin" onClick={handleSignOut}>
             <Label className="label">logout</Label>
             <TbDoorExit />
           </Link>

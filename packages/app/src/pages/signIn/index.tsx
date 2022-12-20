@@ -120,7 +120,7 @@ export const SignIn: React.FC = () => {
               <span
                 onClick={handlePushSignUp}
                 style={{ cursor: 'pointer' }}
-              >{`Doesn't have and account?`}</span>
+              >{`Doesn't have an account?`}</span>
             </>
           )}
         </FormLogin>
