@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { TbTrashX } from 'react-icons/tb'
 
 import { TNote } from '@/store/note/note.store'
@@ -21,7 +21,9 @@ type TNoteEvent = {
 
 export const Note: React.FC<TNoteEvent> = (props) => {
   const { data, onChange, onDrop } = props
-  const { id, description, updatedAt } = data
+  const { id, userId, description, updatedAt } = data
+
+  const noteRef = useRef<HTMLDivElement>(null)
 
   const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -29,7 +31,7 @@ export const Note: React.FC<TNoteEvent> = (props) => {
     const input = event.currentTarget.textContent || description
 
     if (typeof onChange === 'function') {
-      onChange({ id, description: input, updatedAt }, event)
+      onChange({ id, userId, description: input, updatedAt }, event)
     }
   }
 
@@ -51,6 +53,12 @@ export const Note: React.FC<TNoteEvent> = (props) => {
     />
   )
 
+  useEffect(() => {
+    if (noteRef.current) {
+      noteRef.current.innerText = description
+    }
+  }, [])
+
   return (
     <>
       {dialog}
@@ -62,15 +70,15 @@ export const Note: React.FC<TNoteEvent> = (props) => {
         </div>
         <div className="content">
           <Textarea
+            ref={noteRef}
             contentEditable
             aria-multiline
             suppressContentEditableWarning
             role="textbox"
             placeholder={'type your note'}
             onInput={handleInput}
-          >
-            {description}
-          </Textarea>
+            defaultValue={description}
+          />
           <span className="card-date">{dateLL(updatedAt)}</span>
         </div>
       </Card>
