@@ -1,6 +1,7 @@
 import React from 'react'
 import { TbCirclePlus, TbDoorExit } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { signOut } from '@/auth'
 import { POST_CREATENOTE } from '@/services/apollo/documents/notes.gql'
@@ -35,7 +36,7 @@ export const SideNav: React.FC = () => {
       await signOut()
       dispatch(userData({ isLoading: false, isLogged: false, token: '' }))
     } catch (error) {
-      console.log(error)
+      toast.error('something went wrong...')
     }
   }
 

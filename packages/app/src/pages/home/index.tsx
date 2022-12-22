@@ -16,7 +16,7 @@ export const Home: React.FC = () => {
 
   const { username } = useAppSelector((state) => state.userReducer)
   const { notes, state } = useAppSelector((state) => state.noteReducer)
-  console.log(notes)
+
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value)
   }

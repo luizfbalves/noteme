@@ -32,8 +32,6 @@ export const SignIn: React.FC = () => {
 
       const { data, error } = await signIn(email, password)
 
-      console.log(data)
-
       if (data.session) {
         const response: UserType = {
           isLoading: false,

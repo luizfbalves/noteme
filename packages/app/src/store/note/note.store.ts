@@ -29,7 +29,6 @@ export const note = createSlice({
       return state
     },
     insertNote: (state: TNotes, action: PayloadAction<TNote>) => {
-      console.log(action.payload)
       state.notes.push(action.payload)
     },
     editNote: (state: TNotes, action: PayloadAction<TNote>) => {
