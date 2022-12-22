@@ -21,7 +21,7 @@ export const Home: React.FC = () => {
     setSearchText(event.target.value)
   }
 
-  const handleEdit = (data: TNote) => {
+  const handleChange = (data: TNote) => {
     dispatch(editNote(data))
   }
 
@@ -51,7 +51,7 @@ export const Home: React.FC = () => {
               <Note
                 key={item.id}
                 data={item}
-                onChange={handleEdit}
+                onChange={handleChange}
                 onDrop={handleDelete}
               />
             ))}

@@ -1,5 +1,5 @@
 import apolloClient from '@/services/apollo/apolloClient'
-import { PUT_DELETENOTE } from '@/services/apollo/documents/notes.gql'
+import { PUT_DELETENOTE, PUT_UPDATENOTE } from '@/services/apollo/documents/notes.gql'
 import { createListenerMiddleware } from '@reduxjs/toolkit'
 
 import { deleteNote, editNote } from './note/note.store'
@@ -8,8 +8,21 @@ export const noteListenerMiddleware = createListenerMiddleware()
 
 noteListenerMiddleware.startListening({
   actionCreator: editNote,
-  effect: async (action) => {
-    console.log(action.payload)
+  effect: async (action, listener) => {
+    const { id, description } = action.payload
+
+    listener.cancelActiveListeners()
+
+    await listener.delay(500)
+
+    apolloClient.mutate({
+      mutation: PUT_UPDATENOTE, variables: {
+        data: {
+          id,
+          description
+        }
+      }
+    })
   }
 })
 
