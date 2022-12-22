@@ -1,4 +1,4 @@
-export type findUserType = {
+export interface findUserInterface {
   findUser: {
     name: string,
     notes: {

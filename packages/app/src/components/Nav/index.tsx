@@ -1,37 +1,42 @@
 import React from 'react'
 import { TbCirclePlus, TbDoorExit } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-import { SignOut } from '@/auth'
-import { v4 as uuidV4 } from 'uuid'
+import { signOut } from '@/auth'
+import { POST_CREATENOTE } from '@/services/apollo/documents/notes.gql'
+import { useMutation } from '@apollo/client'
 
-import { useAppDispatch } from '@/store/hooks'
-import { insertNote, TNote } from '@/store/note/note.store'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { insertNote } from '@/store/note/note.store'
 import { userData } from '@/store/user/user.store'
-
-import { dateRFC } from '@/utils/index'
 
 import { Wrapper, Label } from './styles'
 
 export const SideNav: React.FC = () => {
   const dispatch = useAppDispatch()
+  const { id } = useAppSelector((state) => state.userReducer)
 
-  const newNote = () => {
-    const note: TNote = {
-      id: uuidV4(),
-      description: '',
-      updatedAt: dateRFC,
-    }
+  const [postCreateNote] = useMutation(POST_CREATENOTE)
+  const newNote = async () => {
+    const { data } = await postCreateNote({
+      variables: {
+        data: {
+          userId: id,
+          description: '',
+        },
+      },
+    })
+    const { createNote } = data
+    dispatch(insertNote(createNote))
+  } //TODO fix this method types
 
-    dispatch(insertNote(note))
-  }
-
-  const signOut = async () => {
+  const handleSignOut = async () => {
     try {
-      await SignOut()
+      await signOut()
       dispatch(userData({ isLoading: false, isLogged: false, token: '' }))
     } catch (error) {
-      console.log(error)
+      toast.error('something went wrong...')
     }
   }
 
@@ -48,7 +53,7 @@ export const SideNav: React.FC = () => {
           </li>
         </div>
         <li>
-          <Link to="/signin" onClick={signOut}>
+          <Link to="/signin" onClick={handleSignOut}>
             <Label className="label">logout</Label>
             <TbDoorExit />
           </Link>

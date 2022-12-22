@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,14 +7,18 @@ import {
 } from 'react-router-dom'
 
 import { ProtectedRoute } from '@/auth/ProtectedRoute'
+import Pages, { SignIn, SignUp } from '@/pages'
 
 import { CustomThemeProvider } from './hooks/theme'
-import Pages from './pages/index'
-import SignIn from './pages/signIn'
-import SignUp from './pages/signUp'
+import { useAppDispatch } from './store/hooks'
+import { fetchInitialNotes } from './store/thunks'
 import GlobalStyle from './styles/global'
 
 export const App: React.FC = () => {
+  const dispatch = useAppDispatch()
+
+  dispatch(fetchInitialNotes('2243dbca-7bcd-41e9-bb58-9962685fa52f'))
+
   return (
     <div className="App">
       <Router>

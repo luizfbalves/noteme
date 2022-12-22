@@ -1,28 +1,17 @@
-import { supabase } from '@/services/supabaseClient'
+import apolloClient from '@/services/apollo/apolloClient'
+import { GET_ALLNOTES } from '@/services/apollo/documents/notes.gql'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { UserType } from './user/user.store'
-
-const fetchUserAuth = createAsyncThunk('user/fetchUserAuth',
-  async (_, { rejectWithValue }) => {
+export const fetchInitialNotes = createAsyncThunk('note/fetchInitialNotes',
+  async (userId: string, { rejectWithValue }) => {
     try {
-      const { data, error } = await supabase.auth.getSession()
-
-      if (data.session) {
-        const { email, user_metadata } = data.session.user
-
-        const response: UserType = {
-          email: email,
-          username: user_metadata.username,
-          isLogged: true,
-          isLoading: false
+      const { data } = await apolloClient.query({
+        query: GET_ALLNOTES, variables: {
+          userId
         }
-        return response
-      }
-      return rejectWithValue(error?.message)
+      })
+      return data.allNotes
     } catch (error) {
-      return rejectWithValue(error)
+      rejectWithValue(error)
     }
   })
-
-export { fetchUserAuth }
