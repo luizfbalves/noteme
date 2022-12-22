@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 
 import { signUp } from '@/auth'
 import { AuthError } from '@supabase/supabase-js'
-import { Button, Divider, Loader } from 'rsuite'
+import { Button, Divider, Input, Loader } from 'rsuite'
 import { ZodError } from 'zod'
 
 import { useAppDispatch } from '@/store/hooks'
@@ -83,15 +83,11 @@ export const SignUp: React.FC = () => {
         </FormLogin.Group>
         <FormLogin.Group>
           <FormLogin.ControlLabel>Username</FormLogin.ControlLabel>
-          <FormLogin.Control
-            onChange={handleUsername}
-            name="username"
-            autoComplete="off"
-          />
+          <Input onChange={handleUsername} name="username" autoComplete="off" />
         </FormLogin.Group>
         <FormLogin.Group>
           <FormLogin.ControlLabel>Email</FormLogin.ControlLabel>
-          <FormLogin.Control
+          <Input
             onChange={handleEmail}
             name="email"
             type="email"
@@ -100,7 +96,7 @@ export const SignUp: React.FC = () => {
         </FormLogin.Group>
         <FormLogin.Group>
           <FormLogin.ControlLabel>Password</FormLogin.ControlLabel>
-          <FormLogin.Control
+          <Input
             onChange={handlePassword}
             name="password"
             type="password"
