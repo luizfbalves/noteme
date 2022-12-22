@@ -14,8 +14,10 @@ export const GET_ALLNOTES = gql(/* GraphQL */ `
 export const POST_CREATENOTE = gql(/* GraphQL */ `
   mutation CreateNote($data: NoteCreateInput!) {
     createNote(data: $data) {
+      id
       description
       userId
+      updatedAt
     }
   }
 `)

@@ -5,6 +5,7 @@ import { fetchInitialNotes } from '../thunks'
 export interface TNote {
   id: string
   description: string
+  userId: string
   updatedAt: string
 }
 
@@ -28,6 +29,7 @@ export const note = createSlice({
       return state
     },
     insertNote: (state: TNotes, action: PayloadAction<TNote>) => {
+      console.log(action.payload)
       state.notes.push(action.payload)
     },
     editNote: (state: TNotes, action: PayloadAction<TNote>) => {

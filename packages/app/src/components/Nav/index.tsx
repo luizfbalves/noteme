@@ -3,28 +3,32 @@ import { TbCirclePlus, TbDoorExit } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
 
 import { signOut } from '@/auth'
-import { v4 as uuidV4 } from 'uuid'
+import { POST_CREATENOTE } from '@/services/apollo/documents/notes.gql'
+import { useMutation } from '@apollo/client'
 
-import { useAppDispatch } from '@/store/hooks'
-import { insertNote, TNote } from '@/store/note/note.store'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { insertNote } from '@/store/note/note.store'
 import { userData } from '@/store/user/user.store'
-
-import { dateRFC } from '@/utils/index'
 
 import { Wrapper, Label } from './styles'
 
 export const SideNav: React.FC = () => {
   const dispatch = useAppDispatch()
+  const { id } = useAppSelector((state) => state.userReducer)
 
-  const newNote = () => {
-    const note: TNote = {
-      id: uuidV4(),
-      description: '',
-      updatedAt: dateRFC,
-    }
-
-    dispatch(insertNote(note))
-  }
+  const [postCreateNote] = useMutation(POST_CREATENOTE)
+  const newNote = async () => {
+    const { data } = await postCreateNote({
+      variables: {
+        data: {
+          userId: id,
+          description: '',
+        },
+      },
+    })
+    const { createNote } = data
+    dispatch(insertNote(createNote))
+  } //TODO fix this method types
 
   const handleSignOut = async () => {
     try {

@@ -2,20 +2,31 @@ import React, { useState } from 'react'
 
 import { Loader } from 'rsuite'
 
-import { useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { TNote, deleteNote, editNote } from '@/store/note/note.store'
 
 import { SearchBar, ThemeToggler, Note, ErrorMessage } from '@/components'
 
 import { NavHeader, Container, Content } from './styles'
 
 export const Home: React.FC = () => {
+  const dispatch = useAppDispatch()
+
   const [searchText, setSearchText] = useState('')
 
   const { username } = useAppSelector((state) => state.userReducer)
   const { notes, state } = useAppSelector((state) => state.noteReducer)
-
+  console.log(notes)
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value)
+  }
+
+  const handleEdit = (data: TNote) => {
+    dispatch(editNote(data))
+  }
+
+  const handleDelete = (id: string) => {
+    dispatch(deleteNote({ id }))
   }
 
   return (
@@ -33,11 +44,17 @@ export const Home: React.FC = () => {
         {state === 'failed' && (
           <ErrorMessage>{`something went wrong =/`}</ErrorMessage>
         )}
-        {notes
-          .filter((item) => item.description.includes(searchText) ?? true)
-          .map((item) => (
-            <Note key={item.id} data={item} />
-          ))}
+        {notes &&
+          notes
+            .filter((item) => item.description.includes(searchText) ?? true)
+            .map((item) => (
+              <Note
+                key={item.id}
+                data={item}
+                onChange={handleEdit}
+                onDrop={handleDelete}
+              />
+            ))}
       </Content>
     </Container>
   )
