@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,21 +10,9 @@ import { ProtectedRoute } from '@/auth/ProtectedRoute'
 import Pages, { SignIn, SignUp } from '@/pages'
 
 import { CustomThemeProvider } from './hooks/theme'
-import { useAppDispatch, useAppSelector } from './store/hooks'
-import { fetchInitialNotes } from './store/thunks'
 import GlobalStyle from './styles/global'
 
 export const App: React.FC = () => {
-  const dispatch = useAppDispatch()
-
-  const { id } = useAppSelector((state) => state.userReducer)
-
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchInitialNotes(id))
-    }
-  }, [id])
-
   return (
     <div className="App">
       <Router>

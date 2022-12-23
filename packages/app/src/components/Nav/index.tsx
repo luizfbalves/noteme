@@ -40,7 +40,9 @@ export const SideNav: React.FC = () => {
   const handleSignOut = async () => {
     try {
       await signOut()
-      dispatch(userData({ isLoading: false, isLogged: false, token: '' }))
+      dispatch(
+        userData({ id: '', isLoading: false, isLogged: false, token: '' })
+      )
     } catch (error) {
       toast.error('something went wrong...')
     }
