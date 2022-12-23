@@ -36,10 +36,11 @@ export const SignIn: React.FC = () => {
         const response: UserType = {
           isLoading: false,
           isLogged: true,
-          id: data.user?.id,
-          username: data.user?.user_metadata.username,
+          id: data.session.user.id,
+          username: data.session.user.user_metadata.username,
           email: data.session.user.email,
           token: data.session.access_token,
+          refresh_token: data.session.refresh_token,
         }
 
         dispatch(userData(response))

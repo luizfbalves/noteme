@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 
 import { signOut } from '@/auth'
 import { POST_CREATENOTE } from '@/services/apollo/documents/notes.gql'
+import { createNoteInterface } from '@/services/apollo/documents/notes.types'
 import { useMutation } from '@apollo/client'
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
@@ -15,9 +16,10 @@ import { Wrapper, Label } from './styles'
 
 export const SideNav: React.FC = () => {
   const dispatch = useAppDispatch()
+
   const { id } = useAppSelector((state) => state.userReducer)
 
-  const [postCreateNote] = useMutation(POST_CREATENOTE)
+  const [postCreateNote] = useMutation<createNoteInterface>(POST_CREATENOTE)
   const newNote = async () => {
     const { data } = await postCreateNote({
       variables: {
@@ -27,9 +29,13 @@ export const SideNav: React.FC = () => {
         },
       },
     })
-    const { createNote } = data
-    dispatch(insertNote(createNote))
-  } //TODO fix this method types
+
+    if (data) {
+      const { createNote } = data
+
+      dispatch(insertNote(createNote))
+    }
+  }
 
   const handleSignOut = async () => {
     try {

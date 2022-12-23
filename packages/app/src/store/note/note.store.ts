@@ -26,7 +26,6 @@ export const note = createSlice({
   reducers: {
     noteData: (state: TNotes, action: PayloadAction<TNotes>) => {
       state = action.payload
-      return state
     },
     insertNote: (state: TNotes, action: PayloadAction<TNote>) => {
       state.notes.push(action.payload)
@@ -47,8 +46,8 @@ export const note = createSlice({
       state.state = 'loading'
     })
     builder.addCase(fetchInitialNotes.fulfilled, (state: TNotes, { payload }: PayloadAction<TNote[]>) => {
-      state.notes = payload
       state.state = 'fulfilled'
+      state.notes = payload
     })
     builder.addCase(fetchInitialNotes.rejected, (state, { payload }) => {
       state.state = 'failed'

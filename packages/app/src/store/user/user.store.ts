@@ -4,6 +4,7 @@ export interface UserType {
   id?: string
   username?: string
   token?: string
+  refresh_token?: string
   email?: string
   error?: any
   isLogged?: boolean
@@ -21,7 +22,6 @@ export const user = createSlice({
   reducers: {
     userData: (state, action: PayloadAction<UserType>) => {
       state = action.payload
-      return state
     }
   },
 },
