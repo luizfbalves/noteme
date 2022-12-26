@@ -40,11 +40,13 @@ export const SignIn: React.FC = () => {
           username: data.session.user.user_metadata.username,
           email: data.session.user.email,
           token: data.session.access_token,
-          refresh_token: data.session.refresh_token,
         }
 
-        dispatch(userData(response))
-        navigate('/home')
+        const { payload } = dispatch(userData(response))
+        console.log(payload)
+        if (payload.isLogged) {
+          navigate('/home')
+        }
       } else {
         error instanceof AuthError
           ? toast(error.message)

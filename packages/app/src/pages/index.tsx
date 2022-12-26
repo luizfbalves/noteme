@@ -12,6 +12,7 @@ export default function Pages() {
 
   const { id } = useAppSelector((state) => state.userReducer)
 
+  console.log('id', id)
   useEffect(() => {
     if (id) {
       dispatch(fetchInitialNotes(id))
