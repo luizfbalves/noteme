@@ -24,7 +24,9 @@ export const SignIn: React.FC = () => {
   const handleEmail = (value: string) => setEmail(value)
   const handlePassword = (value: string) => setPassword(value)
 
-  const handleSignin = async () => {
+  const handleSignin = async (event: React.SyntheticEvent) => {
+    event.preventDefault()
+    console.log('signin')
     try {
       UserSignInSchema.parse({ email, password })
 
@@ -41,12 +43,8 @@ export const SignIn: React.FC = () => {
           email: data.session.user.email,
           token: data.session.access_token,
         }
-
-        const { payload } = dispatch(userData(response))
-        console.log(payload)
-        if (payload.isLogged) {
-          navigate('/home')
-        }
+        dispatch(userData(response))
+        navigate('/home')
       } else {
         error instanceof AuthError
           ? toast(error.message)

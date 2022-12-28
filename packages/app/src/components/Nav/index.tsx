@@ -10,7 +10,7 @@ import { useMutation } from '@apollo/client'
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { insertNote } from '@/store/note/note.store'
-import { userData } from '@/store/user/user.store'
+import { clearUserData } from '@/store/user/user.store'
 
 import { Wrapper, Label } from './styles'
 
@@ -32,17 +32,14 @@ export const SideNav: React.FC = () => {
 
     if (data) {
       const { createNote } = data
-
       dispatch(insertNote(createNote))
     }
   }
 
   const handleSignOut = async () => {
     try {
+      dispatch(clearUserData())
       await signOut()
-      dispatch(
-        userData({ id: '', isLoading: false, isLogged: false, token: '' })
-      )
     } catch (error) {
       toast.error('something went wrong...')
     }

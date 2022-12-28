@@ -7,6 +7,7 @@ import 'rsuite/dist/rsuite.min.css'
 import './styles/sass/app.scss'
 import { ApolloProvider } from '@apollo/client'
 import { PersistGate } from 'redux-persist/integration/react'
+import { Loader } from 'rsuite'
 
 import App from './App'
 import client from './services/apollo/apolloClient'
@@ -16,7 +17,10 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <ApolloProvider client={client}>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate
+        loading={<Loader className="absolut-center" />}
+        persistor={persistor}
+      >
         <App />
       </PersistGate>
     </Provider>
