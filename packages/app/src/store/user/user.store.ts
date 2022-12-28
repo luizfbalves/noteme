@@ -34,7 +34,6 @@ export const user = createSlice({
         isLogged: false
       }
       state = data
-
       return state
     }
 
