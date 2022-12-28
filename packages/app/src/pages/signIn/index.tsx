@@ -26,7 +26,7 @@ export const SignIn: React.FC = () => {
 
   const handleSignin = async (event: React.SyntheticEvent) => {
     event.preventDefault()
-    console.log('signin')
+
     try {
       UserSignInSchema.parse({ email, password })
 
