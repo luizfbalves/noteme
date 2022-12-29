@@ -20,5 +20,5 @@ export const signOut = async () => {
 }
 
 export const getSession = async () => {
-  await supabase.auth.getSession()
+  return await supabase.auth.getSession()
 }
