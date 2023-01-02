@@ -61,3 +61,5 @@ export const Home: React.FC = () => {
 }
 
 export default Home
+
+//TODO refactor handle methods to prevent rerender
