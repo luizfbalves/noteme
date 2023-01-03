@@ -5,9 +5,11 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { ProtectedRoute } from '@/auth/ProtectedRoute'
 import Pages, { SignIn, SignUp } from '@/pages'
+import { AuthError } from '@supabase/supabase-js'
 
 import { getSession } from './auth'
 import { CustomThemeProvider } from './hooks/theme'
@@ -19,10 +21,15 @@ export const App: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const handleSession = async () => {
-    const { data } = await getSession()
-
-    if (!data.session) {
-      dispatch(clearUserData())
+    try {
+      const { data } = await getSession()
+      if (!data.session) {
+        dispatch(clearUserData())
+      }
+    } catch (error) {
+      if (error instanceof AuthError) {
+        toast(error.message)
+      }
     }
   }
 
