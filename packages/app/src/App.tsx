@@ -5,50 +5,15 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom'
-import { toast } from 'react-toastify'
 
 import { ProtectedRoute } from '@/auth/ProtectedRoute'
 import Pages, { SignIn, SignUp } from '@/pages'
-import { AuthError } from '@supabase/supabase-js'
 
-import { getSession } from './auth'
 import { CustomThemeProvider } from './hooks/theme'
-import ConfirmSignUp from './pages/confirmSignUp'
-import { useAppDispatch } from './store/hooks'
-import { UserType, clearUserData, userData } from './store/user/user.store'
+import ConfirmSignUp from './pages/ConfirmSignUp'
 import GlobalStyle from './styles/global'
 
 export const App: React.FC = () => {
-  const dispatch = useAppDispatch()
-
-  const handleSession = async () => {
-    try {
-      const { data } = await getSession()
-
-      if (data.session) {
-        const response: UserType = {
-          isLoading: false,
-          isLogged: true,
-          id: data.session.user.id,
-          username: data.session.user.user_metadata.username,
-          email: data.session.user.email,
-          token: data.session.access_token,
-        }
-        dispatch(userData(response))
-      } else {
-        dispatch(clearUserData())
-      }
-    } catch (error) {
-      if (error instanceof AuthError) {
-        toast(error.message)
-      }
-    }
-  }
-
-  React.useEffect(() => {
-    handleSession()
-  }, [])
-
   return (
     <div className="App">
       <Router>
