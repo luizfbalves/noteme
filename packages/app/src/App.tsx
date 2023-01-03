@@ -13,8 +13,9 @@ import { AuthError } from '@supabase/supabase-js'
 
 import { getSession } from './auth'
 import { CustomThemeProvider } from './hooks/theme'
+import ConfirmSignUp from './pages/confirmSignUp'
 import { useAppDispatch } from './store/hooks'
-import { clearUserData } from './store/user/user.store'
+import { UserType, clearUserData, userData } from './store/user/user.store'
 import GlobalStyle from './styles/global'
 
 export const App: React.FC = () => {
@@ -23,7 +24,18 @@ export const App: React.FC = () => {
   const handleSession = async () => {
     try {
       const { data } = await getSession()
-      if (!data.session) {
+
+      if (data.session) {
+        const response: UserType = {
+          isLoading: false,
+          isLogged: true,
+          id: data.session.user.id,
+          username: data.session.user.user_metadata.username,
+          email: data.session.user.email,
+          token: data.session.access_token,
+        }
+        dispatch(userData(response))
+      } else {
         dispatch(clearUserData())
       }
     } catch (error) {
@@ -53,6 +65,7 @@ export const App: React.FC = () => {
             />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/confirmsignup" element={<ConfirmSignUp />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </Routes>
         </CustomThemeProvider>

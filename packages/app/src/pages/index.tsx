@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { fetchInitialNotes } from '@/store/thunks'
@@ -31,3 +31,4 @@ export default function Pages() {
 export * from './home'
 export * from './signIn'
 export * from './signUp'
+export * from './confirmSignUp'
