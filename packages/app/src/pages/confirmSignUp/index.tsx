@@ -1,17 +1,15 @@
 import React from 'react'
 
-import { Banner } from './styles'
+import { Banner, Container } from './styles'
 
 const ConfirmSignUp: React.FC = () => {
   return (
-    <>
+    <Container>
       <Banner>
         <img src="/assets/images/auth_confirmation.svg"></img>
       </Banner>
-      <div>
-        <span>check your email</span>
-      </div>
-    </>
+      <span>check your email</span>
+    </Container>
   )
 }
 
