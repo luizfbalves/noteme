@@ -11,15 +11,12 @@ import { Content } from './styles'
 
 const Pages: React.FC = () => {
   const dispatch = useAppDispatch()
-  const handleSession = async () => {
-    try {
-      const { data } = await getSession()
 
-      if (!data.session) {
-        dispatch(clearUserData())
-      }
-    } catch (error) {
-      console.log(error)
+  const handleSession = async () => {
+    const { data } = await getSession()
+
+    if (!data.session) {
+      dispatch(clearUserData())
     }
   }
 

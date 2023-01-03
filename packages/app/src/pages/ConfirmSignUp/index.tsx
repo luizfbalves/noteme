@@ -1,19 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-import { supabase } from '@/services/supabaseClient'
+import { getSession } from '@/auth'
 
 import { Banner, Container } from './styles'
 
 export const ConfirmSignUp: React.FC = () => {
   const navigate = useNavigate()
 
-  supabase.auth.onAuthStateChange((event, session) => {
-    console.log({ session, event })
-    if (event === 'SIGNED_IN' && session?.user) {
+  const handleEmailConfirmation = async () => {
+    const { data } = await getSession()
+
+    if (data.session && data.user) {
       navigate('/home')
+      toast('E-mail sucessfully verified!')
     }
-  })
+  }
+
+  useEffect(() => {
+    handleEmailConfirmation()
+  }, [])
 
   return (
     <Container>
