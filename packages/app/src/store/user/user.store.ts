@@ -3,14 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 export interface UserType {
   id?: string
   username?: string
-  token?: string
-  email?: string
-  error?: any
   isLogged?: boolean
   isLoading?: boolean
 }
 
 const initialState: UserType = {
+  id: '',
+  username: '',
   isLogged: false,
   isLoading: false
 }
@@ -26,10 +25,7 @@ export const user = createSlice({
     clearUserData: (state) => {
       const data: UserType = {
         id: '',
-        email: '',
-        token: '',
         username: '',
-        error: '',
         isLoading: false,
         isLogged: false
       }

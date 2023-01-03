@@ -46,8 +46,6 @@ export const SignIn: React.FC = () => {
           isLogged: true,
           id: data.session.user.id,
           username: data.session.user.user_metadata.username,
-          email: data.session.user.email,
-          token: data.session.access_token,
         }
         dispatch(userData(response))
         navigate('/home')

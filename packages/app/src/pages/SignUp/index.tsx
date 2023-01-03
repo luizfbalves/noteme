@@ -46,7 +46,6 @@ export const SignUp: React.FC = () => {
           isLoading: false,
           isLogged: true,
           username: data.user.user_metadata.username,
-          email: data.user.email,
         }
 
         dispatch(userData(response))
