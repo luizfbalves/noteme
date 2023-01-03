@@ -35,6 +35,12 @@ export const SignIn: React.FC = () => {
       const { data, error } = await signIn(email, password)
 
       if (data.session) {
+        if (data.user) {
+          if (!data.user.confirmed_at && data.user.confirmation_sent_at) {
+            toast('E-mail confirmation sent...')
+            return
+          }
+        }
         const response: UserType = {
           isLoading: false,
           isLogged: true,
