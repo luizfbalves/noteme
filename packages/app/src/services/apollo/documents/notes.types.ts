@@ -1,5 +1,3 @@
-
-
 export interface createNoteInterface {
   createNote: {
     id: string

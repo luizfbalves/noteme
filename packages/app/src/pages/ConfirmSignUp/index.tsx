@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useAppSelector } from '@/store/hooks'
+import { supabase } from '@/services/supabaseClient'
 
 import { Banner, Container } from './styles'
 
-const ConfirmSignUp: React.FC = () => {
+export const ConfirmSignUp: React.FC = () => {
   const navigate = useNavigate()
-  const { isLogged } = useAppSelector((state) => state.userReducer)
 
-  useEffect(() => {
-    isLogged && navigate('/home')
-  }, [isLogged])
+  supabase.auth.onAuthStateChange((event, session) => {
+    console.log({ session, event })
+    if (event === 'SIGNED_IN' && session?.user) {
+      navigate('/home')
+    }
+  })
 
   return (
     <Container>

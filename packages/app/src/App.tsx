@@ -7,13 +7,31 @@ import {
 } from 'react-router-dom'
 
 import { ProtectedRoute } from '@/auth/ProtectedRoute'
-import Pages, { SignIn, SignUp } from '@/pages'
+import Pages, { SignIn, SignUp, ConfirmSignUp } from '@/pages'
 
 import { CustomThemeProvider } from './hooks/theme'
-import ConfirmSignUp from './pages/ConfirmSignUp'
+import { supabase } from './services/supabaseClient'
+import { useAppDispatch } from './store/hooks'
+import { UserType, clearUserData, userData } from './store/user/user.store'
 import GlobalStyle from './styles/global'
 
 export const App: React.FC = () => {
+  const dispatch = useAppDispatch()
+
+  supabase.auth.onAuthStateChange((event, session) => {
+    console.log({ session, event })
+    if (event === 'SIGNED_IN' && session?.user) {
+      const data: UserType = {
+        id: session.user.id,
+        isLogged: true,
+        username: session.user.user_metadata.username,
+      }
+      dispatch(userData(data))
+    } else {
+      dispatch(clearUserData())
+    }
+  })
+
   return (
     <div className="App">
       <Router>
