@@ -19,6 +19,6 @@ export const signOut = async () => {
   return await supabase.auth.signOut()
 }
 
-export const getSession = async () => {
+export const refreshSession = async () => {
   return await supabase.auth.refreshSession()
 }

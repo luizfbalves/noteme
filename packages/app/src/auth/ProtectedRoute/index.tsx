@@ -12,9 +12,9 @@ export const ProtectedRoute = (props: ProtectedRouteType) => {
 
   if (!isLogged) {
     return <Navigate to="/signin" replace />
-  } else {
-    return props.children
   }
+
+  return props.children
 }
 
 export default ProtectedRoute

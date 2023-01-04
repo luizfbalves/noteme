@@ -20,12 +20,12 @@ export const App: React.FC = () => {
 
   supabase.auth.onAuthStateChange((event, session) => {
     if (event === 'SIGNED_IN' && session?.user) {
-      const data: UserType = {
-        id: session.user.id,
+      const state: UserType = {
         isLogged: true,
+        id: session.user.id,
         username: session.user.user_metadata.username,
       }
-      dispatch(userData(data))
+      dispatch(userData(state))
     } else if (event === 'SIGNED_OUT') {
       dispatch(clearUserData())
     }

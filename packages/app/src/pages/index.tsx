@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 
-import { getSession } from '@/auth'
+import { refreshSession } from '@/auth'
 
 import { useAppDispatch } from '@/store/hooks'
+import { fetchInitialNotes } from '@/store/thunks'
 import { clearUserData } from '@/store/user/user.store'
 
 import { SideNav } from '../components/index'
@@ -12,17 +13,22 @@ import { Content } from './styles'
 const Pages: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  const handleSession = async () => {
-    const { data } = await getSession()
+  async function sessionValidate() {
+    const { data } = await refreshSession()
 
-    if (!data.session) {
+    if (data.session && data.user) {
+      const { id } = data.user
+
+      dispatch(fetchInitialNotes(id))
+    } else {
       dispatch(clearUserData())
     }
   }
 
   useEffect(() => {
-    handleSession()
+    sessionValidate()
   }, [])
+
   return (
     <Content>
       <SideNav />
