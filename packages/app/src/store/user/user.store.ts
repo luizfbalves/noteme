@@ -7,7 +7,7 @@ export interface UserType {
   isLoading?: boolean
 }
 
-const storedUser = localStorage.getItem('noteme-user-data') || ''
+const storedUser = localStorage.getItem('noteme-user-data') || '{}'
 
 const initialState: UserType = JSON.parse(storedUser) || {
   id: '',
