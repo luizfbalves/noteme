@@ -18,7 +18,6 @@ const Pages: React.FC = () => {
 
     if (data.session && data.user) {
       const { id } = data.user
-
       dispatch(fetchInitialNotes(id))
     } else {
       dispatch(clearUserData())

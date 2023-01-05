@@ -7,7 +7,9 @@ export interface UserType {
   isLoading?: boolean
 }
 
-const initialState: UserType = {
+const storedUser = localStorage.getItem('noteme-user-data') || ''
+
+const initialState: UserType = JSON.parse(storedUser) || {
   id: '',
   username: '',
   isLogged: false,
@@ -33,7 +35,8 @@ export const user = createSlice({
       return state
     }
 
-  },
+  }
+
 },
 )
 

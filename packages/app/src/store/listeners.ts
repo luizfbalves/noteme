@@ -4,6 +4,7 @@ import { PUT_DELETENOTE, PUT_UPDATENOTE } from '@/services/apollo/documents/note
 import { createListenerMiddleware } from '@reduxjs/toolkit'
 
 import { deleteNote, editNote } from './note/note.store'
+import { clearUserData, userData } from './user/user.store'
 
 export const listenerMiddleware = createListenerMiddleware()
 
@@ -39,5 +40,21 @@ listenerMiddleware.startListening({
         }
       })
     }
+  }
+})
+
+listenerMiddleware.startListening({
+  actionCreator: userData,
+  effect: (action) => {
+    action.payload
+      &&
+      localStorage.setItem('noteme-user-data', JSON.stringify(action.payload))
+  }
+})
+
+listenerMiddleware.startListening({
+  actionCreator: clearUserData,
+  effect: () => {
+    localStorage.removeItem('noteme-user-data')
   }
 })
