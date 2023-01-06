@@ -3775,13 +3775,6 @@
     insert-css "^2.0.0"
     lodash "^4.17.20"
 
-"@rtk-query/graphql-request-base-query@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@rtk-query/graphql-request-base-query/-/graphql-request-base-query-2.2.0.tgz#e1e5e44793a234ea4c180619e469ed0e1890b2aa"
-  integrity sha512-zBGaTJUHsE1UJWkQGxPfdIteysbd+4Ivx4nkuy6Xgd2kn6zOd849YdR48B1fUh7QA2CXj/F1d+jrCETULp7hnA==
-  dependencies:
-    graphql-request "^4.0.0"
-
 "@sinclair/typebox@^0.24.1":
   version "0.24.51"
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.51.tgz#645f33fe4e02defe26f2f5c0410e1c094eac7f5f"
@@ -7839,15 +7832,6 @@ graphql-config@4.3.6:
     string-env-interpolation "1.0.1"
     ts-node "^10.8.1"
     tslib "^2.4.0"
-
-graphql-request@^4.0.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-4.3.0.tgz#b934e08fcae764aa2cdc697d3c821f046cb5dbf2"
-  integrity sha512-2v6hQViJvSsifK606AliqiNiijb1uwWp6Re7o0RTyH+uRTv/u7Uqm2g4Fjq/LgZIzARB38RZEvVBFOQOVdlBow==
-  dependencies:
-    cross-fetch "^3.1.5"
-    extract-files "^9.0.0"
-    form-data "^3.0.0"
 
 graphql-request@^5.0.0:
   version "5.0.0"
