@@ -16,13 +16,14 @@
 
 ## Features
 - app
-  - [x] login page
+  - [x] sigin page
+  - [x] signup page
   - [x] home page
   - [ ] user page
 - api
   - [x] user crud
   - [x] notes crud
-  - [ ] auth
+  - [x] auth
 
 ## Repos
 - [x] app
@@ -47,5 +48,9 @@
   </li>
     <li>
     <a href="https://www.prisma.io/">Prisma</a></br>
+  </li>
+    </li>
+    <li>
+    <a href="https://www.apollographql.com/">Apollo-graphql</a></br>
   </li>
 </ul>
