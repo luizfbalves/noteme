@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -17,15 +17,16 @@ export const SignIn: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleEmail = (value: string) => setEmail(value)
-  const handlePassword = (value: string) => setPassword(value)
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
 
   const handleSignin = async (event: React.SyntheticEvent) => {
     event.preventDefault()
+
+    const email = emailRef.current?.value || ''
+    const password = passwordRef.current?.value || ''
 
     try {
       UserSignInSchema.parse({ email, password })
@@ -89,18 +90,12 @@ export const SignIn: React.FC = () => {
           </FormLogin.Group>
           <FormLogin.Group>
             <FormLogin.ControlLabel>Email</FormLogin.ControlLabel>
-            <Input
-              onChange={handleEmail}
-              value={email}
-              name="email"
-              type="email"
-              autoComplete="on"
-            />
+            <Input ref={emailRef} name="email" type="email" autoComplete="on" />
           </FormLogin.Group>
           <FormLogin.Group>
             <FormLogin.ControlLabel>Password</FormLogin.ControlLabel>
             <Input
-              onChange={handlePassword}
+              ref={passwordRef}
               name="password"
               type="password"
               autoComplete="off"

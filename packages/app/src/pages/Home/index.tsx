@@ -21,7 +21,7 @@ export const Home: React.FC = () => {
     setSearchText(event.target.value)
   }
 
-  const handleChange = (data: TNote) => {
+  const handleChange = async (data: TNote) => {
     dispatch(editNote(data))
   }
 

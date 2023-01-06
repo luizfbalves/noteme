@@ -25,7 +25,7 @@ export const ConfirmSignUp: React.FC = () => {
 
       dispatch(userData(state))
 
-      navigate('/home')
+      navigate('/home', { replace: true })
       toast('E-mail sucessfully verified!')
     }
   }
