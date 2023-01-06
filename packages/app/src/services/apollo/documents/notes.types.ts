@@ -1,11 +1,9 @@
-export interface findUserInterface {
-  findUser: {
-    name: string,
-    notes: {
-      id: string
-      description: string
-      updatedAt: string
-    }[]
+export interface createNoteInterface {
+  createNote: {
+    id: string
+    description: string
+    userId: string
+    updatedAt: string
   }
 }
 

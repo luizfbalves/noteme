@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,17 +7,29 @@ import {
 } from 'react-router-dom'
 
 import { ProtectedRoute } from '@/auth/ProtectedRoute'
-import Pages, { SignIn, SignUp } from '@/pages'
+import Pages, { SignIn, SignUp, ConfirmSignUp } from '@/pages'
 
 import { CustomThemeProvider } from './hooks/theme'
+import { supabase } from './services/supabaseClient'
 import { useAppDispatch } from './store/hooks'
-import { fetchInitialNotes } from './store/thunks'
+import { UserType, clearUserData, userData } from './store/user/user.store'
 import GlobalStyle from './styles/global'
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  dispatch(fetchInitialNotes('2243dbca-7bcd-41e9-bb58-9962685fa52f'))
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_IN' && session?.user) {
+      const state: UserType = {
+        isLogged: true,
+        id: session.user.id,
+        username: session.user.user_metadata.username,
+      }
+      dispatch(userData(state))
+    } else if (event === 'SIGNED_OUT') {
+      dispatch(clearUserData())
+    }
+  })
 
   return (
     <div className="App">
@@ -35,6 +47,7 @@ export const App: React.FC = () => {
             />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/confirmsignup" element={<ConfirmSignUp />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </Routes>
         </CustomThemeProvider>
