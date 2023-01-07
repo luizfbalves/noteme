@@ -42,7 +42,6 @@ export const SignUp: React.FC = () => {
           return
         }
         const response: UserType = {
-          isLoading: false,
           isLogged: true,
           username: data.user.user_metadata.username,
         }

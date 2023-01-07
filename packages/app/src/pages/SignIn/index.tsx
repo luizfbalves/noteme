@@ -43,7 +43,6 @@ export const SignIn: React.FC = () => {
           }
         }
         const response: UserType = {
-          isLoading: false,
           isLogged: true,
           id: data.session.user.id,
           username: data.session.user.user_metadata.username,
