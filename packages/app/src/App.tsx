@@ -46,8 +46,9 @@ export const App: React.FC = () => {
               }
             />
             <Route path="/signin" element={<SignIn />} />
+
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/confirmsignup" element={<ConfirmSignUp />} />
+            <Route path="/signup/confirmation" element={<ConfirmSignUp />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </Routes>
         </CustomThemeProvider>
