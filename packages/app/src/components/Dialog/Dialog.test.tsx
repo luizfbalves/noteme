@@ -2,12 +2,12 @@ import userEvent from '@testing-library/user-event'
 
 import { render, screen } from '@/utils/test-utils'
 
-import Modal from '.'
+import Dialog from '.'
 
-describe('<Modal/>', () => {
+describe('<Dialog/>', () => {
   const user = userEvent.setup()
 
-  it('should display a modal and return true', async () => {
+  it('should display a dialog and return true', async () => {
     let callBackResult = false
     let isOpen = true
 
@@ -15,14 +15,15 @@ describe('<Modal/>', () => {
     const handleOnClose = () => (isOpen = false)
 
     render(
-      <Modal
-        data={{ title: 'jest', content: 'jest modal test', isOpen }}
+      <Dialog
+        data={{ title: 'jest', content: 'jest dialog test', isOpen }}
         callBack={handleCallBack}
         onClose={handleOnClose}
       />
     )
-    const element = screen.getByText('jest modal test')
-    const submit = screen.getByText('Delete', { selector: 'button' })
+
+    const element = screen.getByText('jest dialog test')
+    const submit = screen.getByText('Confirm', { selector: 'button' })
 
     await user.click(element)
     await user.click(submit)
@@ -31,7 +32,7 @@ describe('<Modal/>', () => {
     expect(callBackResult).toBeTruthy()
   })
 
-  it('should display a modal and return false', async () => {
+  it('should display a dialog and return false', async () => {
     let callBackResult = false
     let isOpen = true
 
@@ -39,13 +40,13 @@ describe('<Modal/>', () => {
     const handleOnClose = () => (isOpen = false)
 
     render(
-      <Modal
-        data={{ title: 'jest', content: 'jest modal test', isOpen }}
+      <Dialog
+        data={{ title: 'jest', content: 'jest dialog test', isOpen }}
         callBack={handleCallBack}
         onClose={handleOnClose}
       />
     )
-    const element = screen.getByText('jest modal test')
+    const element = screen.getByText('jest dialog test')
     const submit = screen.getByText('Cancel', { selector: 'button' })
 
     await user.click(element)

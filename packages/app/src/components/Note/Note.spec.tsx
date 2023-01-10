@@ -2,14 +2,16 @@ import userEvent from '@testing-library/user-event'
 
 import { TNote } from '@/store/note/note.store'
 
+import { dateRFC } from '@/utils'
 import { render, screen } from '@/utils/test-utils'
 
 import Note from '.'
 
 const data: TNote = {
   id: 's5d456sd4sd4-sd4s6d54sd65a4sd-sda5',
+  userId: 's5d456sd4sd4-sd4s6d54sd65a4sd-sda5',
   description: '',
-  date: 'date',
+  updatedAt: dateRFC,
 }
 
 describe('<Note/>', () => {
