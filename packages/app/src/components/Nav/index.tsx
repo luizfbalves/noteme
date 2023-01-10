@@ -20,6 +20,7 @@ export const SideNav: React.FC = () => {
   const { id } = useAppSelector((state) => state.userReducer)
 
   const [postCreateNote] = useMutation<createNoteInterface>(POST_CREATENOTE)
+
   const newNote = async () => {
     const { data } = await postCreateNote({
       variables: {
