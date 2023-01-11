@@ -3,21 +3,17 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import { CustomThemeProvider } from '@/hooks/theme'
-import client from '@/services/apollo/apolloClient'
-import { ApolloProvider } from '@apollo/client'
 import { fireEvent, render, RenderOptions } from '@testing-library/react'
 
 import store from '@/store/store'
 
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <ApolloProvider client={client}>
-      <Provider store={store}>
-        <Router>
-          <CustomThemeProvider>{children}</CustomThemeProvider>
-        </Router>
-      </Provider>
-    </ApolloProvider>
+    <Provider store={store}>
+      <Router>
+        <CustomThemeProvider>{children}</CustomThemeProvider>
+      </Router>
+    </Provider>
   )
 }
 
