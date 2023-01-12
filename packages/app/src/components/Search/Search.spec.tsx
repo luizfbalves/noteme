@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event'
 
-import { render, screen } from '@/utils/test-utils'
+import { renderWithProviders, screen } from '@/utils/test-utils'
 
 import Search from '.'
 
@@ -15,7 +15,7 @@ describe('<Search/>', () => {
       value = event.target.value || ''
     }
 
-    render(<Search onChange={handleChange} />)
+    renderWithProviders(<Search onChange={handleChange} />)
 
     const input = screen.getByPlaceholderText('Search...')
 

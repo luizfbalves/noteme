@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { TNote } from '@/store/note/note.store'
 
 import { dateRFC } from '@/utils'
-import { render, screen } from '@/utils/test-utils'
+import { renderWithProviders, screen } from '@/utils/test-utils'
 
 import Note from '.'
 
@@ -18,13 +18,13 @@ describe('<Note/>', () => {
   const user = userEvent.setup()
 
   it('should be empty', async () => {
-    render(<Note data={data} />)
+    renderWithProviders(<Note data={data} />)
     const input = screen.getByRole('textbox')
     expect(input.textContent).toBe('')
   })
 
   it('should clear a note', async () => {
-    render(<Note data={data} />)
+    renderWithProviders(<Note data={data} />)
     const input = screen.getByRole('textbox')
 
     await user.click(input)
@@ -38,7 +38,7 @@ describe('<Note/>', () => {
     let inputValue = ''
     const handleChange = ({ description }: TNote) => (inputValue = description)
 
-    render(<Note data={data} onChange={handleChange} />)
+    renderWithProviders(<Note data={data} onChange={handleChange} />)
 
     const input = screen.getByRole('textbox')
 
