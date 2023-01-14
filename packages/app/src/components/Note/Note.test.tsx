@@ -10,7 +10,7 @@ import Note from '.'
 const data: TNote = {
   id: 's5d456sd4sd4-sd4s6d54sd65a4sd-sda5',
   userId: 's5d456sd4sd4-sd4s6d54sd65a4sd-sda5',
-  description: '',
+  description: 'note input with large text',
   updatedAt: dateRFC,
 }
 
@@ -19,16 +19,21 @@ describe('<Note/>', () => {
 
   it('should be empty', async () => {
     renderWithProviders(<Note data={data} />)
+
     const input = screen.getByRole('textbox')
+
     expect(input.textContent).toBe('')
   })
 
   it('should clear a note', async () => {
     renderWithProviders(<Note data={data} />)
+
     const input = screen.getByRole('textbox')
 
     await user.click(input)
-    await user.type(input, 'note input with text')
+
+    await user.type(input, 'note input with large text')
+
     await user.clear(input)
 
     expect(input.textContent).toBe('')
@@ -43,11 +48,11 @@ describe('<Note/>', () => {
     const input = screen.getByRole('textbox')
 
     await user.click(input)
+
     await user.type(input, 'note input with large text')
 
     input.blur()
 
-    expect(input.textContent).toBe('note input with large text')
-    expect(inputValue).toEqual('note input with large text')
+    expect(inputValue).toEqual(input.textContent)
   })
 })

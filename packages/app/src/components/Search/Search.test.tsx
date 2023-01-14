@@ -11,7 +11,6 @@ describe('<Search/>', () => {
     let value = ''
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      event.preventDefault()
       value = event.target.value || ''
     }
 

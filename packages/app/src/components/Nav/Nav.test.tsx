@@ -10,7 +10,7 @@ import { screen, renderWithProviders } from '@/utils/test-utils'
 
 import Nav from '.'
 
-const apollo_mock = [
+const fakeNote = [
   {
     request: {
       query: POST_CREATENOTE,
@@ -34,7 +34,7 @@ const apollo_mock = [
   },
 ]
 
-const redux_mock: UserType = {
+const fakeUser: UserType = {
   id: '6c4c104d-35a6-4bc9-805e-82484dd73c19',
   isLogged: true,
   username: 'jest-user',
@@ -45,12 +45,12 @@ describe('<Nav/>', () => {
 
   it('should add a new note', async () => {
     const { store } = renderWithProviders(
-      <MockedProvider addTypename={false} mocks={apollo_mock}>
+      <MockedProvider addTypename={false} mocks={fakeNote}>
         <Nav />
       </MockedProvider>,
       {
         preloadedState: {
-          userReducer: redux_mock,
+          userReducer: fakeUser,
         },
       }
     )
@@ -61,18 +61,18 @@ describe('<Nav/>', () => {
 
     await user.click(button)
 
-    waitFor(() => expect(userReducer.id).toEqual(redux_mock.id))
-    waitFor(() => expect(userReducer.isLogged).toBeFalsy())
+    waitFor(() => expect(userReducer.id).toEqual(fakeUser.id))
+    waitFor(() => expect(userReducer.isLogged).toBeTruthy())
   })
 
   it('should signout user', async () => {
-    renderWithProviders(
-      <MockedProvider addTypename={false} mocks={apollo_mock}>
+    const { store } = renderWithProviders(
+      <MockedProvider addTypename={false} mocks={fakeNote}>
         <Nav />
       </MockedProvider>,
       {
         preloadedState: {
-          userReducer: redux_mock,
+          userReducer: fakeUser,
         },
       }
     )
@@ -80,5 +80,10 @@ describe('<Nav/>', () => {
     const button = screen.getByText('logout')
 
     await user.click(button)
+
+    const { userReducer } = store.getState()
+
+    waitFor(() => expect(userReducer.id).toEqual(fakeUser.id))
+    waitFor(() => expect(userReducer.isLogged).toBeFalsy())
   })
 })
