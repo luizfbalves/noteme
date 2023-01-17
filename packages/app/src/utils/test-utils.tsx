@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 
@@ -19,6 +19,7 @@ type WrapperTypes = {
 
 function renderWithProviders(
   ui: React.ReactElement,
+
   {
     preloadedState = {},
     store = configureStore({ reducer: rootReducer, preloadedState }),
