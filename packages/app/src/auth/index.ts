@@ -24,5 +24,5 @@ export const refreshSession = async () => {
 }
 
 export async function resetPassword(email: string) {
-  return await supabase.auth.resetPasswordForEmail(email)
+  return await supabase.auth.resetPasswordForEmail(email, { redirectTo: "http://localhost:3000/signin/passwordreset" })
 }

@@ -71,13 +71,21 @@ export const SignIn: React.FC = () => {
 
       emailSchema.parse(email)
 
-      await resetPassword(email)
+      const result = await resetPassword(email)
 
-      toast.info('reset password email sent!')
+      if (!result.data) {
+        throw result.error
+      }
+
+      toast.info('password reset email sent!')
     } catch (error) {
-      error instanceof ZodError
-        ? toast.error(error.errors[0].message)
-        : toast.error('something went wrong...')
+      if (error instanceof ZodError) {
+        toast.error(error.errors[0].message)
+      } else if (error instanceof AuthError) {
+        toast.error(error.message)
+      } else {
+        toast.error('something went wrong...')
+      }
     }
   }
 
