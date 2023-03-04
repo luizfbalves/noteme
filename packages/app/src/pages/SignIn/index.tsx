@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { signIn } from '@/auth'
+import { resetPassword, signIn } from '@/auth'
 import { AuthError } from '@supabase/supabase-js'
 import { Button, Divider, Input, Loader } from 'rsuite'
 import { ZodError } from 'zod'
@@ -10,7 +10,7 @@ import { ZodError } from 'zod'
 import { useAppDispatch } from '@/store/hooks'
 import { userData, UserType } from '@/store/user/user.store'
 
-import { UserSignInSchema } from './signin.schema'
+import { emailSchema, UserSignInSchema } from './signin.schema'
 import { Container, Banner, FormLogin } from './styles'
 
 export const SignIn: React.FC = () => {
@@ -65,6 +65,22 @@ export const SignIn: React.FC = () => {
 
   const handlePushSignUp = () => navigate('/signup')
 
+  async function handleResetPassword() {
+    try {
+      const email = emailRef.current?.value || ''
+
+      emailSchema.parse(email)
+
+      await resetPassword(email)
+
+      toast.info('reset password email sent!')
+    } catch (error) {
+      error instanceof ZodError
+        ? toast.error(error.errors[0].message)
+        : toast.error('something went wrong...')
+    }
+  }
+
   return (
     <Container>
       <>
@@ -118,6 +134,11 @@ export const SignIn: React.FC = () => {
                 onClick={handlePushSignUp}
                 style={{ cursor: 'pointer' }}
               >{`Doesn't have an account?`}</span>
+              <br />
+              <span
+                onClick={handleResetPassword}
+                style={{ cursor: 'pointer' }}
+              >{`Forgot your password?`}</span>
             </>
           )}
         </FormLogin>

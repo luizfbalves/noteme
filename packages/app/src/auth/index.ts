@@ -22,3 +22,7 @@ export const signOut = async () => {
 export const refreshSession = async () => {
   return await supabase.auth.refreshSession()
 }
+
+export async function resetPassword(email: string) {
+  return await supabase.auth.resetPasswordForEmail(email)
+}
