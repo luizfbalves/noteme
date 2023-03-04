@@ -48,4 +48,8 @@
     <li>
     <a href="https://www.prisma.io/">Prisma</a></br>
   </li>
+    </li>
+    <li>
+    <a href="https://supabase.com/">Supabase</a></br>
+  </li>
 </ul>
