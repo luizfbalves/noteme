@@ -4,12 +4,13 @@ import './index.css'
 import { Provider } from 'react-redux'
 
 import 'rsuite/dist/rsuite.min.css'
-import './styles/sass/app.scss'
+import '@/styles/sass/app.scss'
+import client from '@/services/apollo/apolloClient'
 import { ApolloProvider } from '@apollo/client'
 
+import store from '@/store/store'
+
 import App from './App'
-import client from './services/apollo/apolloClient'
-import store from './store/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
@@ -19,5 +20,3 @@ root.render(
     </Provider>
   </ApolloProvider>
 )
-
-//TODO fix imports
