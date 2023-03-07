@@ -64,10 +64,7 @@ export const Note: React.FC<TNoteEvent> = (props) => {
       {dialog}
       <Card>
         <div className="card-header">
-          <CloseButton
-            title="delete-button"
-            onClick={() => setDialogOpen(true)}
-          >
+          <CloseButton title="delete note" onClick={() => setDialogOpen(true)}>
             <TbTrashX />
           </CloseButton>
         </div>
