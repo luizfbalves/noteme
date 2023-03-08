@@ -65,7 +65,8 @@ describe('NoteService', () => {
 
   describe('findAll', () => {
     it('should return an array of notes', async () => {
-      const response = await note.findAll()
+      const userId = fakeNotes[0]
+      const response = await note.findAll(userId)
 
       expect(response).toEqual(fakeNotes)
       expect(prisma.note.findMany).toHaveBeenCalled()
