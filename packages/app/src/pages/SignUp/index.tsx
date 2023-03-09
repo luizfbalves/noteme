@@ -38,11 +38,10 @@ export const SignUp: React.FC = () => {
       if (data.user) {
         if (!data.user.confirmed_at && data.user.confirmation_sent_at) {
           toast('E-mail confirmation sent...')
-          navigate('/confirmsignup', { replace: true })
+          navigate('/signup/confirmation', { replace: true })
           return
         }
         const response: UserType = {
-          isLoading: false,
           isLogged: true,
           username: data.user.user_metadata.username,
         }

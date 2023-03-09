@@ -1,26 +1,42 @@
-import React, { FC, ReactElement } from 'react'
+import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import { CustomThemeProvider } from '@/hooks/theme'
+import { configureStore, PreloadedState } from '@reduxjs/toolkit'
 import { fireEvent, render, RenderOptions } from '@testing-library/react'
 
-import store from '@/store/store'
+import { AppStore, rootReducer, RootState } from '@/store/store'
 
-const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => {
-  return (
-    <Provider store={store}>
+interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
+  preloadedState?: PreloadedState<RootState>
+  store?: AppStore
+}
+
+type WrapperTypes = {
+  children: React.ReactNode
+}
+
+function renderWithProviders(
+  ui: React.ReactElement,
+
+  {
+    preloadedState = {},
+    store = configureStore({ reducer: rootReducer, preloadedState }),
+    ...renderOptions
+  }: ExtendedRenderOptions = {}
+) {
+  function Wrapper({ children }: WrapperTypes): JSX.Element {
+    return (
+      <Provider store={store}>
         <Router>
           <CustomThemeProvider>{children}</CustomThemeProvider>
         </Router>
-    </Provider>
-  )
+      </Provider>
+    )
+  }
+  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
 }
-
-const customRender = (
-  ui: ReactElement,
-  options?: Omit<RenderOptions, 'wrapper'>
-) => render(ui, { wrapper: AllTheProviders, ...options })
 
 export function dragAndDrop(src: Element, dst: Element) {
   fireEvent.dragStart(src)
@@ -31,4 +47,4 @@ export function dragAndDrop(src: Element, dst: Element) {
 }
 
 export * from '@testing-library/react'
-export { customRender as render }
+export { renderWithProviders }

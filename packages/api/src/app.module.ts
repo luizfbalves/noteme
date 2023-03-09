@@ -1,5 +1,4 @@
 import { NoteModule } from '@modules/note/note.module'
-import { UserModule } from '@modules/user/user.module'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
@@ -15,8 +14,7 @@ import { join } from 'node:path'
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
-    UserModule,
     NoteModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }

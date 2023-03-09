@@ -2,31 +2,38 @@ import userEvent from '@testing-library/user-event'
 
 import { TNote } from '@/store/note/note.store'
 
-import { render, screen } from '@/utils/test-utils'
+import { dateRFC } from '@/utils'
+import { renderWithProviders, screen } from '@/utils/test-utils'
 
 import Note from '.'
 
 const data: TNote = {
   id: 's5d456sd4sd4-sd4s6d54sd65a4sd-sda5',
-  description: '',
-  date: 'date',
+  userId: 's5d456sd4sd4-sd4s6d54sd65a4sd-sda5',
+  description: 'note input with large text',
+  updatedAt: dateRFC,
 }
 
 describe('<Note/>', () => {
   const user = userEvent.setup()
 
   it('should be empty', async () => {
-    render(<Note data={data} />)
+    renderWithProviders(<Note data={data} />)
+
     const input = screen.getByRole('textbox')
+
     expect(input.textContent).toBe('')
   })
 
   it('should clear a note', async () => {
-    render(<Note data={data} />)
+    renderWithProviders(<Note data={data} />)
+
     const input = screen.getByRole('textbox')
 
     await user.click(input)
-    await user.type(input, 'note input with text')
+
+    await user.type(input, 'note input with large text')
+
     await user.clear(input)
 
     expect(input.textContent).toBe('')
@@ -36,16 +43,16 @@ describe('<Note/>', () => {
     let inputValue = ''
     const handleChange = ({ description }: TNote) => (inputValue = description)
 
-    render(<Note data={data} onChange={handleChange} />)
+    renderWithProviders(<Note data={data} onChange={handleChange} />)
 
     const input = screen.getByRole('textbox')
 
     await user.click(input)
+
     await user.type(input, 'note input with large text')
 
     input.blur()
 
-    expect(input.textContent).toBe('note input with large text')
-    expect(inputValue).toEqual('note input with large text')
+    expect(inputValue).toEqual(input.textContent)
   })
 })

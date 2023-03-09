@@ -15,40 +15,15 @@ type Note {
 """
 scalar Timestamp
 
-type User {
-  id: String!
-  email: String!
-  name: String!
-  notes: [Note!]
-  createdAt: Timestamp!
-  updatedAt: Timestamp
-}
-
 type Query {
-  findUser(id: String!): User!
-  allUsers: [User!]!
   findNote(id: String!): Note!
   allNotes(userId: String!): [Note!]!
 }
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
-  updateUser(user: UserUpdateInput!): User!
   createNote(data: NoteCreateInput!): Note!
   updateNote(data: NoteUpdateInput!): Note!
   deleteNote(id: String!): Note!
-}
-
-input UserCreateInput {
-  email: String!
-  name: String!
-}
-
-input UserUpdateInput {
-  id: String!
-  name: String
-  email: String
-  updatedAt: Timestamp
 }
 
 input NoteCreateInput {

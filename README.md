@@ -46,11 +46,14 @@
   <li>
     <a href="https://docs.nestjs.com/">Nestjs</a></br>
   </li>
-    <li>
+  <li>
     <a href="https://www.prisma.io/">Prisma</a></br>
   </li>
-    </li>
-    <li>
+  <li>
+    <a href="https://supabase.com/">Supabase</a></br>
+  </li>
+  <li>
     <a href="https://www.apollographql.com/">Apollo-graphql</a></br>
+  </li>
   </li>
 </ul>

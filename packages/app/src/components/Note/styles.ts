@@ -1,4 +1,9 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const FadeIn = keyframes`
+  from {opacity: 0}
+  to {opacity: 1}
+`
 
 export const Card = styled.div`
   display: flex;
@@ -9,7 +14,8 @@ export const Card = styled.div`
   min-width: 15rem;
   background-color: ${(props) => props.theme.cards.background};
   color: ${(props) => props.theme.cards.font};
-  transition: 0.6s ease-in-out all 0.6s;
+  animation-duration: 0.8s;
+  animation-name: ${FadeIn};
 
   .card-header {
     font-size: 19px;

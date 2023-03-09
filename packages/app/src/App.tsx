@@ -10,6 +10,7 @@ import { ProtectedRoute } from '@/auth/ProtectedRoute'
 import Pages, { SignIn, SignUp, ConfirmSignUp } from '@/pages'
 
 import { CustomThemeProvider } from './hooks/theme'
+import { PasswordReset } from './pages/PasswordReset'
 import { supabase } from './services/supabaseClient'
 import { useAppDispatch } from './store/hooks'
 import { UserType, clearUserData, userData } from './store/user/user.store'
@@ -46,8 +47,10 @@ export const App: React.FC = () => {
               }
             />
             <Route path="/signin" element={<SignIn />} />
+
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/confirmsignup" element={<ConfirmSignUp />} />
+            <Route path="/signup/confirmation" element={<ConfirmSignUp />} />
+            <Route path="/signin/passwordreset" element={<PasswordReset />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </Routes>
         </CustomThemeProvider>
