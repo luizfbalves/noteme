@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -17,17 +17,18 @@ export const SignUp: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [username, setUsername] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleEmail = (value: string) => setEmail(value)
-  const handlePassword = (value: string) => setPassword(value)
-  const handleUsername = (value: string) => setUsername(value)
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
+  const usernameRef = useRef<HTMLInputElement>(null)
 
   const handleSignUp = async () => {
     try {
+      const username = usernameRef.current?.value || ''
+      const password = passwordRef.current?.value || ''
+      const email = emailRef.current?.value || ''
+
       UserSignUpSchema.parse({ username, email, password })
 
       setIsLoading(true)
@@ -35,11 +36,14 @@ export const SignUp: React.FC = () => {
       const { error, data } = await signUp(email, password, username)
 
       if (data.user) {
+        if (!data.user.confirmed_at && data.user.confirmation_sent_at) {
+          toast('E-mail confirmation sent...')
+          navigate('/signup/confirmation', { replace: true })
+          return
+        }
         const response: UserType = {
-          isLoading: false,
           isLogged: true,
           username: data.user.user_metadata.username,
-          email: data.user.email,
         }
 
         dispatch(userData(response))
@@ -83,21 +87,16 @@ export const SignUp: React.FC = () => {
         </FormLogin.Group>
         <FormLogin.Group>
           <FormLogin.ControlLabel>Username</FormLogin.ControlLabel>
-          <Input onChange={handleUsername} name="username" autoComplete="off" />
+          <Input ref={usernameRef} name="username" autoComplete="off" />
         </FormLogin.Group>
         <FormLogin.Group>
           <FormLogin.ControlLabel>Email</FormLogin.ControlLabel>
-          <Input
-            onChange={handleEmail}
-            name="email"
-            type="email"
-            autoComplete="off"
-          />
+          <Input ref={emailRef} name="email" type="email" autoComplete="off" />
         </FormLogin.Group>
         <FormLogin.Group>
           <FormLogin.ControlLabel>Password</FormLogin.ControlLabel>
           <Input
-            onChange={handlePassword}
+            ref={passwordRef}
             name="password"
             type="password"
             autoComplete="off"

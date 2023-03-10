@@ -1,10 +1,10 @@
 import styled, { keyframes } from 'styled-components'
 
-const fadeIn = keyframes`
- 0% {
+const FadeIn = keyframes`
+ from {
   opacity: 0;
  }
- 100% {
+ to {
   opacity: 1;
  }
 `
@@ -25,6 +25,8 @@ export const Container = styled.div`
     strong {
       font-size: 24px;
     }
+    animation-duration: 0.8s;
+    animation: ${FadeIn};
   }
   .content {
     height: 100%;
@@ -41,7 +43,8 @@ export const Content = styled.div`
   gap: 2rem;
   height: inherit;
   margin-bottom: 53px;
-  animation: 0.5s ease-in-out 0s ${fadeIn};
+  animation-duration: 0.8s;
+  animation: ${FadeIn};
   .greetings {
     display: flex;
     flex-direction: column;

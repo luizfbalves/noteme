@@ -21,7 +21,7 @@ export const Home: React.FC = () => {
     setSearchText(event.target.value)
   }
 
-  const handleChange = (data: TNote) => {
+  const handleChange = async (data: TNote) => {
     dispatch(editNote(data))
   }
 
@@ -35,10 +35,16 @@ export const Home: React.FC = () => {
         <SearchBar placeholder="Search for a note..." onChange={handleSearch} />
         <ThemeToggler />
       </NavHeader>
-      <div className="greetings">
-        <strong>{`Hi ${username}!`}</strong>
-        <span>all your notes here in one place!</span>
-      </div>
+      {username ? (
+        <div className="greetings">
+          <>
+            <strong>{`Hi ${username}!`}</strong>
+            <span>all your notes here in one place!</span>
+          </>
+        </div>
+      ) : (
+        <Loader id="loader" />
+      )}
       <Content className="content">
         {state === 'loading' && <Loader id="loader" />}
         {state === 'failed' && (

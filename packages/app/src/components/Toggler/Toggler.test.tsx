@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event'
 
-import { render, screen } from '@/utils/test-utils'
+import { renderWithProviders, screen } from '@/utils/test-utils'
 
 import ThemeToggler from '.'
 
@@ -8,7 +8,7 @@ describe('<Toggler/>', () => {
   const user = userEvent.setup()
 
   test('should switch theme', async () => {
-    render(<ThemeToggler />)
+    renderWithProviders(<ThemeToggler />)
     const button = screen.getByPlaceholderText('theme toggler')
 
     const themeStateBefore = localStorage.getItem('noteme-theme')

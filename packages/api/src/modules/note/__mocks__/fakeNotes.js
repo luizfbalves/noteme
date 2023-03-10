@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto'
+
 import { Note } from '../note.entity'
 
 export const fakeNotes = [
