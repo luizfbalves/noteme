@@ -9,6 +9,7 @@ import { join } from 'node:path'
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      persistedQueries: false,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       buildSchemaOptions: { dateScalarMode: 'timestamp' },
       playground: false,
