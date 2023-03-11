@@ -15,7 +15,8 @@ import { join } from 'node:path'
       buildSchemaOptions: { dateScalarMode: 'timestamp' },
       playground: false,
       path: '/graphql',
-      plugins: [process.env.NODE_ENV ?
+      plugins: [process.env.NODE_ENV === 'production'
+        ?
         ApolloServerPluginLandingPageProductionDefault()
         :
         ApolloServerPluginLandingPageLocalDefault({ embed: false })],
