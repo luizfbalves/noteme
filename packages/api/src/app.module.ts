@@ -10,9 +10,11 @@ import { join } from 'node:path'
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       persistedQueries: false,
+      introspection: false,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       buildSchemaOptions: { dateScalarMode: 'timestamp' },
       playground: false,
+      path: '/graphql',
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     NoteModule,
