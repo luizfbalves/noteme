@@ -1,3 +1,4 @@
+
 import { NoteModule } from '@modules/note/note.module'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
@@ -9,10 +10,10 @@ import { join } from 'node:path'
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       introspection: true,
-      // autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       buildSchemaOptions: { dateScalarMode: 'timestamp' },
       playground: true,
-      path: '/graphql'
+      path: '/graphql',
     }),
     NoteModule,
   ],
