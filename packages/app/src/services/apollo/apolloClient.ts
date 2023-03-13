@@ -2,7 +2,7 @@ import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client"
 import fetch from 'cross-fetch'
 
 const apolloClient = new ApolloClient({
-  link: new HttpLink({ uri: 'http://localhost:3333/graphql', fetch }),
+  link: new HttpLink({ uri: 'https://noteme-production.up.railway.app/graphql', fetch }),
   cache: new InMemoryCache(),
 })
 
