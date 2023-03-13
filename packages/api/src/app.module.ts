@@ -13,7 +13,7 @@ import { join } from 'node:path'
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       buildSchemaOptions: { dateScalarMode: 'timestamp' },
       playground: false,
-      path: '/graphql',
+      path: '/graphql'
     }),
     NoteModule,
   ],
