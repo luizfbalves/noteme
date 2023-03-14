@@ -55,13 +55,13 @@ export const PasswordReset: React.FC = () => {
               <FormLogin.ControlLabel>
                 enter your password
               </FormLogin.ControlLabel>
-              <Input ref={passwordRef} />
+              <Input ref={passwordRef} type="password" />
             </FormLogin.Group>
             <FormLogin.Group>
               <FormLogin.ControlLabel>
                 repeat your password
               </FormLogin.ControlLabel>
-              <Input ref={confirmRef} />
+              <Input ref={confirmRef} type="password" />
             </FormLogin.Group>
             <br />
             <FormLogin.Group>
