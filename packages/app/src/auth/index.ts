@@ -3,7 +3,7 @@ import { supabase } from "@/services/supabaseClient"
 export const signUp = async (email: string, password: string, username: string) => {
   return await supabase.auth.signUp({
     email, password, options: {
-      emailRedirectTo: "http://localhost:3000/signup/confirmation",
+      emailRedirectTo: "https://noteme-web.vercel.app//signup/confirmation",
       data: {
         username
       }
@@ -24,5 +24,5 @@ export const refreshSession = async () => {
 }
 
 export async function resetPassword(email: string) {
-  return await supabase.auth.resetPasswordForEmail(email, { redirectTo: "http://localhost:3000/signin/passwordreset" })
+  return await supabase.auth.resetPasswordForEmail(email, { redirectTo: "https://noteme-web.vercel.app/signin/passwordreset" })
 }
