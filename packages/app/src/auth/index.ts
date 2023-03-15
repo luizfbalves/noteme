@@ -1,9 +1,15 @@
 import { supabase } from "@/services/supabaseClient"
 
+const baseUrl = process.env.NODE_ENV === 'production'
+  ?
+  process.env.VITE_APP_API_URL
+  :
+  'http://localhost:3000/'
+
 export const signUp = async (email: string, password: string, username: string) => {
   return await supabase.auth.signUp({
     email, password, options: {
-      emailRedirectTo: "https://noteme-web.vercel.app//signup/confirmation",
+      emailRedirectTo: baseUrl + "signup/confirmation",
       data: {
         username
       }
@@ -24,5 +30,5 @@ export const refreshSession = async () => {
 }
 
 export async function resetPassword(email: string) {
-  return await supabase.auth.resetPasswordForEmail(email, { redirectTo: "https://noteme-web.vercel.app/signin/passwordreset" })
+  return await supabase.auth.resetPasswordForEmail(email, { redirectTo: baseUrl + "/signin/passwordreset" })
 }

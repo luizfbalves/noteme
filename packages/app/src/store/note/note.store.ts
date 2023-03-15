@@ -52,6 +52,7 @@ export const note = createSlice({
     })
     builder.addCase(fetchInitialNotes.fulfilled, (state: TNotes, { payload }: PayloadAction<TNote[]>) => {
       state.state = 'fulfilled'
+      console.log(payload)
       state.notes = payload
       return state
     })
