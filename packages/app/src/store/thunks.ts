@@ -13,8 +13,6 @@ export const fetchInitialNotes = createAsyncThunk('note/fetchInitialNotes',
         }
       })
 
-      console.log(data);
-
       return data.allNotes
     } catch (error) {
       rejectWithValue(error)

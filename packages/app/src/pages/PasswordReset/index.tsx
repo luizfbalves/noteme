@@ -15,8 +15,6 @@ export const PasswordReset: React.FC = () => {
 
   const navigate = useNavigate()
 
-  console.log(window.location.href.includes('error_description'))
-
   async function handleSubmit() {
     try {
       const password = passwordRef.current?.value || ''
@@ -28,7 +26,6 @@ export const PasswordReset: React.FC = () => {
       navigate('/sgnin', { replace: true })
       toast.success('password successfully changed!')
     } catch (error) {
-      console.log(error)
       error instanceof ZodError
         ? toast.error(error.errors[0].message)
         : toast.error('password error...')
