@@ -29,6 +29,13 @@ export const Home: React.FC = () => {
     dispatch(deleteNote({ id }))
   }
 
+  const loadingComponent = state === 'loading' && <Loader id="loader" />
+  const errorComponent = state === 'failed' && (
+    <ErrorMessage>{`something went wrong =/`}</ErrorMessage>
+  )
+
+  console.log('render')
+
   return (
     <Container>
       <NavHeader>
@@ -46,11 +53,9 @@ export const Home: React.FC = () => {
         <Loader id="loader" />
       )}
       <Content className="content">
-        {state === 'loading' && <Loader id="loader" />}
-        {state === 'failed' && (
-          <ErrorMessage>{`something went wrong =/`}</ErrorMessage>
-        )}
-        {notes &&
+        {loadingComponent}
+        {errorComponent}
+        {state === 'fulfilled' &&
           notes
             .filter((item) => item.description.includes(searchText) ?? true)
             .map((item) => (

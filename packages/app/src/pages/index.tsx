@@ -17,7 +17,6 @@ const Pages: React.FC = () => {
     const { data } = await refreshSession()
 
     if (data.session && data.user) {
-      console.log(data)
       const { id } = data.user
       dispatch(fetchInitialNotes(id))
     } else {
