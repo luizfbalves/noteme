@@ -1,6 +1,6 @@
 <div align="center">
   <h2>NOTE.me 📖</h2>
-  <h5>Web responsive monorepo app to note simple text snippets.</h5>
+  <h5>Web responsive monorepo app to note text snippets.</h5>
 </div>
 
 <ul>  
