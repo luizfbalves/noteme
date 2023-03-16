@@ -32,3 +32,7 @@ export const refreshSession = async () => {
 export async function resetPassword(email: string) {
   return await supabase.auth.resetPasswordForEmail(email, { redirectTo: baseUrl + "/signin/passwordreset" })
 }
+
+export async function signInWithGoogle() {
+  return await supabase.auth.signInWithOAuth({ provider: 'google', })
+} 

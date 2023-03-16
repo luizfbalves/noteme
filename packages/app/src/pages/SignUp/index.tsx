@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { signUp } from '@/auth'
+import { signInWithGoogle, signUp } from '@/auth'
 import { AuthError } from '@supabase/supabase-js'
 import { Button, Divider, Input, Loader } from 'rsuite'
 import { ZodError } from 'zod'
@@ -64,6 +64,14 @@ export const SignUp: React.FC = () => {
 
   const handlePushSignIn = () => navigate('/signin')
 
+  async function signWithGoogle() {
+    const { error } = await signInWithGoogle()
+
+    if (error) {
+      toast(error.message)
+    }
+  }
+
   return (
     <Container>
       <Banner>
@@ -76,11 +84,7 @@ export const SignUp: React.FC = () => {
           <br />
         </FormLogin.Group>
         <FormLogin.Group>
-          <Button
-            block
-            type="button"
-            onClick={() => toast('work in progress...')}
-          >
+          <Button block type="button" onClick={signWithGoogle}>
             Join with Google
           </Button>
           <Divider>or</Divider>
