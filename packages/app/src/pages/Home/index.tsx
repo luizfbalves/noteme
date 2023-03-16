@@ -14,7 +14,7 @@ export const Home: React.FC = () => {
 
   const [searchText, setSearchText] = useState('')
 
-  const { username } = useAppSelector((state) => state.userReducer)
+  // const { username } = useAppSelector((state) => state.userReducer)
   const { notes, state } = useAppSelector((state) => state.noteReducer)
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,12 +29,10 @@ export const Home: React.FC = () => {
     dispatch(deleteNote({ id }))
   }
 
-  const loadingComponent = state === 'loading' && <Loader id="loader" />
-  const errorComponent = state === 'failed' && (
-    <ErrorMessage>{`something went wrong =/`}</ErrorMessage>
-  )
+  const loadingComp = <Loader id="loader" />
+  const errorComp = <ErrorMessage>{`something went wrong =/`}</ErrorMessage>
 
-  console.log('render')
+  console.log(state)
 
   return (
     <Container>
@@ -42,30 +40,31 @@ export const Home: React.FC = () => {
         <SearchBar placeholder="Search for a note..." onChange={handleSearch} />
         <ThemeToggler />
       </NavHeader>
-      {username ? (
+      {/* {
         <div className="greetings">
-          <>
-            <strong>{`Hi ${username}!`}</strong>
-            <span>all your notes here in one place!</span>
-          </>
+          <strong>{username ? `Hi ${username}!` : `wellcome!`}</strong>
+          <span>all your notes here in one place!</span>
         </div>
-      ) : (
-        <Loader id="loader" />
-      )}
+      } */}
       <Content className="content">
-        {loadingComponent}
-        {errorComponent}
-        {state === 'fulfilled' &&
-          notes
-            .filter((item) => item.description.includes(searchText) ?? true)
-            .map((item) => (
-              <Note
-                key={item.id}
-                data={item}
-                onChange={handleChange}
-                onDrop={handleDelete}
-              />
-            ))}
+        {state === 'idle'
+          ? loadingComp
+          : state === 'loading'
+          ? loadingComp
+          : state === 'failed'
+          ? errorComp
+          : state === 'fulfilled'
+          ? notes
+              .filter((item) => item.description.includes(searchText) ?? true)
+              .map((item) => (
+                <Note
+                  key={item.id}
+                  data={item}
+                  onChange={handleChange}
+                  onDrop={handleDelete}
+                />
+              ))
+          : undefined}
       </Content>
     </Container>
   )

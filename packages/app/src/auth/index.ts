@@ -34,5 +34,9 @@ export async function resetPassword(email: string) {
 }
 
 export async function signInWithGoogle() {
-  return await supabase.auth.signInWithOAuth({ provider: 'google', })
+  return await supabase.auth.signInWithOAuth({
+    provider: 'google', options: {
+      redirectTo: baseUrl + '/home'
+    }
+  })
 } 
