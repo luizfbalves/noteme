@@ -32,8 +32,6 @@ export const Home: React.FC = () => {
   const loadingComp = <Loader id="loader" />
   const errorComp = <ErrorMessage>{`something went wrong =/`}</ErrorMessage>
 
-  console.log(state)
-
   return (
     <Container>
       <NavHeader>
