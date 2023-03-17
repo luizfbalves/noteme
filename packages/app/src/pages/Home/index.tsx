@@ -47,9 +47,7 @@ export const Home: React.FC = () => {
         </div>
       } */}
       <Content className="content">
-        {state === 'idle'
-          ? loadingComp
-          : state === 'loading'
+        {state === 'loading'
           ? loadingComp
           : state === 'failed'
           ? errorComp
