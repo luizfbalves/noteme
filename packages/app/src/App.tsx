@@ -47,7 +47,6 @@ export const App: React.FC = () => {
               }
             />
             <Route path="/signin" element={<SignIn />} />
-
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signup/confirmation" element={<ConfirmSignUp />} />
             <Route path="/signin/passwordreset" element={<PasswordReset />} />

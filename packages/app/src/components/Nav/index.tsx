@@ -49,7 +49,10 @@ export const SideNav: React.FC = () => {
   return (
     <Wrapper id="sidenav">
       <ul>
-        <li className="brand">
+        <li
+          className="brand"
+          onClick={() => toast.success('made with ❤️ by @luizfbalves')}
+        >
           <img src="/assets/images/ico.svg" alt="note.me" />
         </li>
         <div id="menu-itens">

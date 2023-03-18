@@ -14,7 +14,7 @@ export const Home: React.FC = () => {
 
   const [searchText, setSearchText] = useState('')
 
-  // const { username } = useAppSelector((state) => state.userReducer)
+  const { username } = useAppSelector((state) => state.userReducer)
   const { notes, state } = useAppSelector((state) => state.noteReducer)
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,16 +38,12 @@ export const Home: React.FC = () => {
         <SearchBar placeholder="Search for a note..." onChange={handleSearch} />
         <ThemeToggler />
       </NavHeader>
-      {/* {
-        <div className="greetings">
-          <strong>{username ? `Hi ${username}!` : `wellcome!`}</strong>
-          <span>all your notes here in one place!</span>
-        </div>
-      } */}
+      <div className="greetings">
+        <strong>{username ? `Hi ${username}!` : ``}</strong>
+        <span>all your notes here in one place!</span>
+      </div>
       <Content className="content">
-        {state === 'idle'
-          ? loadingComp
-          : state === 'loading'
+        {state === 'loading'
           ? loadingComp
           : state === 'failed'
           ? errorComp
