@@ -17,6 +17,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "strictNullChecks": true,
+    "esModuleInterop": true,
     "paths": {
       "@/*": ["./src/*"],
       "@modules/*": ["./src/modules/*"]

@@ -1,9 +1,26 @@
 import { NestFactory } from '@nestjs/core'
+import serverlessExpress from '@vendia/serverless-express';
+import { Callback, Context, Handler } from 'aws-lambda';
 
 import { AppModule } from './app.module'
 
-async function bootstrap() {
+let server: Handler
+
+async function bootstrap(): Promise<Handler> {
+
   const app = await NestFactory.create(AppModule, { cors: true })
-  await app.listen(process.env.PORT || 3333)
+  app.init()
+
+  const App = app.getHttpAdapter().getInstance()
+
+  return serverlessExpress({ app: App })
 }
-bootstrap()
+
+export const handler: Handler = async (
+  event: any,
+  context: Context,
+  callback: Callback,
+) => {
+  server = server ?? (await bootstrap());
+  return server(event, context, callback);
+}
