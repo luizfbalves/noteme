@@ -8,8 +8,8 @@ let server: Handler
 
 async function bootstrap(): Promise<Handler> {
 
-  const app = await NestFactory.create(AppModule, { cors: true })
-  app.init()
+  const app = await NestFactory.create(AppModule)
+  app.listen(3333)
 
   const App = app.getHttpAdapter().getInstance()
 

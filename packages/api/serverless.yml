@@ -20,10 +20,6 @@ functions:
     handler: src/main.handler
     events:
       - http:
-          path: graphql
-          method: post
-          cors: true
-      - http:
-          path: graphql
-          method: get
+          path: /{any+}
+          method: any
           cors: true
