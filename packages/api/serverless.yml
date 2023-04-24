@@ -5,19 +5,18 @@ plugins:
   - serverless-plugin-typescript
   - serverless-plugin-optimize
   - serverless-offline
-  - serverless-plugin-monorepo
 
 provider:
   name: aws
   runtime: nodejs18.x
-  region: us-east-1
+  region: sa-east-1
 
 package:
-  individually: true
+  excludeDevDependencies: true
 
 functions:
   graphql:
-    handler: src/main.handler
+    handler: src/serverless.handler
     events:
       - http:
           path: /{any+}
