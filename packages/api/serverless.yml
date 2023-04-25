@@ -1,5 +1,10 @@
 service: noteme
-frameworkVersion: '3'
+
+noteme:
+  component: '@sls-next/serverless-component'
+  inputs:
+    domain: ['home', 'noteme.app']
+    bucketName: noteme
 
 plugins:
   - serverless-plugin-typescript

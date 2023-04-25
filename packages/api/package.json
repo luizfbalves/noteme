@@ -31,6 +31,7 @@
     "@nestjs/graphql": "^11.0.0",
     "@nestjs/platform-express": "^9.3.9",
     "@prisma/client": "^4.5.0",
+    "@sls-next/serverless-component": "^3.7.0",
     "@types/aws-lambda": "^8.10.114",
     "@vendia/serverless-express": "^4.10.1",
     "aws-lambda": "^1.0.7",
