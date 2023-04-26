@@ -7,8 +7,6 @@ const url = process.env.NODE_ENV === 'production'
   :
   'http://localhost:3333/graphql'
 
-console.log('url', url)
-
 const apolloClient = new ApolloClient({
   link: new HttpLink({ uri: url, fetch }),
   cache: new InMemoryCache(),
