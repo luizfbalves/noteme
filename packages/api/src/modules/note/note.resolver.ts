@@ -1,6 +1,6 @@
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql'
 
-import { NoteCreateInput } from './dtos/note.create.input'
+import { NoteCreateInputDto } from './dtos/note.create.input'
 import { NoteUpdateInput } from './dtos/note.update.input'
 import { Note } from './entities/note.entity'
 import { NoteService } from './note.service'
@@ -20,7 +20,7 @@ export class NoteResolver {
   }
 
   @Mutation(() => Note)
-  createNote(@Args('data') data: NoteCreateInput) {
+  createNote(@Args('data') data: NoteCreateInputDto) {
     return this.note.create(data)
   }
 

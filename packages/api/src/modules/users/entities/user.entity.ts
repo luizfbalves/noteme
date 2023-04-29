@@ -12,6 +12,9 @@ export class User {
   name: string
 
   @Field()
+  password: string
+
+  @Field()
   createdAt: Date
 
   @Field()

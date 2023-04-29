@@ -24,6 +24,23 @@ export class UsersService {
     })
   }
 
+  findByEmail(email: string) {
+    return this.prisma.users.findUnique({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        password: true,
+        createdAt: true,
+        updatedAt: true
+      },
+      where: {
+        email
+      }
+    })
+
+  }
+
   update(updateUserInput: UpdateUserInput) {
     const { id } = updateUserInput
     return this.prisma.users.update({

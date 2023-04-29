@@ -9,6 +9,9 @@ export class CreateUserInput {
   email: string
 
   @Field()
+  password: string
+
+  @Field()
   name: string
 
   @Field({ defaultValue: new Date() })

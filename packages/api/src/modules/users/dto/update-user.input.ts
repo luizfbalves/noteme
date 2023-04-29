@@ -8,10 +8,13 @@ export class UpdateUserInput extends PartialType(CreateUserInput) {
   id: string
 
   @Field()
-  email?: string;
+  email?: string
 
   @Field()
-  name?: string;
+  password?: string
+
+  @Field()
+  name?: string
 
 
   @Field({ defaultValue: new Date() })

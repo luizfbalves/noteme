@@ -5,7 +5,7 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { join } from 'node:path'
 
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { NoteModule } from './modules/note/note.module'
 import { UsersModule } from './modules/users/users.module';
 
@@ -19,10 +19,9 @@ import { UsersModule } from './modules/users/users.module';
       introspection: process.env.NODE_ENV === 'development' ? true : false,
 
     }),
-    NoteModule,
     AuthModule,
+    NoteModule,
     UsersModule,
-
   ],
 })
 export class AppModule { }

@@ -19,6 +19,7 @@ type User {
   id: String!
   email: String!
   name: String!
+  password: String!
   createdAt: Timestamp!
   updatedAt: Timestamp!
 }
@@ -31,7 +32,7 @@ type Query {
 }
 
 type Mutation {
-  createNote(data: NoteCreateInput!): Note!
+  createNote(data: NoteCreateInputDto!): Note!
   updateNote(data: NoteUpdateInput!): Note!
   deleteNote(id: String!): Note!
   createUser(createUserInput: CreateUserInput!): User!
@@ -39,7 +40,7 @@ type Mutation {
   removeUser(id: String!): User!
 }
 
-input NoteCreateInput {
+input NoteCreateInputDto {
   userId: String!
   description: String
 }
@@ -52,14 +53,16 @@ input NoteUpdateInput {
 input CreateUserInput {
   id: String!
   email: String!
+  password: String!
   name: String!
-  createdAt: Timestamp! = 1682784668256
+  createdAt: Timestamp! = 1682797291588
 }
 
 input UpdateUserInput {
   id: String!
   email: String!
+  password: String!
   name: String!
-  createdAt: Timestamp = 1682784668256
-  updatedAt: Timestamp! = 1682784668327
+  createdAt: Timestamp = 1682797291588
+  updatedAt: Timestamp! = 1682797291653
 }
