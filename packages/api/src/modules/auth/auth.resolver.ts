@@ -1,19 +1,18 @@
-import { Body, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { Resolver } from '@nestjs/graphql';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 
+import { User } from '../users/entities/user.entity'
 import { AuthService } from './auth.service';
 import { Public } from './constants';
-import { SignInDto } from './dtos/signin.input';
+import { SignIn } from './dtos/signin.input';
 
-@Resolver()
+@Resolver(() => User)
 export class AuthResolver {
-  constructor(private authService: AuthService) { }
+  constructor(private readonly authService: AuthService) { }
 
   @Public()
-  @HttpCode(HttpStatus.OK)
-  @Post('login')
-  async signIn(@Body() body: SignInDto) {
-    const { email, password } = body;
+  @Query(() => User, { name: 'signin' })
+  signIn(@Args('SignIn') SignIn: SignIn) {
+    const { email, password } = SignIn;
     return this.authService.signIn(email, password);
   }
 }

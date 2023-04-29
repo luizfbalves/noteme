@@ -20,6 +20,6 @@ import { JWT_SECRET } from "./constants";
     global: true,
     secret: JWT_SECRET,
     signOptions: { expiresIn: '24h' },
-  }),]
+  }),],
 })
 export class AuthModule { }

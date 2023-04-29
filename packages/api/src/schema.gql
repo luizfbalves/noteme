@@ -2,19 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Note {
-  id: String!
-  userId: String!
-  description: String!
-  createdAt: Timestamp!
-  updatedAt: Timestamp
-}
-
-"""
-`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
-"""
-scalar Timestamp
-
 type User {
   id: String!
   email: String!
@@ -24,15 +11,34 @@ type User {
   updatedAt: Timestamp!
 }
 
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
+type Note {
+  id: String!
+  userId: String!
+  description: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp
+}
+
 type Query {
+  signin(SignIn: SignIn!): User!
   findNote(id: String!): Note!
   allNotes(userId: String!): [Note!]!
   users: [User!]!
   user(id: String!): User!
 }
 
+input SignIn {
+  email: String!
+  password: String!
+}
+
 type Mutation {
-  createNote(data: NoteCreateInputDto!): Note!
+  createNote(data: NoteCreateInput!): Note!
   updateNote(data: NoteUpdateInput!): Note!
   deleteNote(id: String!): Note!
   createUser(createUserInput: CreateUserInput!): User!
@@ -40,7 +46,7 @@ type Mutation {
   removeUser(id: String!): User!
 }
 
-input NoteCreateInputDto {
+input NoteCreateInput {
   userId: String!
   description: String
 }
@@ -55,7 +61,7 @@ input CreateUserInput {
   email: String!
   password: String!
   name: String!
-  createdAt: Timestamp! = 1682797291588
+  createdAt: Timestamp! = 1682804532317
 }
 
 input UpdateUserInput {
@@ -63,6 +69,6 @@ input UpdateUserInput {
   email: String!
   password: String!
   name: String!
-  createdAt: Timestamp = 1682797291588
-  updatedAt: Timestamp! = 1682797291653
+  createdAt: Timestamp = 1682804532317
+  updatedAt: Timestamp! = 1682804532390
 }

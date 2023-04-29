@@ -1,5 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 
+import { Public } from '../auth/constants';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './entities/user.entity';
@@ -19,6 +20,7 @@ export class UsersResolver {
     return this.usersService.findAll();
   }
 
+  @Public()
   @Query(() => User, { name: 'user' })
   findOne(@Args('id', { type: () => String }) id: string) {
     return this.usersService.findOne(id);

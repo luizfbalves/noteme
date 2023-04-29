@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 
 import { PrismaService } from '../../providers/prisma.service'
-import { NoteCreateInputDto } from './dtos/note.create.input'
+import { NoteCreateInput } from './dtos/note.create.input'
 import { NoteUpdateInput } from './dtos/note.update.input'
 
 @Injectable()
@@ -24,7 +24,7 @@ export class NoteService {
     })
   }
 
-  create(data: NoteCreateInputDto) {
+  create(data: NoteCreateInput) {
     return this.prisma.note.create({ data })
   }
 
