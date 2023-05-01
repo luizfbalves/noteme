@@ -11,7 +11,10 @@ let server: Handler
 const bootstrap = async (): Promise<Handler> => {
   const expressApp = express()
 
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp))
+  const app = await NestFactory.create(
+    AppModule,
+    new ExpressAdapter(expressApp)
+  )
 
   app.enableCors()
   await app.init()
@@ -19,7 +22,11 @@ const bootstrap = async (): Promise<Handler> => {
   return serverlessExpress({ app: expressApp })
 }
 
-export const handler: APIGatewayProxyHandler = async (event: any, context: Context, callback: Callback) => {
+export const handler: APIGatewayProxyHandler = async (
+  event: any,
+  context: Context,
+  callback: Callback
+) => {
   if (!server) {
     server = await bootstrap()
   }
