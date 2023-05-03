@@ -8,7 +8,7 @@
   "type": "commonjs",
   "main": "serverless.yml",
   "scripts": {
-    // "prebuild": "rimraf dist",
+    "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@apollo/server-plugin-landing-page-graphql-playground": "^4.0.0",
+    "@nestjs/cli": "^9.4.2",
     "@nestjs/testing": "^9.0.0",
     "@swc/core": "^1.3.14",
     "@types/bcrypt": "^5.0.0",
