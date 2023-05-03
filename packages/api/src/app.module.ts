@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { join } from 'node:path'
 
+import { AuthModule } from './modules/auth/auth.module'
 import { NoteModule } from './modules/note/note.module'
 import { UsersModule } from './modules/users/users.module'
 
@@ -17,6 +18,7 @@ import { UsersModule } from './modules/users/users.module'
     }),
     NoteModule,
     UsersModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
