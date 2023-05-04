@@ -1,7 +1,7 @@
 import { UnauthorizedException } from '@nestjs/common'
 import bcrypt from 'bcrypt'
 
-export async function hash(password: string) {
+export async function hashCreate(password: string) {
   if (!password) {
     throw new UnauthorizedException()
   }
@@ -12,7 +12,7 @@ export async function hash(password: string) {
   return hash
 }
 
-export async function verifyHash(password: string, hash: string) {
+export async function hashVerify(password: string, hash: string) {
   if (!password || !hash) {
     throw new UnauthorizedException()
   }

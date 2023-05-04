@@ -1,7 +1,6 @@
 import { PrismaService } from '@/providers/prisma.service'
 import { Injectable } from '@nestjs/common'
 
-import { Public } from '../auth/constants'
 import { CreateUserInput } from './dto/create-user.input'
 import { UpdateUserInput } from './dto/update-user.input'
 
@@ -13,7 +12,6 @@ export class UsersService {
     return this.prisma.users.create({ data: createUserInput })
   }
 
-  @Public()
   findAll() {
     return this.prisma.users.findMany()
   }
@@ -28,16 +26,12 @@ export class UsersService {
 
   findByEmail(email: string) {
     return this.prisma.users.findUnique({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        password: true,
-        createdAt: true,
-        updatedAt: true,
-      },
       where: {
         email,
+      },
+      select: {
+        id: true,
+        password: true,
       },
     })
   }

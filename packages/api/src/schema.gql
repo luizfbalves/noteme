@@ -2,19 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Note {
-  id: String!
-  userId: String!
-  description: String!
-  createdAt: Timestamp!
-  updatedAt: Timestamp
-}
-
-"""
-`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
-"""
-scalar Timestamp
-
 type User {
   id: String!
   email: String!
@@ -24,11 +11,30 @@ type User {
   updatedAt: Timestamp!
 }
 
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
+type Note {
+  id: String!
+  userId: String!
+  description: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp
+}
+
 type Query {
   findNote(id: String!): Note!
   allNotes(userId: String!): [Note!]!
   users: [User!]!
   user(id: String!): User!
+  login(LoginInput: LoginInput!): User!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
 }
 
 type Mutation {
@@ -55,7 +61,7 @@ input CreateUserInput {
   email: String!
   password: String!
   name: String!
-  createdAt: Timestamp! = 1683078433529
+  createdAt: Timestamp! = 1683161975052
 }
 
 input UpdateUserInput {
@@ -63,6 +69,6 @@ input UpdateUserInput {
   email: String!
   password: String!
   name: String!
-  createdAt: Timestamp = 1683078433529
-  updatedAt: Timestamp! = 1683078433592
+  createdAt: Timestamp = 1683161975052
+  updatedAt: Timestamp! = 1683161975119
 }

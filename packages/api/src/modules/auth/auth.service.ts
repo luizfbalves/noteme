@@ -1,36 +1,32 @@
-import { verifyHash } from '@/helpers/bcrypt'
+import { hashVerify } from '@/helpers/bcrypt'
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 
-import { UsersService } from './../users/users.service'
+import { UsersService } from '../users/users.service'
+import { jwtConstants } from './constants'
+import { LoginInput } from './dto/auth-login.input'
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService, private jwt: JwtService) {}
+  constructor(private jwt: JwtService, private userService: UsersService) {}
 
-  async validateUser(email: string, password: string) {
-    const user = await this.usersService.findByEmail(email)
+  async login(payload: LoginInput): Promise<{ acess_token: string }> {
+    const { email, password } = payload
 
-    if (!user) {
-      throw new UnauthorizedException()
+    const userData = await this.userService.findByEmail(email)
+
+    if (!userData) {
+      throw new UnauthorizedException('user not found.')
     }
 
-    const isValid = await verifyHash(password, user.password)
+    const isLogged = await hashVerify(password, userData.password)
 
-    if (!isValid) {
-      throw new UnauthorizedException()
+    if (!isLogged) {
+      throw new UnauthorizedException('password incorrect.')
     }
-
-    const { password: pass, ...result } = user
-
-    return result
-  }
-
-  async login(user: any): Promise<{ acess_token: string }> {
-    const payload = { username: user.username, sub: user.userId }
 
     return {
-      acess_token: this.jwt.sign(payload),
+      acess_token: this.jwt.sign(userData, { secret: jwtConstants.secret }),
     }
   }
 }
