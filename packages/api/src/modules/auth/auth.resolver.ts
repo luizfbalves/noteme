@@ -10,9 +10,7 @@ export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
   @Public()
   @Query(() => User, { name: 'login' })
-  login(
-    @Args('LoginInput', { type: () => LoginInput }) loginInput: LoginInput
-  ) {
+  login(@Args('LoginInput') loginInput: LoginInput) {
     return this.authService.login(loginInput)
   }
 }

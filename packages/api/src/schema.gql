@@ -61,7 +61,7 @@ input CreateUserInput {
   email: String!
   password: String!
   name: String!
-  createdAt: Timestamp! = 1683161975052
+  createdAt: Timestamp! = 1683243367424
 }
 
 input UpdateUserInput {
@@ -69,6 +69,6 @@ input UpdateUserInput {
   email: String!
   password: String!
   name: String!
-  createdAt: Timestamp = 1683161975052
-  updatedAt: Timestamp! = 1683161975119
+  createdAt: Timestamp = 1683243367424
+  updatedAt: Timestamp! = 1683243367484
 }
