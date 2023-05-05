@@ -1,4 +1,4 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql'
+import { Args, Query, Resolver } from '@nestjs/graphql'
 
 import { AuthService } from './auth.service'
 import { Public } from './constants'
@@ -10,7 +10,7 @@ export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
   @Public()
-  @Mutation(() => Auth, { name: 'login' })
+  @Query(() => Auth, { name: 'login' })
   async login(@Args('LoginInput') loginInput: LoginInput) {
     return await this.authService.login(loginInput)
   }
