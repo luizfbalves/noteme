@@ -1,8 +1,8 @@
 import { PrismaService } from '@/providers/prisma.service'
 import { Injectable } from '@nestjs/common'
 
-import { CreateUserInput } from './dto/create-user.input'
-import { UpdateUserInput } from './dto/update-user.input'
+import { CreateUserInput } from './dtos/create-user.input'
+import { UpdateUserInput } from './dtos/update-user.input'
 
 @Injectable()
 export class UsersService {

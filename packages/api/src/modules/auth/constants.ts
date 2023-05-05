@@ -10,9 +10,14 @@ export const jwtConstants = {
 }
 
 export const IS_PUBLIC_KEY = 'isPublic'
+
 export const Public = () => SetMetadata(IS_PUBLIC_KEY, true)
 
-export const CurrentUser = createParamDecorator((context: ExecutionContext) => {
-  const ctx = GqlExecutionContext.create(context)
-  return ctx.getContext().req.user
-})
+export const CurrentUser = createParamDecorator(
+  (_data: unknown, context: ExecutionContext) => {
+    const ctx = GqlExecutionContext.create(context)
+    return ctx.getContext().req.user
+  }
+)
+
+//TODO fix current user not providing user data

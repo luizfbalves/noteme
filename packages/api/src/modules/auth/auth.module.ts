@@ -7,7 +7,7 @@ import { UsersService } from '../users/users.service'
 import { AuthResolver } from './auth.resolver'
 import { AuthService } from './auth.service'
 import { jwtConstants } from './constants'
-import { JwtAuthGuard } from './jwt-auth.guard'
+import { JwtAuthGuard } from './guards/jwt-auth.guard'
 import { JwtStrategy } from './jwt.strategy'
 
 @Module({
@@ -15,7 +15,7 @@ import { JwtStrategy } from './jwt.strategy'
     JwtModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '24h' },
+      signOptions: { expiresIn: '3600s' },
     }),
   ],
   providers: [
@@ -23,7 +23,6 @@ import { JwtStrategy } from './jwt.strategy'
     AuthService,
     JwtStrategy,
     PrismaService,
-    AuthService,
     AuthResolver,
     {
       provide: APP_GUARD,
