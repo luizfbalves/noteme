@@ -10,9 +10,10 @@ import { LoginInput } from './dtos/auth-login.input'
 export class AuthService {
   constructor(private jwt: JwtService, private userService: UsersService) {}
 
-  async login(payload: LoginInput): Promise<{ access_token: string }> {
-    const { email, password } = payload
-
+  async login({
+    email,
+    password,
+  }: LoginInput): Promise<{ access_token: string }> {
     const userData = await this.userService.findByEmail(email)
 
     if (!userData) {
@@ -25,8 +26,13 @@ export class AuthService {
       throw new UnauthorizedException('password incorrect.')
     }
 
+    const payload = {
+      sub: userData.id,
+      email: email,
+    }
+
     return {
-      access_token: this.jwt.sign(userData, { secret: jwtConstants.secret }),
+      access_token: this.jwt.sign(payload, { secret: jwtConstants.secret }),
     }
   }
 }
