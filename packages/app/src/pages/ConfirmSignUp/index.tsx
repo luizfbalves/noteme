@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import { refreshSession } from '@/auth'
 
 import { useAppDispatch } from '@/store/hooks'
-import { UserType, userData } from '@/store/user/user.store'
+import { User, userData } from '@/store/user/user.store'
 
 import { Banner, Container } from './styles'
 
@@ -17,7 +17,7 @@ export const ConfirmSignUp: React.FC = () => {
     const { data } = await refreshSession()
 
     if (data.session && data.user) {
-      const state: UserType = {
+      const state: User = {
         isLogged: true,
         id: data.session.user.id,
         username: data.session.user.user_metadata.username,

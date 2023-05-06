@@ -19,21 +19,9 @@ type Note {
 """
 scalar Timestamp
 
-type User {
-  id: String!
-  email: String!
-  name: String!
-  password: String!
-  createdAt: Timestamp!
-  updatedAt: Timestamp!
-  token: String
-}
-
 type Query {
   findNote(id: String!): Note!
   allNotes(userId: String!): [Note!]!
-  users: [User!]!
-  user(id: String!): User!
   login(LoginInput: LoginInput!): Auth!
 }
 
@@ -46,9 +34,6 @@ type Mutation {
   createNote(data: NoteCreateInput!): Note!
   updateNote(data: NoteUpdateInput!): Note!
   deleteNote(id: String!): Note!
-  createUser(data: CreateUserInput!): User!
-  updateUser(data: UpdateUserInput!): User!
-  removeUser(id: String!): User!
 }
 
 input NoteCreateInput {
@@ -59,18 +44,4 @@ input NoteCreateInput {
 input NoteUpdateInput {
   id: String!
   description: String
-}
-
-input CreateUserInput {
-  email: String!
-  password: String!
-  name: String!
-}
-
-input UpdateUserInput {
-  email: String!
-  password: String!
-  name: String!
-  id: String!
-  updatedAt: Timestamp! = 1683394798399
 }

@@ -5,7 +5,6 @@ import { join } from 'node:path'
 
 import { AuthModule } from './modules/auth/auth.module'
 import { NoteModule } from './modules/note/note.module'
-import { UsersModule } from './modules/users/users.module'
 
 @Module({
   imports: [
@@ -17,7 +16,6 @@ import { UsersModule } from './modules/users/users.module'
       introspection: process.env.NODE_ENV === 'development' ? true : false,
     }),
     NoteModule,
-    UsersModule,
     AuthModule,
   ],
 })

@@ -8,10 +8,10 @@ import { Button, Divider, Input, Loader } from 'rsuite'
 import { ZodError } from 'zod'
 
 import { useAppDispatch } from '@/store/hooks'
-import { userData, UserType } from '@/store/user/user.store'
+import { User, userData } from '@/store/user/user.store'
 
 import { emailSchema, UserSignInSchema } from './signin.schema'
-import { Container, Banner, FormLogin } from './styles'
+import { Banner, Container, FormLogin } from './styles'
 
 export const SignIn: React.FC = () => {
   const navigate = useNavigate()
@@ -42,10 +42,11 @@ export const SignIn: React.FC = () => {
             return
           }
         }
-        const response: UserType = {
+        const response: User = {
           isLogged: true,
           id: data.session.user.id,
           username: data.session.user.user_metadata.username,
+          token: data.session.access_token,
         }
         dispatch(userData(response))
         navigate('/home')

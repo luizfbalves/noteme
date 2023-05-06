@@ -10,7 +10,7 @@ import { Button, Divider, Input, Loader } from 'rsuite'
 import { ZodError } from 'zod'
 
 import { useAppDispatch } from '@/store/hooks'
-import { UserType, userData } from '@/store/user/user.store'
+import { User, userData } from '@/store/user/user.store'
 
 import { UserSignUpSchema } from './signup.schema'
 import { Banner, Container, FormLogin } from './styles'
@@ -52,7 +52,7 @@ export const SignUp: React.FC = () => {
       const { createUser: user } = data
 
       if (user) {
-        const response: UserType = {
+        const response: User = {
           isLogged: true,
           username: user.name,
         }

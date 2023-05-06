@@ -1,0 +1,5 @@
+1. validate users direcly from supabase auth
+
+2. use same jwt secret in supabase and api
+
+3. disable users crud operations

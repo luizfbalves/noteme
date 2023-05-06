@@ -1,6 +1,5 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 
-import { Public } from '../auth/constants'
 import { NoteCreateInput } from './dtos/note.create.input'
 import { NoteUpdateInput } from './dtos/note.update.input'
 import { Note } from './entities/note.entity'
@@ -15,7 +14,6 @@ export class NoteResolver {
     return this.note.findOne({ id })
   }
 
-  @Public()
   @Query(() => [Note])
   allNotes(@Args('userId') userId: string) {
     return this.note.findAll({ userId })
