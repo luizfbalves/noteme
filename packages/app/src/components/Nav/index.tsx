@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { signOut } from '@/auth'
+import { createNoteInterface } from '@/services/apollo/documents/interfaces/notes.types'
 import { POST_CREATENOTE } from '@/services/apollo/documents/notes.gql'
-import { createNoteInterface } from '@/services/apollo/documents/notes.types'
 import { useMutation } from '@apollo/client'
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { insertNote } from '@/store/note/note.store'
 import { clearUserData } from '@/store/user/user.store'
 
-import { Wrapper, Label } from './styles'
+import { Label, Wrapper } from './styles'
 
 export const SideNav: React.FC = () => {
   const dispatch = useAppDispatch()

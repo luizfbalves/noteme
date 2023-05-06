@@ -12,8 +12,8 @@ export class UsersResolver {
 
   @Public()
   @Mutation(() => User)
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.usersService.create(createUserInput)
+  createUser(@Args('data') data: CreateUserInput) {
+    return this.usersService.create(data)
   }
 
   @Query(() => [User], { name: 'users' })
@@ -27,8 +27,8 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.usersService.update(updateUserInput)
+  updateUser(@Args('data') data: UpdateUserInput) {
+    return this.usersService.update(data)
   }
 
   @Mutation(() => User)

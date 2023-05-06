@@ -1,10 +1,7 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
 export class CreateUserInput {
-  @Field()
-  id: string
-
   @Field()
   email: string
 
@@ -13,7 +10,4 @@ export class CreateUserInput {
 
   @Field()
   name: string
-
-  @Field({ defaultValue: new Date() })
-  createdAt: Date
 }

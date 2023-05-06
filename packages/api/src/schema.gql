@@ -46,8 +46,8 @@ type Mutation {
   createNote(data: NoteCreateInput!): Note!
   updateNote(data: NoteUpdateInput!): Note!
   deleteNote(id: String!): Note!
-  createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  createUser(data: CreateUserInput!): User!
+  updateUser(data: UpdateUserInput!): User!
   removeUser(id: String!): User!
 }
 
@@ -62,18 +62,15 @@ input NoteUpdateInput {
 }
 
 input CreateUserInput {
-  id: String!
   email: String!
   password: String!
   name: String!
-  createdAt: Timestamp! = 1683339937035
 }
 
 input UpdateUserInput {
-  id: String!
   email: String!
   password: String!
   name: String!
-  createdAt: Timestamp = 1683339937035
-  updatedAt: Timestamp! = 1683339937096
+  id: String!
+  updatedAt: Timestamp! = 1683394798399
 }
