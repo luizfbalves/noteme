@@ -26,6 +26,7 @@ type User {
   password: String!
   createdAt: Timestamp!
   updatedAt: Timestamp!
+  token: String
 }
 
 type Query {
@@ -65,7 +66,7 @@ input CreateUserInput {
   email: String!
   password: String!
   name: String!
-  createdAt: Timestamp! = 1683333610219
+  createdAt: Timestamp! = 1683339937035
 }
 
 input UpdateUserInput {
@@ -73,6 +74,6 @@ input UpdateUserInput {
   email: String!
   password: String!
   name: String!
-  createdAt: Timestamp = 1683333610219
-  updatedAt: Timestamp! = 1683333610292
+  createdAt: Timestamp = 1683339937035
+  updatedAt: Timestamp! = 1683339937096
 }

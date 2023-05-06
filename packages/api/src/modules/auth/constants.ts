@@ -19,5 +19,3 @@ export const CurrentUser = createParamDecorator(
     return ctx.getContext().req.user
   }
 )
-
-//TODO fix current user not providing user data
