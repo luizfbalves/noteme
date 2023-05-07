@@ -4,10 +4,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:Q8E1TpTMCDrwxWbe@db.ktxcoshldvvvxzmixggs.supabase.co:5432/postgres"
+  url      = env("DATABASE_URL")
 }
-
-//TODO remove this link before pull request to main
 
 model Note {
   id          String    @id @default(uuid())
