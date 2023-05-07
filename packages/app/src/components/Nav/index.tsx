@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { signOut } from '@/auth'
+import apollo from '@/services/apollo/apolloClient'
 import { createNoteInterface } from '@/services/apollo/documents/interfaces/notes.types'
 import { POST_CREATENOTE } from '@/services/apollo/documents/notes.gql'
 import { useMutation } from '@apollo/client'
@@ -41,6 +42,7 @@ export const SideNav: React.FC = () => {
     try {
       dispatch(clearUserData())
       await signOut()
+      apollo.resetStore()
     } catch (error) {
       toast.error('something went wrong...')
     }

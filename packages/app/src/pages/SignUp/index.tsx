@@ -2,9 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { CreateUserInput } from '@/services/apollo/documents/interfaces/users.types'
-import { POST_CREATEUSER } from '@/services/apollo/documents/users.gql'
-import { useMutation } from '@apollo/client'
+import { signUp } from '@/auth'
 import { AuthError } from '@supabase/supabase-js'
 import { Button, Divider, Input, Loader } from 'rsuite'
 import { ZodError } from 'zod'
@@ -25,8 +23,6 @@ export const SignUp: React.FC = () => {
   const passwordRef = useRef<HTMLInputElement>(null)
   const usernameRef = useRef<HTMLInputElement>(null)
 
-  const [postCreateUser] = useMutation<CreateUserInput>(POST_CREATEUSER)
-
   const handleSignUp = async () => {
     try {
       const username = usernameRef.current?.value || ''
@@ -37,31 +33,24 @@ export const SignUp: React.FC = () => {
 
       setIsLoading(true)
 
-      const { data, errors } = await postCreateUser({
-        variables: {
-          data: {
-            name: username,
-            email,
-            password,
-          },
-        },
-      })
+      const { error, data } = await signUp(email, password, username)
 
-      console.log(data, errors)
-
-      const { createUser: user } = data
-
-      if (user) {
+      if (data.user) {
+        if (!data.user.confirmed_at && data.user.confirmation_sent_at) {
+          toast('E-mail confirmation sent...')
+          navigate('/signup/confirmation', { replace: true })
+          return
+        }
         const response: User = {
           isLogged: true,
-          username: user.name,
+          username: data.user.user_metadata.username,
         }
 
         dispatch(userData(response))
         navigate('/home')
       } else {
-        errors instanceof AuthError
-          ? toast(errors.message)
+        error instanceof AuthError
+          ? toast(error.message)
           : toast('something went wrong...')
       }
     } catch (error) {

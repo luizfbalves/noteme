@@ -24,6 +24,7 @@ export const App: React.FC = () => {
         isLogged: true,
         id: session.user.id,
         username: session.user.user_metadata.username,
+        token: session.access_token,
       }
       dispatch(userData(state))
     } else if (event === 'SIGNED_OUT') {
