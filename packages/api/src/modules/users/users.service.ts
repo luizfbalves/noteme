@@ -1,7 +1,7 @@
-import { hashCreate } from '@/helpers/bcrypt'
-import { PrismaService } from '@/providers/prisma.service'
 import { Injectable } from '@nestjs/common'
 
+import { hashCreate } from '../../helpers/bcrypt'
+import { PrismaService } from '../../providers/prisma.service'
 import { CreateUserInput } from './dtos/create-user.input'
 import { UpdateUserInput } from './dtos/update-user.input'
 

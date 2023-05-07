@@ -1,7 +1,7 @@
-import { hashVerify } from '@/helpers/bcrypt'
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 
+import { hashVerify } from '../../helpers/bcrypt'
 import { UsersService } from '../users/users.service'
 import { jwtConstants } from './constants'
 import { LoginInput } from './dtos/auth-login.input'
