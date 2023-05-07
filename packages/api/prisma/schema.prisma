@@ -4,8 +4,10 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:Q8E1TpTMCDrwxWbe@db.ktxcoshldvvvxzmixggs.supabase.co:5432/postgres"
 }
+
+//TODO remove this link before pull request to main
 
 model Note {
   id          String    @id @default(uuid())
@@ -18,9 +20,12 @@ model Note {
 }
 
 model users {
-  id        String    @id
+  id        String    @id @default(uuid())
   email     String    @unique
   name      String
+  password  String
   createdAt DateTime  @default(now())
   updatedAt DateTime? @default(now())
+
+  @@map("users")
 }

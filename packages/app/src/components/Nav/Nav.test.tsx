@@ -3,10 +3,10 @@ import { MockedProvider } from '@apollo/client/testing'
 import { waitFor } from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
 
-import { UserType } from '@/store/user/user.store'
+import { User } from '@/store/user/user.store'
 
 import { dateRFC } from '@/utils'
-import { screen, renderWithProviders } from '@/utils/test-utils'
+import { renderWithProviders, screen } from '@/utils/test-utils'
 
 import Nav from '.'
 
@@ -34,7 +34,7 @@ const fakeNote = [
   },
 ]
 
-const fakeUser: UserType = {
+const fakeUser: User = {
   id: '6c4c104d-35a6-4bc9-805e-82484dd73c19',
   isLogged: true,
   username: 'jest-user',

@@ -1,0 +1,23 @@
+service: noteme
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-plugin-optimize
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: sa-east-1
+
+package:
+  excludeDevDependencies: true
+
+functions:
+  graphql:
+    handler: src/serverless.handler
+    events:
+      - http:
+          path: /{any+}
+          method: any
+          cors: true

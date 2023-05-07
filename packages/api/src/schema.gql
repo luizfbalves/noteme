@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Auth {
+  access_token: String!
+}
+
 type Note {
   id: String!
   userId: String!
@@ -18,6 +22,12 @@ scalar Timestamp
 type Query {
   findNote(id: String!): Note!
   allNotes(userId: String!): [Note!]!
+  login(LoginInput: LoginInput!): Auth!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
 }
 
 type Mutation {

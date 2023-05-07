@@ -8,10 +8,10 @@ import { Button, Divider, Input, Loader } from 'rsuite'
 import { ZodError } from 'zod'
 
 import { useAppDispatch } from '@/store/hooks'
-import { UserType, userData } from '@/store/user/user.store'
+import { User, userData } from '@/store/user/user.store'
 
 import { UserSignUpSchema } from './signup.schema'
-import { Container, Banner, FormLogin } from './styles'
+import { Banner, Container, FormLogin } from './styles'
 
 export const SignUp: React.FC = () => {
   const navigate = useNavigate()
@@ -41,7 +41,7 @@ export const SignUp: React.FC = () => {
           navigate('/signup/confirmation', { replace: true })
           return
         }
-        const response: UserType = {
+        const response: User = {
           isLogged: true,
           username: data.user.user_metadata.username,
         }
