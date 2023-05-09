@@ -7,6 +7,8 @@ plugins:
 
 provider:
   name: aws
+  deploymentMethod: direct
+  stage: production
   runtime: nodejs18.x
   region: sa-east-1
 
@@ -18,6 +20,6 @@ functions:
     handler: src/serverless.handler
     events:
       - http:
-          path: /{any+}
+          path: /graphql
           method: any
           cors: true

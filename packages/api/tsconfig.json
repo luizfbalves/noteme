@@ -19,6 +19,7 @@
     "noFallthroughCasesInSwitch": false,
     "strictNullChecks": true,
     "esModuleInterop": true,
+    "lib": ["es2017", "dom"],
     "paths": {
       "@/*": ["./src/*"],
       "@modules/*": ["./src/modules/*"]
