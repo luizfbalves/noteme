@@ -1,25 +1,29 @@
 service: noteme
 
+useDotenv: true
+
 plugins:
-  - serverless-plugin-typescript
+  - 'serverless-plugin-typescript'
   - serverless-plugin-optimize
   - serverless-offline
 
 provider:
   name: aws
   deploymentMethod: direct
-  stage: production
   runtime: nodejs18.x
   region: sa-east-1
+  environment:
+    NODE_ENV: ${env:NODE_ENV}
+    DATABASE_URL: ${env:DATABASE_URL}
+    JWT_SECRET: ${env:JWT_SECRET}
 
 package:
   excludeDevDependencies: true
 
 functions:
   graphql:
-    handler: src/serverless.handler
+    handler: .build/src/serverless.handler
     events:
       - http:
           path: /graphql
           method: any
-          cors: true
