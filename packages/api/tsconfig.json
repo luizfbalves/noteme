@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "ESNext",
     "target": "es2017",
     "allowJs": true,
     "declaration": true,
@@ -19,7 +19,8 @@
     "noFallthroughCasesInSwitch": false,
     "strictNullChecks": true,
     "esModuleInterop": true,
-    "lib": ["es2017", "dom"],
+    "moduleResolution": "node",
+    "lib": ["es2017"],
     "paths": {
       "@/*": ["./src/*"],
       "@modules/*": ["./src/modules/*"]

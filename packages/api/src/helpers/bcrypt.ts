@@ -1,5 +1,5 @@
 import { UnauthorizedException } from '@nestjs/common'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 export async function hashCreate(password: string) {
   if (!password) {

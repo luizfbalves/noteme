@@ -3,9 +3,8 @@ service: noteme
 useDotenv: true
 
 plugins:
-  - 'serverless-plugin-typescript'
-  - serverless-plugin-optimize
   - serverless-offline
+  - serverless-bundle
 
 provider:
   name: aws
@@ -19,6 +18,19 @@ provider:
 
 package:
   excludeDevDependencies: true
+
+custom:
+  bundle:
+    linting: false
+    excludeFiles: '**/*.spec.ts'
+    externals: all
+
+    copyFiles:
+      - from: 'prisma/schema.prisma'
+        to: './src'
+    packagerOptions:
+      scripts:
+        - prisma generate && rimraf node_modules/@prisma/engines/** && rimraf node_modules/prisma/libquery_engine-[^rhel]* && prisma db push
 
 functions:
   graphql:

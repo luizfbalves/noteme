@@ -5,3 +5,4 @@
 .flaskenv*
 !.env.project
 !.env.vault
+.webpack
