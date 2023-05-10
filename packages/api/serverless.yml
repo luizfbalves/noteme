@@ -10,7 +10,7 @@ plugins:
 provider:
   name: aws
   deploymentMethod: direct
-  runtime: nodejs18.x
+  runtime: nodejs16.x
   region: sa-east-1
   environment:
     NODE_ENV: ${env:NODE_ENV}
@@ -22,7 +22,7 @@ package:
 
 functions:
   graphql:
-    handler: .build/src/serverless.handler
+    handler: src/serverless.handler
     events:
       - http:
           path: /graphql
