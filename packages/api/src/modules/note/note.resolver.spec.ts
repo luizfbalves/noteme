@@ -61,7 +61,8 @@ describe('NoteResolver', () => {
 
   describe('allNotes', () => {
     it('should return an array of notes', async () => {
-      const response = await resolver.allNotes()
+      const { userId } = fakeNotes[0]
+      const response = await resolver.allNotes(userId)
 
       expect(response).toEqual(fakeNotes)
       expect(service.findAll).toHaveBeenCalled()
@@ -73,7 +74,7 @@ describe('NoteResolver', () => {
   describe('updateNote', () => {
     it('should update an note', async () => {
       const newNote = {
-        id: fakeNotes[0],
+        id: fakeNotes[0].id,
         description: 'updating a note on resolver',
       }
       const response = await resolver.updateNote(newNote)

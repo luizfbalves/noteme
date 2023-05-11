@@ -1,4 +1,4 @@
-service: noteme
+service: noteme-api
 
 useDotenv: true
 
@@ -9,8 +9,10 @@ plugins:
 provider:
   name: aws
   deploymentMethod: direct
-  runtime: nodejs16.x
+  runtime: nodejs18.x
   region: sa-east-1
+  deploymentBucket:
+    name: noteme
   environment:
     NODE_ENV: ${env:NODE_ENV}
     DATABASE_URL: ${env:DATABASE_URL}
@@ -24,7 +26,6 @@ custom:
     linting: false
     excludeFiles: '**/*.spec.ts'
     externals: all
-
     copyFiles:
       - from: 'prisma/schema.prisma'
         to: './src'

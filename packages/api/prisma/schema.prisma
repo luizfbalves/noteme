@@ -1,13 +1,6 @@
-// generator client {
-//   provider      = "prisma-client-js"
-//   binaryTargets = ["native", "debian-openssl-1.1.x"]
-// }
-
-generator nestgraphql {
-  provider = "node node_modules/prisma-nestjs-graphql"
-  // for yarn monorepos
-  // provider = "prisma-nestjs-graphql"
-  output   = "../src/@generated"
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
 }
 
 datasource db {
