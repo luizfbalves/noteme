@@ -5,6 +5,7 @@ useDotenv: true
 plugins:
   - serverless-offline
   - serverless-bundle
+  - serverless-plugin-monorepo
 
 provider:
   name: aws
@@ -23,6 +24,7 @@ package:
 
 custom:
   bundle:
+    root: ./
     linting: false
     excludeFiles: '**/*.spec.ts'
     externals: all
@@ -31,7 +33,7 @@ custom:
         to: './src'
     packagerOptions:
       scripts:
-        - prisma generate && rimraf node_modules/@prisma/engines/** && rimraf node_modules/prisma/libquery_engine-[^rhel]* && prisma db push
+        - npx prisma generate && rimraf ./node_modules/@prisma/engines/** && rimraf ./node_modules/prisma/libquery_engine-[^rhel]* && npx prisma db push
 
 functions:
   graphql:
