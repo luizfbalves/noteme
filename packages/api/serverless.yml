@@ -13,7 +13,7 @@ provider:
   runtime: nodejs18.x
   region: sa-east-1
   deploymentBucket:
-    name: noteme
+    name: noteme-luizfbalves
   environment:
     NODE_ENV: ${env:NODE_ENV}
     DATABASE_URL: ${env:DATABASE_URL}
@@ -24,16 +24,15 @@ package:
 
 custom:
   bundle:
-    root: ./
     linting: false
     excludeFiles: '**/*.spec.ts'
     externals: all
     copyFiles:
       - from: 'prisma/schema.prisma'
-        to: './src'
-    packagerOptions:
-      scripts:
-        - npx prisma generate && rimraf ./node_modules/@prisma/engines/** && rimraf ./node_modules/prisma/libquery_engine-[^rhel]* && npx prisma db push
+        to: '.'
+    # packagerOptions:
+    #   scripts:
+    #     - prisma generate && rimraf node_modules/@prisma/engines/** && rimraf node_modules/prisma/libquery_engine-[^rhel]* && prisma db push
 
 functions:
   graphql:
