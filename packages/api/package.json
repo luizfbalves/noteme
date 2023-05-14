@@ -4,6 +4,7 @@
   "description": "noteme's main backend service",
   "author": "luizfbalves",
   "private": true,
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
