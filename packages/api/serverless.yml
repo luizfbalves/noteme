@@ -30,9 +30,6 @@ custom:
     copyFiles:
       - from: 'prisma/schema.prisma'
         to: '.'
-    # packagerOptions:
-    #   scripts:
-    #     - prisma generate && rimraf node_modules/@prisma/engines/** && rimraf node_modules/prisma/libquery_engine-[^rhel]* && prisma db push
 
 functions:
   graphql:
