@@ -29,7 +29,7 @@ custom:
     externals: all
     copyFiles:
       - from: 'prisma/schema.prisma'
-        to: '.'
+        to: 'src'
 
 functions:
   graphql:
