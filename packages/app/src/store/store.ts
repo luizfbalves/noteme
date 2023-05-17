@@ -1,40 +1,31 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import {
-  persistReducer,
-  persistStore,
-  REHYDRATE,
-  PERSIST,
-} from 'redux-persist'
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import { combineReducers, configureStore, PreloadedState } from '@reduxjs/toolkit'
 
 import { listenerMiddleware } from './listeners'
 import noteReducer from './note/note.store'
 import userReducer from './user/user.store'
 
-const persistConfig = {
-  key: 'root',
-  version: 1,
-  storage,
-}
-
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   noteReducer,
   userReducer
 })
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
-
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [REHYDRATE, PERSIST],
-      },
-    }).prepend(listenerMiddleware.middleware)
+    getDefaultMiddleware().prepend(listenerMiddleware.middleware)
 })
 
-export const persistor = persistStore(store)
+export function setupStore(preloadedState?: PreloadedState<RootState>) {
+  return configureStore({
+    preloadedState: preloadedState,
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().prepend(listenerMiddleware.middleware)
+  })
+}
+
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+export type AppStore = ReturnType<typeof setupStore>
+
 export default store

@@ -1,6 +1,6 @@
 <div align="center">
   <h2>NOTE.me 📖</h2>
-  <h5>Web responsive monorepo app to note simple text snippets.</h5>
+  <h5>Web responsive monorepo app to note text snippets.</h5>
 </div>
 
 <ul>  
@@ -16,13 +16,14 @@
 
 ## Features
 - app
-  - [x] login page
+  - [x] sigin page
+  - [x] signup page
   - [x] home page
   - [ ] user page
 - api
   - [x] user crud
   - [x] notes crud
-  - [ ] auth
+  - [x] auth
 
 ## Repos
 - [x] app
@@ -45,7 +46,14 @@
   <li>
     <a href="https://docs.nestjs.com/">Nestjs</a></br>
   </li>
-    <li>
+  <li>
     <a href="https://www.prisma.io/">Prisma</a></br>
+  </li>
+  <li>
+    <a href="https://supabase.com/">Supabase</a></br>
+  </li>
+  <li>
+    <a href="https://www.apollographql.com/">Apollo-graphql</a></br>
+  </li>
   </li>
 </ul>

@@ -1,0 +1,40 @@
+service: noteme-api
+
+useDotenv: true
+
+plugins:
+  - serverless-offline
+  - serverless-bundle
+  - serverless-plugin-monorepo
+
+provider:
+  name: aws
+  deploymentMethod: direct
+  runtime: nodejs18.x
+  region: sa-east-1
+  deploymentBucket:
+    name: noteme-luizfbalves
+  environment:
+    NODE_ENV: ${env:NODE_ENV}
+    DATABASE_URL: ${env:DATABASE_URL}
+    JWT_SECRET: ${env:JWT_SECRET}
+
+package:
+  excludeDevDependencies: true
+
+custom:
+  bundle:
+    linting: false
+    excludeFiles: '**/*.spec.ts'
+    externals: all
+    copyFiles:
+      - from: 'prisma/schema.prisma'
+        to: 'src'
+
+functions:
+  graphql:
+    handler: src/serverless.handler
+    events:
+      - http:
+          path: /graphql
+          method: any

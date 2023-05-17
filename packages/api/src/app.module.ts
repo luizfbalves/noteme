@@ -1,10 +1,10 @@
-import { NoteModule } from '@modules/note/note.module'
-import { UserModule } from '@modules/user/user.module'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
-import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
 import { join } from 'node:path'
+
+import { AuthModule } from './modules/auth/auth.module'
+import { NoteModule } from './modules/note/note.module'
 
 @Module({
   imports: [
@@ -12,11 +12,11 @@ import { join } from 'node:path'
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       buildSchemaOptions: { dateScalarMode: 'timestamp' },
-      playground: false,
-      plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      playground: process.env.NODE_ENV === 'development' ? true : false,
+      introspection: process.env.NODE_ENV === 'development' ? true : false,
     }),
-    UserModule,
     NoteModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

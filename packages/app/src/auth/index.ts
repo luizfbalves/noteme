@@ -1,12 +1,24 @@
-import { supabase } from "@/services/supabaseClient"
+import { supabase } from '@/services/supabaseClient'
 
-export const signUp = async (email: string, password: string, username: string) => {
+const baseUrl =
+  process.env.NODE_ENV === 'production'
+    ? process.env.VITE_APP_API_URL
+    : 'http://localhost:3333/'
+
+export const signUp = async (
+  email: string,
+  password: string,
+  username: string
+) => {
   return await supabase.auth.signUp({
-    email, password, options: {
+    email,
+    password,
+    options: {
+      emailRedirectTo: baseUrl + 'signup/confirmation',
       data: {
-        username
-      }
-    }
+        username,
+      },
+    },
   })
 }
 
@@ -15,10 +27,24 @@ export const signIn = async (email: string, password: string) => {
 }
 
 export const signOut = async () => {
-  await supabase.auth.signOut()
-  localStorage.removeItem('persist:root')
+  return await supabase.auth.signOut()
 }
 
-export const getSession = async () => {
-  return await supabase.auth.getSession()
+export const refreshSession = async () => {
+  return await supabase.auth.refreshSession()
+}
+
+export async function resetPassword(email: string) {
+  return await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: baseUrl + '/signin/passwordreset',
+  })
+}
+
+export async function signInWithGoogle() {
+  return await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: baseUrl + '/home',
+    },
+  })
 }

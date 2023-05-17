@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { randomUUID } from 'node:crypto'
 
 import { fakeNotes } from './__mocks__/fakeNotes.js'
-import { Note } from './note.entity'
+import { Note } from './entities/note.entity.js'
 import { NoteService } from './note.service'
 
 const prismaMock = {
@@ -65,7 +65,8 @@ describe('NoteService', () => {
 
   describe('findAll', () => {
     it('should return an array of notes', async () => {
-      const response = await note.findAll()
+      const userId = fakeNotes[0]
+      const response = await note.findAll(userId)
 
       expect(response).toEqual(fakeNotes)
       expect(prisma.note.findMany).toHaveBeenCalled()
