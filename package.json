@@ -20,6 +20,7 @@
     "start:dev": "lerna run start:dev --stream"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "typescript": "^4.4.2"
   },
   "devDependencies": {

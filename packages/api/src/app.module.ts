@@ -14,7 +14,6 @@ import { NoteModule } from './modules/note/note.module'
       buildSchemaOptions: { dateScalarMode: 'timestamp' },
       playground: process.env.NODE_ENV === 'development' ? true : false,
       introspection: process.env.NODE_ENV === 'development' ? true : false,
-      path: '/graphql',
     }),
     NoteModule,
     AuthModule,

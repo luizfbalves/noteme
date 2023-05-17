@@ -6,14 +6,13 @@ import { PrismaService } from '../../providers/prisma.service'
 import { UsersService } from '../users/users.service'
 import { AuthResolver } from './auth.resolver'
 import { AuthService } from './auth.service'
-import { jwtConstants } from './constants'
 import { JwtAuthGuard } from './guards/jwt-auth.guard'
 import { JwtStrategy } from './jwt.strategy'
 
 @Module({
   imports: [
     JwtModule.register({
-      secret: jwtConstants.secret,
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '3600s' },
     }),
   ],
