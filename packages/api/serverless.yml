@@ -10,7 +10,7 @@ plugins:
 provider:
   name: aws
   deploymentMethod: direct
-  runtime: nodejs18.x
+  runtime: nodejs16.x
   region: sa-east-1
   deploymentBucket:
     name: noteme-luizfbalves
@@ -30,11 +30,15 @@ custom:
     copyFiles:
       - from: 'prisma/schema.prisma'
         to: 'src'
+    packagerOptions:
+      scripts:
+        - prisma generate && rimraf ./node_modules/@prisma/engines/** && rimraf ./node_modules/prisma/libquery_engine-[^rhel]* && prisma db push
 
 functions:
   graphql:
     handler: src/serverless.handler
     events:
       - http:
-          path: /graphql
+          path: graphql
           method: any
+          cors: true

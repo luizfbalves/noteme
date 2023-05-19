@@ -6,3 +6,4 @@
 !.env.project
 !.env.vault
 .webpack
+.space
