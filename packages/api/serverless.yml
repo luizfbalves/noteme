@@ -5,7 +5,6 @@ useDotenv: true
 plugins:
   - serverless-offline
   - serverless-bundle
-  - serverless-plugin-monorepo
 
 provider:
   name: aws
