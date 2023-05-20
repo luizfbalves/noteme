@@ -16,7 +16,6 @@ export const fetchInitialNotes = createAsyncThunk(
 
       return data.allNotes
     } catch (error) {
-      console.log(error)
       rejectWithValue(error)
     }
   }

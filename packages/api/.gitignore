@@ -1,6 +1,9 @@
 .vercel
 .build
 .env*
+.serverless
 .flaskenv*
 !.env.project
 !.env.vault
+.webpack
+.space

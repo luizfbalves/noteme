@@ -1,13 +1,15 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import fetch from 'cross-fetch'
 
 const url =
-  process.env.NODE_ENV === 'production'
-    ? process.env.VITE_API_URL_GRAPHQL
-    : 'http://localhost:3333/graphql'
+  process.env.VITE_APP_NODE_ENV === 'production'
+    ? process.env.VITE_APP_API_GRAPHQL
+    : 'http://localhost:3000/dev/graphql'
 
 const httpLink = createHttpLink({
   uri: url,
+  fetch: fetch,
 })
 
 const authLink = setContext((_, { headers }) => {

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "NodeNext",
     "target": "es2017",
     "allowJs": true,
     "declaration": true,
@@ -9,7 +9,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "outDir": "./.build",
+    "outDir": "./build",
     "baseUrl": ".",
     "incremental": false,
     "skipLibCheck": true,
@@ -17,7 +17,7 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "esModuleInterop": true,
     "paths": {
       "@/*": ["./src/*"],

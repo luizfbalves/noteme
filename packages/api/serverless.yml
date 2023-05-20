@@ -1,23 +1,53 @@
-service: noteme
+service: noteme-api
+
+useDotenv: true
 
 plugins:
+  - serverless-offline
+  - serverless-plugin-monorepo
   - serverless-plugin-typescript
   - serverless-plugin-optimize
-  - serverless-offline
-
 provider:
   name: aws
-  runtime: nodejs18.x
+  deploymentMethod: direct
+  runtime: nodejs16.x
   region: sa-east-1
+  architecture: arm64
+  deploymentBucket:
+    name: noteme-luizfbalves
+  environment:
+    NODE_ENV: ${env:NODE_ENV}
+    DATABASE_URL: ${env:DATABASE_URL}
+    JWT_SECRET: ${env:JWT_SECRET}
 
 package:
+  individually: true
   excludeDevDependencies: true
+  include:
+    - build/
+  patterns:
+    - '!node_modules/.prisma/client/libquery_engine-'
+    - 'node_modules/.prisma/client/libquery_engine-linux-arm64-'
+    - '!node_modules/prisma/libquery_engine-*'
+    - '!node_modules/@prisma/engines/'
+
+custom:
+  bundle:
+    linting: false
+    excludeFiles: '*/.spec.ts'
+    externals: all
+    copyFiles:
+      - from: 'prisma/schema.prisma'
+        to: 'src'
+    packagerOptions:
+      scripts:
+        - prisma generate
 
 functions:
   graphql:
     handler: src/serverless.handler
     events:
       - http:
-          path: /{any+}
+          path: graphql
           method: any
           cors: true

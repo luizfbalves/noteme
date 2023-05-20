@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { randomUUID } from 'node:crypto'
 
 import { fakeNotes } from './__mocks__/fakeNotes.js'
-import { Note } from './entities/note.entity.js'
+import { Note } from './entities/note.entity'
 import { NoteService } from './note.service'
 
 const prismaMock = {
