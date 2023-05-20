@@ -48,5 +48,6 @@ functions:
     handler: src/serverless.handler
     events:
       - http:
-          path: /graphql
+          path: graphql
           method: any
+          cors: true
