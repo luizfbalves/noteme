@@ -1,7 +1,6 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 
-console.log(process.env.VITE_APP_NODE_ENV, process.env.VITE_APP_API_GRAPHQL)
 const url =
   process.env.VITE_APP_NODE_ENV === 'production'
     ? process.env.VITE_APP_API_GRAPHQL
