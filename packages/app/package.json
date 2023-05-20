@@ -13,6 +13,7 @@
     "@types/node": "^18.7.23",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "cross-fetch": "^3.1.6",
     "dayjs": "^1.11.5",
     "graphql": "^16.6.0",
     "react": "^18.2.0",
@@ -32,7 +33,7 @@
     "serve": "vite preview",
     "lint": "eslint . --ext .ts,.tsx --fix",
     "test": "jest",
-    "testc": "jest --coverage",
+    "test:cov": "jest --coverage",
     "compile": "graphql-codegen",
     "watch": "graphql-codegen -w",
     "codegen": "graphql-codegen --config codegen.ts"

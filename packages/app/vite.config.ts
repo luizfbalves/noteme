@@ -6,11 +6,10 @@ import svgrPlugin from 'vite-plugin-svgr'
 
 export default defineConfig({
   plugins: [reactRefresh(), svgrPlugin(), environmentPlugin('all')],
-  envDir: '../../',
   resolve: {
     alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
   },
   server: {
-    port: 3000,
+    port: 3005,
   },
 })

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 
 import { fakeNotes } from './__mocks__/fakeNotes.js'
-import { Note } from './entities/note.entity.js'
+import { Note } from './entities/note.entity'
 import { NoteResolver } from './note.resolver'
 import { NoteService } from './note.service'
 

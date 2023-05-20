@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import fetch from 'cross-fetch'
 
 const url =
   process.env.VITE_APP_NODE_ENV === 'production'
@@ -8,6 +9,7 @@ const url =
 
 const httpLink = createHttpLink({
   uri: url,
+  fetch: fetch,
 })
 
 const authLink = setContext((_, { headers }) => {

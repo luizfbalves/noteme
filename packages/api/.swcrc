@@ -13,7 +13,7 @@
     "target": "esnext"
   },
   "module": {
-    "type": "es6",
+    "type": "commonjs",
     "noInterop": false
   }
 }
