@@ -4,13 +4,15 @@ useDotenv: true
 
 plugins:
   - serverless-offline
-  - serverless-bundle
-
+  - serverless-plugin-monorepo
+  - serverless-plugin-typescript
+  - serverless-plugin-optimize
 provider:
   name: aws
   deploymentMethod: direct
   runtime: nodejs16.x
   region: sa-east-1
+  architecture: arm64
   deploymentBucket:
     name: noteme-luizfbalves
   environment:
@@ -19,19 +21,27 @@ provider:
     JWT_SECRET: ${env:JWT_SECRET}
 
 package:
+  individually: true
   excludeDevDependencies: true
+  include:
+    - build/
+  patterns:
+    - '!node_modules/.prisma/client/libquery_engine-'
+    - 'node_modules/.prisma/client/libquery_engine-linux-arm64-'
+    - '!node_modules/prisma/libquery_engine-*'
+    - '!node_modules/@prisma/engines/'
 
 custom:
   bundle:
     linting: false
-    excludeFiles: '**/*.spec.ts'
+    excludeFiles: '*/.spec.ts'
     externals: all
     copyFiles:
       - from: 'prisma/schema.prisma'
         to: 'src'
     packagerOptions:
       scripts:
-        - prisma generate && rimraf ./node_modules/@prisma/engines/** && rimraf ./node_modules/prisma/libquery_engine-[^rhel]* && prisma db push
+        - prisma generate
 
 functions:
   graphql:

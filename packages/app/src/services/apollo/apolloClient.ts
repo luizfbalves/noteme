@@ -1,9 +1,10 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 
+console.log(process.env.VITE_APP_NODE_ENV, process.env.VITE_APP_API_GRAPHQL)
 const url =
-  process.env.NODE_ENV === 'production'
-    ? process.env.VITE_API_URL_GRAPHQL
+  process.env.VITE_APP_NODE_ENV === 'production'
+    ? process.env.VITE_APP_API_GRAPHQL
     : 'http://localhost:3000/dev/graphql'
 
 const httpLink = createHttpLink({

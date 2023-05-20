@@ -6,8 +6,7 @@
       "packages/*"
     ],
     "nohoist": [
-      "**/@nestjs/**",
-      "**/@prisma/**"
+      "**"
     ]
   },
   "scripts": {
