@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { supabase } from '@/services/supabaseClient'
+import { supabase } from '@/services/supabase'
 import { Button, Input } from 'rsuite'
 import { ZodError } from 'zod'
 

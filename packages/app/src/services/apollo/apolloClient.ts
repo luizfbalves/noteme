@@ -2,6 +2,8 @@ import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import fetch from 'cross-fetch'
 
+import store from '@/store/store'
+
 const url =
   process.env.VITE_APP_NODE_ENV === 'production'
     ? process.env.VITE_APP_API_GRAPHQL
@@ -13,8 +15,8 @@ const httpLink = createHttpLink({
 })
 
 const authLink = setContext((_, { headers }) => {
-  const { token } = JSON.parse(localStorage.getItem('noteme-user-data'))
-
+  const token = store.getState().userReducer.token
+  console.log('token', token)
   return {
     headers: {
       ...headers,
