@@ -1,4 +1,4 @@
-import { supabase } from '@/services/supabaseClient'
+import { supabase } from '@/services/supabase'
 
 const baseUrl =
   process.env.NODE_ENV === 'production'
