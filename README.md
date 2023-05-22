@@ -1,5 +1,5 @@
 <div align="center">
-  <h2>NOTE.me 📖</h2>
+  <a href="https://noteme-web.vercel.app"><h2>NOTE.me 📖</h2></a>
   <h5>Web responsive monorepo app to note text snippets.</h5>
 </div>
 
