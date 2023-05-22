@@ -29,6 +29,14 @@
 - [x] app
 - [X] api
 
+## Screenshots
+- homepage
+  <img src="https://i.imgur.com/HxjFfkT.png"/>
+- sign in
+  <img src="https://i.imgur.com/lwUf474.png"/>
+- sign up
+  <img src="https://i.imgur.com/WHFnjOm.png"/>
+
 ## Tecnologies
 <ul>
   <li> 
