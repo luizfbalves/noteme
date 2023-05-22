@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { signOut } from '@/auth'
-import apollo from '@/services/apollo/apolloClient'
+import apollo from '@/services/apollo'
 import { createNoteInterface } from '@/services/apollo/documents/interfaces/notes.types'
 import { POST_CREATENOTE } from '@/services/apollo/documents/notes.gql'
 import { useMutation } from '@apollo/client'

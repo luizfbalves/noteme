@@ -1,4 +1,4 @@
-import apolloClient from '@/services/apollo/apolloClient'
+import apolloClient from '@/services/apollo'
 import { GET_ALLNOTES } from '@/services/apollo/documents/notes.gql'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 

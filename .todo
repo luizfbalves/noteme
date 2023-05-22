@@ -1,1 +1,1 @@
-1. split up .env files by package due to naming unconvention
+1. fix token refresh

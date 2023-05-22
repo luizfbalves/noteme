@@ -16,7 +16,6 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   const token = store.getState().userReducer.token
-  console.log('token', token)
   return {
     headers: {
       ...headers,

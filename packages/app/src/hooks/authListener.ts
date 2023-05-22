@@ -10,17 +10,23 @@ export const useAuthListener = () => {
 
   useEffect(() => {
     const authListener = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session?.user) {
-        const state: User = {
-          isLogged: true,
-          id: session.user.id,
-          username: session.user.user_metadata.username,
-          token: session.access_token,
-        }
+      const state: User = {
+        isLogged: true,
+        id: session.user.id,
+        username: session.user.user_metadata.username,
+        token: session.access_token,
+      }
 
-        dispatch(userData(state))
-      } else if (event === 'SIGNED_OUT') {
-        dispatch(clearUserData())
+      switch (event) {
+        case 'SIGNED_IN':
+        case 'TOKEN_REFRESHED':
+          dispatch(userData(state))
+          break
+        case 'SIGNED_OUT':
+          dispatch(clearUserData())
+          break
+        default:
+          break
       }
     })
 

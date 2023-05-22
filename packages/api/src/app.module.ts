@@ -6,14 +6,16 @@ import { join } from 'node:path'
 import { AuthModule } from './modules/auth/auth.module'
 import { NoteModule } from './modules/note/note.module'
 
+const dev = process.env.NODE_ENV === 'development'
+
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       buildSchemaOptions: { dateScalarMode: 'timestamp' },
-      playground: process.env.NODE_ENV === 'development' ? true : false,
-      introspection: process.env.NODE_ENV === 'development' ? true : false,
+      autoSchemaFile: dev ? join(process.cwd(), 'src/schema.gql') : true,
+      playground: dev ? true : false,
+      introspection: dev ? true : false,
     }),
     NoteModule,
     AuthModule,
