@@ -23,25 +23,25 @@ export const signUp = async (
 }
 
 export const signIn = async (email: string, password: string) => {
-  return await supabase.auth.signInWithPassword({ email, password })
+  return supabase.auth.signInWithPassword({ email, password })
 }
 
 export const signOut = async () => {
-  return await supabase.auth.signOut()
+  return supabase.auth.signOut()
 }
 
 export const refreshSession = async () => {
-  return await supabase.auth.refreshSession()
+  return supabase.auth.refreshSession()
 }
 
 export async function resetPassword(email: string) {
-  return await supabase.auth.resetPasswordForEmail(email, {
+  return supabase.auth.resetPasswordForEmail(email, {
     redirectTo: baseUrl + '/signin/passwordreset',
   })
 }
 
 export async function signInWithGoogle() {
-  return await supabase.auth.signInWithOAuth({
+  return supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
       redirectTo: baseUrl + '/home',
