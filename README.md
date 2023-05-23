@@ -30,12 +30,23 @@
 - [X] api
 
 ## Screenshots
-- homepage
-  <img src="https://i.imgur.com/HxjFfkT.png"/>
-- sign in
-  <img src="https://i.imgur.com/lwUf474.png"/>
-- sign up
-  <img src="https://i.imgur.com/WHFnjOm.png"/>
+<div>
+  home
+  <br/>
+  <img style="widht: 600px; height: 400px" src="https://i.imgur.com/HxjFfkT.png"/>
+</div>    
+</br>
+<div>
+  sign in
+  </br>
+  <img style="widht: 600px; height: 400px" src="https://i.imgur.com/lwUf474.png"/>
+</div>    
+</br>
+<div>
+  sign up
+  </br>
+  <img style="widht: 600px; height: 400px" src="https://i.imgur.com/WHFnjOm.png"/>
+</div>
 
 ## Tecnologies
 <ul>
