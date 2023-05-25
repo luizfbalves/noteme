@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { refreshSession } from '@/auth'
 import {
   DndContext,
+  DragEndEvent,
   KeyboardSensor,
   MouseSensor,
   TouchSensor,
@@ -11,6 +12,7 @@ import {
 } from '@dnd-kit/core'
 
 import { useAppDispatch } from '@/store/hooks'
+import { deleteNote } from '@/store/note/note.store'
 import { fetchInitialNotes } from '@/store/thunks'
 import { clearUserData } from '@/store/user/user.store'
 
@@ -55,9 +57,16 @@ const Pages: React.FC = () => {
     useSensor(KeyboardSensor)
   )
 
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active } = event
+    if (active.id) {
+      dispatch(deleteNote({ id: active.id.toString() }))
+    }
+  }
+
   return (
     <Content>
-      <DndContext sensors={sensors}>
+      <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
         <SideNav />
         <div id="pages">
           <Home />
