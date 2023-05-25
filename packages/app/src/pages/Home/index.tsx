@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { TNote, deleteNote, editNote } from '@/store/note/note.store'
 
 import { ErrorMessage, Note, SearchBar, ThemeToggler } from '@/components'
+import { Draggable } from '@/components/Draggable'
 
 import { Container, Content, NavHeader } from './styles'
 
@@ -64,12 +65,13 @@ export const Home: React.FC = () => {
         {state === 'failed' && errorComp}
         {Array.isArray(paginatedNotes)
           ? paginatedNotes.map((item) => (
-              <Note
-                key={item.id}
-                data={item}
-                onChange={handleChange}
-                onDrop={handleDelete}
-              />
+              <Draggable id={item.id} key={item.id}>
+                <Note
+                  data={item}
+                  onChange={handleChange}
+                  onDrop={handleDelete}
+                />
+              </Draggable>
             ))
           : errorComp}
       </Content>

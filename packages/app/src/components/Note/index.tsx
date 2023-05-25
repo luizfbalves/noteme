@@ -9,17 +9,13 @@ import { dateLL } from '@/utils/index'
 
 import { Card, CloseButton, Textarea } from './styles'
 
-export type TItem = {
-  id: string
-}
-
-type TNoteEvent = {
+type NoteEvent = {
   data: TNote
   onChange?: (data: TNote, event: React.FormEvent<Element>) => void
   onDrop?: (id: string) => void
 }
 
-export const Note: React.FC<TNoteEvent> = (props) => {
+export const Note: React.FC<NoteEvent> = (props) => {
   const { data, onChange, onDrop } = props
   const { id, userId, description, updatedAt } = data
 

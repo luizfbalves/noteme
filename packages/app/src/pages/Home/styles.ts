@@ -42,9 +42,10 @@ export const Container = styled.div`
 export const Content = styled.div`
   gap: 2rem;
   height: inherit;
-  margin-bottom: 53px;
+  /* margin-bottom: 53px; */
   animation-duration: 0.8s;
   animation: ${FadeIn};
+
   .greetings {
     display: flex;
     flex-direction: column;
