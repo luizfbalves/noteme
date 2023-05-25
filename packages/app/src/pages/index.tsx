@@ -58,8 +58,9 @@ const Pages: React.FC = () => {
   )
 
   const handleDragEnd = (event: DragEndEvent) => {
-    const { active } = event
-    if (active.id) {
+    const { active, activatorEvent, over } = event
+    console.log(activatorEvent, over)
+    if (active.id && over) {
       dispatch(deleteNote({ id: active.id.toString() }))
     }
   }
