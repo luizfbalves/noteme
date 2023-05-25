@@ -16,7 +16,7 @@ export const Wrapper = styled.div<{ show: boolean }>`
   width: 100%;
   animation: ${slideup};
   animation-duration: 0.2s;
-  background: rgb(253 112 127);
+  background: rgb(253, 112, 127);
   @media (max-width: 767px) {
     bottom: 56px;
   }
