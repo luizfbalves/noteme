@@ -4,7 +4,6 @@ import { refreshSession } from '@/auth'
 import {
   DndContext,
   DragEndEvent,
-  KeyboardSensor,
   MouseSensor,
   TouchSensor,
   useSensor,
@@ -51,11 +50,7 @@ const Pages: React.FC = () => {
     },
   })
 
-  const sensors = useSensors(
-    mouseSensor,
-    touchSensor,
-    useSensor(KeyboardSensor)
-  )
+  const sensors = useSensors(mouseSensor, touchSensor)
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, activatorEvent, over } = event
