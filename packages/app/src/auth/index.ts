@@ -2,8 +2,8 @@ import { supabase } from '@/services/supabase'
 
 const baseUrl =
   process.env.NODE_ENV === 'production'
-    ? process.env.VITE_APP_API_URL
-    : 'http://localhost:3333/'
+    ? process.env.VITE_APP_URL
+    : 'http://localhost:3333'
 
 export const signUp = async (
   email: string,
@@ -14,7 +14,7 @@ export const signUp = async (
     email,
     password,
     options: {
-      emailRedirectTo: baseUrl + 'signup/confirmation',
+      emailRedirectTo: baseUrl + '/signup/confirmation',
       data: {
         username,
       },
