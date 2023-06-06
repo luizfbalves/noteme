@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { resetPassword, signIn } from '@/auth'
+import { resetPassword, signIn, signInWithGoogle } from '@/auth'
 import { AuthError } from '@supabase/supabase-js'
 import { Button, Divider, Input, Loader } from 'rsuite'
 import { ZodError } from 'zod'
@@ -64,6 +64,17 @@ export const SignIn: React.FC = () => {
     }
   }
 
+  const handleSocialSignIn = async () => {
+    try {
+      const result = await signInWithGoogle()
+      console.log(result)
+    } catch (error) {
+      error instanceof ZodError
+        ? toast.error(error.errors[0].message)
+        : toast.error('something went wrong...')
+    }
+  }
+
   const handlePushSignUp = () => navigate('/signup')
 
   async function handleResetPassword() {
@@ -103,11 +114,7 @@ export const SignIn: React.FC = () => {
             <br />
           </FormLogin.Group>
           <FormLogin.Group>
-            <Button
-              block
-              type="button"
-              onClick={() => toast.warning('work in progress...')}
-            >
+            <Button block type="button" onClick={handleSocialSignIn}>
               Join with Google
             </Button>
             <Divider>or</Divider>
