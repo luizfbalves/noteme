@@ -3,7 +3,7 @@ import { supabase } from '@/services/supabase'
 const baseUrl =
   process.env.NODE_ENV === 'production'
     ? process.env.VITE_APP_URL
-    : 'http://localhost:3333'
+    : 'http://localhost:3005'
 
 export const signUp = async (
   email: string,
