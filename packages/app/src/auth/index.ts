@@ -3,7 +3,7 @@ import { supabase } from '@/services/supabase'
 const baseUrl =
   process.env.NODE_ENV === 'production'
     ? process.env.VITE_APP_URL
-    : 'http://localhost:3333'
+    : 'http://localhost:3005'
 
 export const signUp = async (
   email: string,
@@ -41,10 +41,12 @@ export async function resetPassword(email: string) {
 }
 
 export async function signInWithGoogle() {
-  return supabase.auth.signInWithOAuth({
+  const result = supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: baseUrl + '/home',
+      redirectTo: baseUrl + '/signin/confirmation',
     },
   })
+  await refreshSession()
+  return result
 }

@@ -12,11 +12,10 @@ export const useAuthListener = () => {
     const authListener = supabase.auth.onAuthStateChange((event, session) => {
       const state: User = {
         isLogged: true,
-        id: session.user.id,
-        username: session.user.user_metadata.username,
-        token: session.access_token,
+        id: session?.user.id,
+        username: session?.user.user_metadata.username,
+        token: session?.access_token,
       }
-
       switch (event) {
         case 'SIGNED_IN':
         case 'TOKEN_REFRESHED':

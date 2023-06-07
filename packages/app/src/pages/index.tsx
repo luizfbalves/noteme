@@ -53,8 +53,7 @@ const Pages: React.FC = () => {
   const sensors = useSensors(mouseSensor, touchSensor)
 
   const handleDragEnd = (event: DragEndEvent) => {
-    const { active, activatorEvent, over } = event
-    console.log(activatorEvent, over)
+    const { active, over } = event
     if (active.id && over) {
       dispatch(deleteNote({ id: active.id.toString() }))
     }

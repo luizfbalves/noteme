@@ -66,8 +66,7 @@ export const SignIn: React.FC = () => {
 
   const handleSocialSignIn = async () => {
     try {
-      const result = await signInWithGoogle()
-      console.log(result)
+      await signInWithGoogle()
     } catch (error) {
       error instanceof ZodError
         ? toast.error(error.errors[0].message)
@@ -149,7 +148,7 @@ export const SignIn: React.FC = () => {
               <span
                 onClick={handlePushSignUp}
                 style={{ cursor: 'pointer' }}
-              >{`Doesn't have an account?`}</span>
+              >{`Don't have an account?`}</span>
               <br />
               <span
                 onClick={handleResetPassword}
