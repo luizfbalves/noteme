@@ -9,7 +9,6 @@ type ProtectedRouteType = {
 
 export const ProtectedRoute = (props: ProtectedRouteType) => {
   const { isLogged } = useAppSelector((state) => state.userReducer)
-
   if (!isLogged) {
     return <Navigate to="/signin" replace />
   }

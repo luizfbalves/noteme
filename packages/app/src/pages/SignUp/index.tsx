@@ -64,8 +64,7 @@ export const SignUp: React.FC = () => {
 
   const handleSocialSignIn = async () => {
     try {
-      const result = await signInWithGoogle()
-      console.log(result)
+      await signInWithGoogle()
     } catch (error) {
       error instanceof ZodError
         ? toast.error(error.errors[0].message)

@@ -11,6 +11,7 @@ import Pages, { ConfirmSignUp, SignIn, SignUp } from '@/pages'
 
 import { useAuthListener } from './hooks/authListener'
 import { CustomThemeProvider } from './hooks/theme'
+import ConfirmOauth from './pages/ConfirmOauth'
 import { PasswordReset } from './pages/PasswordReset'
 import GlobalStyle from './styles/global'
 
@@ -34,6 +35,7 @@ export const App: React.FC = () => {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signup/confirmation" element={<ConfirmSignUp />} />
+            <Route path="/signin/confirmation" element={<ConfirmOauth />} />
             <Route path="/signin/passwordreset" element={<PasswordReset />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </Routes>

@@ -148,7 +148,7 @@ export const SignIn: React.FC = () => {
               <span
                 onClick={handlePushSignUp}
                 style={{ cursor: 'pointer' }}
-              >{`Doesn't have an account?`}</span>
+              >{`Don't have an account?`}</span>
               <br />
               <span
                 onClick={handleResetPassword}
